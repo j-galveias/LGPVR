@@ -1,0 +1,608 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: signMask
+  m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000000000000000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: render_Sky001
+    m_Weight: 0
+  - m_Path: render_Omni001
+    m_Weight: 0
+  - m_Path: girl_head_
+    m_Weight: 1
+  - m_Path: girl_body
+    m_Weight: 0
+  - m_Path: girl_eyeL001
+    m_Weight: 0
+  - m_Path: girl_eyeR001
+    m_Weight: 0
+  - m_Path: girl_hair
+    m_Weight: 1
+  - m_Path: girl_head_mt_base
+    m_Weight: 0
+  - m_Path: girl_head_mt_base/girl_eyeR003
+    m_Weight: 0
+  - m_Path: girl_head_mt_base/girl_eyeL003
+    m_Weight: 0
+  - m_Path: girl_head_mt_base/tgrl1_tongue_mt_base
+    m_Weight: 0
+  - m_Path: girl_head_mt_smile
+    m_Weight: 0
+  - m_Path: girl_head_mt_A
+    m_Weight: 0
+  - m_Path: girl_head_mt_A/tgrl1_tongue_mt_A
+    m_Weight: 0
+  - m_Path: girl_head_mt_O
+    m_Weight: 0
+  - m_Path: girl_head_mt_O/tgrl1_tongue_mt_O
+    m_Weight: 0
+  - m_Path: girl_head_mt_mSad
+    m_Weight: 0
+  - m_Path: girl_head_mt_E
+    m_Weight: 0
+  - m_Path: girl_head_mt_mClose
+    m_Weight: 0
+  - m_Path: girl_head_mt_Bmp
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeMad
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeMad/girl_eyeR004
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeMad/girl_eyeL004
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeMad
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeMad/girl_eyeR005
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeMad/girl_eyeL005
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeSad
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeSad/girl_eyeR006
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeSad/girl_eyeL006
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeSad
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeSad/girl_eyeR007
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeSad/girl_eyeL007
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeClose
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeClose/girl_eyeR008
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeClose/girl_eyeL008
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeLidUp
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeLidUp/girl_eyeR009
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeLidUp/girl_eyeL009
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeLidUp
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeLidUp/girl_eyeR010
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeLidUp/girl_eyeL010
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeBMad
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeBMad/girl_eyeR011
+    m_Weight: 0
+  - m_Path: girl_head_mt_REyeBMad/girl_eyeL011
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeBMad
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeBMad/girl_eyeR012
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeBMad/girl_eyeL012
+    m_Weight: 0
+  - m_Path: girl_head_mt_ReyeBSad
+    m_Weight: 0
+  - m_Path: girl_head_mt_ReyeBSad/girl_eyeR013
+    m_Weight: 0
+  - m_Path: girl_head_mt_ReyeBSad/girl_eyeL013
+    m_Weight: 0
+  - m_Path: girl_head_mt_ReyeBSad001
+    m_Weight: 0
+  - m_Path: girl_head_mt_ReyeBSad001/girl_eyeR014
+    m_Weight: 0
+  - m_Path: girl_head_mt_ReyeBSad001/girl_eyeL014
+    m_Weight: 0
+  - m_Path: girl_head_mt_mRSide
+    m_Weight: 0
+  - m_Path: girl_head_mt_mLSide
+    m_Weight: 0
+  - m_Path: girl_head_mt_mRSideUp
+    m_Weight: 0
+  - m_Path: girl_head_mt_mLSideUp
+    m_Weight: 0
+  - m_Path: girl_head_mt_Fv
+    m_Weight: 0
+  - m_Path: girl_head_mt_base004
+    m_Weight: 0
+  - m_Path: girl_head_mt_Cons
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeClose
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeClose/girl_eyeR015
+    m_Weight: 0
+  - m_Path: girl_head_mt_LEyeClose/girl_eyeL015
+    m_Weight: 0
+  - m_Path: rig_CharRoot
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Footsteps
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/bip
+      HeadNub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/boneEyeL
+    m_Weight: 0
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/boneEyeR
+    m_Weight: 0
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rigLookTarget
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rigLookTarget/rigLookRTarget
+    m_Weight: 0
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rigLookTarget/rigLookLTarget
+    m_Weight: 0
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rig_boneTongue
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger0
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger0/bip L Finger01
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger0/bip L Finger01/bip L Finger02
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger0/bip L Finger01/bip L Finger02/bip
+      L Finger0Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger1
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger1/bip L Finger11
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger1/bip L Finger11/bip L Finger12
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger1/bip L Finger11/bip L Finger12/bip
+      L Finger1Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger2
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger2/bip L Finger21
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger2/bip L Finger21/bip L Finger22
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger2/bip L Finger21/bip L Finger22/bip
+      L Finger2Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger3
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger3/bip L Finger31
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger3/bip L Finger31/bip L Finger32
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger3/bip L Finger31/bip L Finger32/bip
+      L Finger3Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger4
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger4/bip L Finger41
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger4/bip L Finger41/bip L Finger42
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip L Clavicle/bip L
+      UpperArm/bip L Forearm/bip L Hand/bip L Finger4/bip L Finger41/bip L Finger42/bip
+      L Finger4Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger0
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger0/bip R Finger01
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger0/bip R Finger01/bip R Finger02
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger0/bip R Finger01/bip R Finger02/bip
+      R Finger0Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger1
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger1/bip R Finger11
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger1/bip R Finger11/bip R Finger12
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger1/bip R Finger11/bip R Finger12/bip
+      R Finger1Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger2
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger2/bip R Finger21
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger2/bip R Finger21/bip R Finger22
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger2/bip R Finger21/bip R Finger22/bip
+      R Finger2Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger3
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger3/bip R Finger31
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger3/bip R Finger31/bip R Finger32
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger3/bip R Finger31/bip R Finger32/bip
+      R Finger3Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger4
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger4/bip R Finger41
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger4/bip R Finger41/bip R Finger42
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip R Clavicle/bip R
+      UpperArm/bip R Forearm/bip R Hand/bip R Finger4/bip R Finger41/bip R Finger42/bip
+      R Finger4Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip L Thigh
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip L Thigh/bip L Calf
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip L Thigh/bip L Calf/bip L Foot
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip L Thigh/bip L Calf/bip L Foot/bip L Toe0
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip L Thigh/bip L Calf/bip L Foot/bip L Toe0/bip
+      L Toe0Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip R Thigh
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip R Thigh/bip R Calf
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip R Thigh/bip R Calf/bip R Foot
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip R Thigh/bip R Calf/bip R Foot/bip R Toe0
+    m_Weight: 1
+  - m_Path: rig_CharRoot/bip/bip Pelvis/bip R Thigh/bip R Calf/bip R Foot/bip R Toe0/bip
+      R Toe0Nub
+    m_Weight: 1
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigTextFaceCntrls001
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigTextFaceCntrls003
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigTextFaceCntrls002
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigTextFaceCntrls
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigTextFaceCntrls005
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigTextFaceCntrls006
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_REyeMad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_REyeMad/Slider_REyeMad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_REyeLidUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_REyeLidUp/Slider_REyeLidUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LEyeLidUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LEyeLidUp/Slider_LEyeLidUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_REyeSad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_REyeSad/Slider_REyeSad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LEyeClose
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LEyeClose/Slider_LEyeClose
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LEyeMad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LEyeMad/Slider_LEyeMad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LEyeSad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LEyeSad/Slider_LEyeSad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_REyeClose
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_REyeClose/Slider_REyeClose
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_REyeBMad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_REyeBMad/Slider_REyeBMad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_ReyeBSad001
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_ReyeBSad001/Slider_ReyeBSad001
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LEyeBMad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LEyeBMad/Slider_LEyeBMad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_ReyeBSad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_ReyeBSad/Slider_ReyeBSad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mSad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mSad/Slider_mSad
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mClose
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mClose/Slider_mClose
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mRSide
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mRSide/Slider_mRSide
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mLSide
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mLSide/Slider_mLSide
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mLSideUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mLSideUp/Slider_mLSideUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mRSideUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_mRSideUp/Slider_mRSideUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_smile
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_smile/Slider_smile
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_U
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_U/Slider_U
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_Cons
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_Cons/Slider_Cons
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_A
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_A/Slider_A
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_O
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_O/Slider_O
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_E
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_E/Slider_E
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_Bmp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_Bmp/Slider_Bmp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_Fv
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_Fv/Slider_Fv
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_ReyeBUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_ReyeBUp/Slider_ReyeBUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LeyeBUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_LeyeBUp/Slider_LeyeBUp
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F007left
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F007left/Slider_F007left
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F005
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F005/Slider_F005
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F006
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F006/Slider_F006
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F007
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F007/Slider_F007
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F003
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F003/Slider_F003
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F001
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F001/Slider_F001
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F017
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F017/Slider_F017
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F024
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F024/Slider_F024
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F019
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F019/Slider_F019
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F031
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F031/Slider_F031
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F008
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_F008/Slider_F008
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigtonguemix_base001
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigtonguemix_base001/rigtonguemix_slider_001
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigtonguemix_base001/rigtonguemix_rec001
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigtonguemix_base001/rigtonguemix_rec002
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigtonguemix_base001/rigtonguemix_rec003
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/rigtonguemix_base001/rigtonguemix_rec004
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_tongue_out
+    m_Weight: 0
+  - m_Path: rig_CharRoot/rigFaceCtrlsRoot/Sliderb_tongue_out/Slider_tongue_out
+    m_Weight: 0
+  - m_Path: girl_head_mt_ReyeBUp
+    m_Weight: 0
+  - m_Path: girl_head_mt_ReyeBUp/girl_eyeR016
+    m_Weight: 0
+  - m_Path: girl_head_mt_ReyeBUp/girl_eyeL016
+    m_Weight: 0
+  - m_Path: girl_head_mt_LeyeBUp
+    m_Weight: 0
+  - m_Path: girl_head_mt_LeyeBUp/girl_eyeR017
+    m_Weight: 0
+  - m_Path: girl_head_mt_LeyeBUp/girl_eyeL017
+    m_Weight: 0
+  - m_Path: tgrl1_CharRoot
+    m_Weight: 0
+  - m_Path: tgrl1_dmyHeadObjsRoot
+    m_Weight: 0
+  - m_Path: tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle
+    m_Weight: 0
+  - m_Path: tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove
+    m_Weight: 0
+  - m_Path: tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove/tgrl1_tongue
+    m_Weight: 0
+  - m_Path: girl_head_mt_F000
+    m_Weight: 0
+  - m_Path: girl_head_mt_F000/tgrl1_tongue_mt_F001
+    m_Weight: 0
+  - m_Path: girl_head_mt_F001
+    m_Weight: 0
+  - m_Path: girl_head_mt_F001/tgrl1_tongue_mt_F001 1
+    m_Weight: 0
+  - m_Path: girl_head_mt_F003
+    m_Weight: 0
+  - m_Path: girl_head_mt_F003/tgrl1_tongue_mt_F003
+    m_Weight: 0
+  - m_Path: girl_head_mt_F005
+    m_Weight: 0
+  - m_Path: girl_head_mt_F005/tgrl1_tongue_mt_F005
+    m_Weight: 0
+  - m_Path: girl_head_mt_F006
+    m_Weight: 0
+  - m_Path: girl_head_mt_F006/tgrl1_tongue_mt_F006
+    m_Weight: 0
+  - m_Path: girl_head_mt_F007
+    m_Weight: 0
+  - m_Path: girl_head_mt_F007/tgrl1_tongue_mt_F007
+    m_Weight: 0
+  - m_Path: girl_head_mt_F007left
+    m_Weight: 0
+  - m_Path: girl_head_mt_F007left/tgrl1_tongue_mt_F007left
+    m_Weight: 0
+  - m_Path: girl_head_mt_F008
+    m_Weight: 0
+  - m_Path: girl_head_mt_F017
+    m_Weight: 0
+  - m_Path: girl_head_mt_F019
+    m_Weight: 0
+  - m_Path: girl_head_mt_F024
+    m_Weight: 0
+  - m_Path: girl_head_mt_F031
+    m_Weight: 0
+  - m_Path: girl_head_mt_A001
+    m_Weight: 0
+  - m_Path: girl_head_mt_A001/tgrl1_tongue_mt_out
+    m_Weight: 0
+  - m_Path: girl_head_mt_A001/tgrl1_tongue_mt_up
+    m_Weight: 0
+  - m_Path: girl_head_mt_A001/tgrl1_tongue_mt_down
+    m_Weight: 0
+  - m_Path: girl_head_mt_A001/tgrl1_tongue_mt_right
+    m_Weight: 0
+  - m_Path: girl_head_mt_A001/tgrl1_tongue_mt_left
+    m_Weight: 0
+  - m_Path: girl_hair_mt_cheek1
+    m_Weight: 0
+  - m_Path: girl_hair_mt_cheek2
+    m_Weight: 0
+  - m_Path: girl_hair_mt_cheek3
+    m_Weight: 0
