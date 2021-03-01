@@ -98,14 +98,14 @@ public class Client : MonoBehaviour {
 	/// </summary> 	
 	private void ConnectToTcpServer () { 		
 		try {  	
-			socketConnection = new TcpClient("3.139.233.62", 8000);
+			socketConnection = new TcpClient("18.220.73.182", 8000);
 			clientReceiveThread = new Thread (new ThreadStart(ListenForData)); 			
 			clientReceiveThread.IsBackground = true; 			
 			clientReceiveThread.Start();
 			socketReady = true;	
 		} 		
 		catch (Exception e) {
-			ConnectToTcpServer();
+			// ConnectToTcpServer();
 			Debug.Log("On client connect exception " + e);	
 		} 	
 	}  
