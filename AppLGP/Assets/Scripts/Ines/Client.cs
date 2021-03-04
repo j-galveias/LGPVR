@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using System.Net;
 
 public class Client : MonoBehaviour {
 	Animator animator;
@@ -23,12 +25,13 @@ public class Client : MonoBehaviour {
 	private TcpClient socketConnection; 	
 	private Thread clientReceiveThread;
 	private MainAnimation mainAnimation;
+	private string URL = "http://3.14.128.184:8000";
 	#endregion  	
-	// Use this for initialization 	
+
 	void Start () {
 		mainAnimation = character.GetComponent<MainAnimation>();
 		animator = character.GetComponent<Animator>();
-		ConnectToTcpServer();  
+		StartCoroutine(ConnectToServer());
 	}  	
 	// Update is called once per frame
 	void Update () {
@@ -38,8 +41,6 @@ public class Client : MonoBehaviour {
             button.interactable = false; 
 
         if (received){
-            // text.text = serverMessage;
-			// text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 			if (serverMessage == "Erro a traduzir frase, tente outra.")
 			{
 				text.text = serverMessage;
@@ -75,89 +76,62 @@ public class Client : MonoBehaviour {
 		mainAnimation.Animate(serverMessage);
 	}
 
-	void OnApplicationQuit()
-	{
-		try
-		{
-			NetworkStream stream = socketConnection.GetStream(); 
-			byte[] clientMessageAsByteArray = Encoding.UTF8.GetBytes("closing"); 				
-			// Write byte array to socketConnection stream.                 
-			stream.Write(clientMessageAsByteArray, 0, clientMessageAsByteArray.Length);                 
-			clientReceiveThread.Abort();
-			socketConnection.Close();
-			Debug.Log("closeddd");
-		}
-		catch(Exception e)
-		{
-			Debug.Log(e.Message);
-		}
-	}
+	/// <summary> 	
+	/// Check server connection --> GET request	
+	/// </summary> 	
+	private IEnumerator ConnectToServer () {		
+			UnityWebRequest www = UnityWebRequest.Get(URL);
+
+			yield return www.SendWebRequest();
+
+			if (www.isNetworkError)
+			{
+				Debug.Log(www.error);
+				text.text = "Servidor não está ligado";
+				text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+			}
+			else
+			{
+				Debug.Log("sever is connected");
+				socketReady = true;
+			}
+	}  
 
 	/// <summary> 	
-	/// Setup socket connection. 	
-	/// </summary> 	
-	private void ConnectToTcpServer () { 		
-		try {  	
-			socketConnection = new TcpClient("18.220.73.182", 8000);
-			clientReceiveThread = new Thread (new ThreadStart(ListenForData)); 			
-			clientReceiveThread.IsBackground = true; 			
-			clientReceiveThread.Start();
-			socketReady = true;	
-		} 		
-		catch (Exception e) {
-			// ConnectToTcpServer();
-			Debug.Log("On client connect exception " + e);	
-		} 	
-	}  
-	/// <summary> 	
-	/// Runs in background clientReceiveThread; Listens for incomming data. 	
-	/// </summary>     
-	private void ListenForData() { 		
-		try { 			
-			Byte[] bytes = new Byte[1024];             
-			while (true) {
-				// Get a stream object for reading 				
-				using (NetworkStream stream = socketConnection.GetStream()) {
-					int length; 					
-					// Read incomming stream into byte arrary. 					
-					while ((length = stream.Read(bytes, 0, bytes.Length)) != 0) { 						
-                        var incommingData = new byte[length]; 						
-						Array.Copy(bytes, 0, incommingData, 0, length); 						
-						// Convert byte array to string message. 						
-						serverMessage = Encoding.UTF8.GetString(incommingData); 						
-						Debug.Log("server message received as: " + serverMessage);
-                        received = true;
-					}
-				}
-			}         
-		}         
-		catch (SocketException socketException) {             
-			Debug.Log("Socket exception: " + socketException);         
-		}     
-	}  	
-	/// <summary> 	
-	/// Send message to server using socket connection. 	
+	/// Send message to server using http put request. 	
 	/// </summary> 	
 	public void SendMessage() { 
 		text.text = "";        
-		if (socketConnection == null) {             
-			return;         
-		}  		
-		try {
-			// Get a stream object for writing. 			
-			NetworkStream stream = socketConnection.GetStream(); 			
-			if (stream.CanWrite) {                 
-				string clientMessage = sentence.text; 				
-				// Convert string message to byte array.                 
-				byte[] clientMessageAsByteArray = Encoding.UTF8.GetBytes(clientMessage); 				
-				// Write byte array to socketConnection stream.                 
-				stream.Write(clientMessageAsByteArray, 0, clientMessageAsByteArray.Length);                 
-				Debug.Log("Client sent his message - should be received by server");
-                sent = true;     
-			}         
-		} 		
-		catch (SocketException socketException) {             
-			Debug.Log("Socket exception: " + socketException);         
-		}     
+		StartCoroutine(Upload());
+		sent = true;    
 	} 
+
+	IEnumerator Upload() {
+		byte[] myData = Encoding.UTF8.GetBytes(sentence.text);
+		UnityWebRequest www = UnityWebRequest.Put(URL, myData);
+		www.method = "OPTIONS";
+		// www.method = "POST";
+		// www.SetRequestHeader("Content-Type", "application/json");
+		www.SetRequestHeader("Access-Control-Expose-Headers", "Authorization, ETag");
+		www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
+		www.SetRequestHeader("Access-Control-Allow-Origin", "*");
+		// www.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+		// www.SetRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+
+		
+		// www.SetRequestHeader("Content-Type", "application/json; charset=UTF-8");
+		yield return www.SendWebRequest();
+
+		if(www.isNetworkError) {
+			Debug.Log(www.error);
+			text.text = "Servidor não está ligado";
+		}
+		else {
+			Debug.Log("Client sent his message - should be received by server");
+			Debug.Log("POST successful!");
+			Debug.Log("Received: " + www.downloadHandler.text);
+			serverMessage = www.downloadHandler.text;
+			received = true;
+		}
+	}
 }
