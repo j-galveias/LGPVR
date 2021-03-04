@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System.Text.Json;
+using System.Text;
+using System.Text.RegularExpressions;
 
 // [System.Serializable]
 // public class AnimationEvent : UnityEvent<List<string>> { }
@@ -170,7 +172,9 @@ public class MainAnimation : MonoBehaviour
         // if (glosa == "") Animating();
         Debug.Log("datilologiaaa");
         List<string> characters = new List<string>();
-        characters.AddRange(glosa.Select(c => c.ToString()));
+         string asciiStr = Regex.Replace(glosa.Normalize(NormalizationForm.FormD), @"[^A-Za-z 0-9 \.,\?'""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*", string.Empty).Trim();    
+        Debug.Log(asciiStr);
+        characters.AddRange(asciiStr.Select(c => c.ToString()));
         var character = characters[0];
 
         if (fingerSpellClips.ContainsKey(character)) {
