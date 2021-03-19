@@ -8,11 +8,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Net;
+using TMPro;
 
 public class Client : MonoBehaviour {
 	Animator animator;
+	public Toggle toggle;
 	public GameObject replay_button;
-    public InputField sentence;
+    public TMP_InputField sentence;
 	public Text frase_pensar;
     public Text text;
     public Button button;
@@ -25,12 +27,13 @@ public class Client : MonoBehaviour {
 	private TcpClient socketConnection; 	
 	private Thread clientReceiveThread;
 	private MainAnimation mainAnimation;
-	private string URL = "http://3.14.128.184:8000";
+	private string URL = "http://3.142.133.30:49152";
 	#endregion  	
-
+	// Use this for initialization 	
 	void Start () {
 		mainAnimation = character.GetComponent<MainAnimation>();
 		animator = character.GetComponent<Animator>();
+		replay_button.gameObject.SetActive(false);
 		StartCoroutine(ConnectToServer());
 	}  	
 	// Update is called once per frame
@@ -48,6 +51,7 @@ public class Client : MonoBehaviour {
 				sentence.gameObject.SetActive(true);
         		button.gameObject.SetActive(true);
 				replay_button.gameObject.SetActive(true);
+				toggle.gameObject.SetActive(true);
 			}
 			else{
 				Animate();
@@ -59,6 +63,7 @@ public class Client : MonoBehaviour {
             sentence.gameObject.SetActive(false);
             button.gameObject.SetActive(false);
 			replay_button.gameObject.SetActive(false);
+			toggle.gameObject.SetActive(false);
             sent = false; 
 			animator.SetLayerWeight(animator.GetLayerIndex ("idle_pensar"), 1);
 			animator.SetLayerWeight(animator.GetLayerIndex ("idle"), 0);
@@ -73,14 +78,17 @@ public class Client : MonoBehaviour {
 		sentence.text = "";
 		sentence.gameObject.SetActive(false);
 		button.gameObject.SetActive(false);
+		replay_button.gameObject.SetActive(false);
+		toggle.gameObject.SetActive(false);
 		mainAnimation.Animate(serverMessage);
 	}
 
 	/// <summary> 	
-	/// Check server connection --> GET request	
+	/// Check server connection --> GET request		
 	/// </summary> 	
 	private IEnumerator ConnectToServer () {		
-			UnityWebRequest www = UnityWebRequest.Get(URL);
+
+			UnityWebRequest www = UnityWebRequest.Get(URL + "/get");
 
 			yield return www.SendWebRequest();
 
@@ -98,23 +106,24 @@ public class Client : MonoBehaviour {
 	}  
 
 	/// <summary> 	
-	/// Send message to server using http put request. 	
+	/// Send message to server using http put request.	
 	/// </summary> 	
 	public void SendMessage() { 
 		text.text = "";        
+
 		StartCoroutine(Upload());
 		sent = true;    
 	} 
 
 	IEnumerator Upload() {
 		byte[] myData = Encoding.UTF8.GetBytes(sentence.text);
-		UnityWebRequest www = UnityWebRequest.Put(URL, myData);
-		www.method = "OPTIONS";
-		// www.method = "POST";
+		UnityWebRequest www = UnityWebRequest.Put(URL + "/post", myData);
+		www.method = "POST";
+		// www.method = "POST"; //hack to send POST to server instead of PUT
 		// www.SetRequestHeader("Content-Type", "application/json");
-		www.SetRequestHeader("Access-Control-Expose-Headers", "Authorization, ETag");
-		www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
-		www.SetRequestHeader("Access-Control-Allow-Origin", "*");
+		// www.SetRequestHeader("Access-Control-Expose-Headers", "Authorization, ETag");
+		// www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
+		// www.SetRequestHeader("Access-Control-Allow-Origin", "*");
 		// www.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 		// www.SetRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 
@@ -124,7 +133,8 @@ public class Client : MonoBehaviour {
 
 		if(www.isNetworkError) {
 			Debug.Log(www.error);
-			text.text = "Servidor não está ligado";
+			text.text = "Servidor não conseguiu responder";
+			text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 		}
 		else {
 			Debug.Log("Client sent his message - should be received by server");
