@@ -12,6 +12,11 @@ public class BasicIK : MonoBehaviour
     public Transform rightHandPosition = null;
     public Transform rightHandRotation = null;
     public Transform lookObj = null;
+    public Vector3 difference = new Vector3();
+    public Vector3 defaultPosition = new Vector3();
+    public bool last = false;
+    public bool first = false;
+    public int characters;
 
     float state = 0;
     float elapsedTime = 0;
@@ -21,6 +26,7 @@ public class BasicIK : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         state = 0;
+        defaultPosition = rightHandPosition.position;
     }
 
     //a callback for calculating IK
@@ -50,14 +56,22 @@ public class BasicIK : MonoBehaviour
                      }
                      else
                      {
-                         state = 1.0f;
-                         elapsedTime = 0;
+                        state = 1.0f;
+                        elapsedTime = 0;
+                        // if (!first) rightHandPosition.position = Vector3.Lerp(rightHandPosition.position, new Vector3(rightHandPosition.position.x + 0.0002f,rightHandPosition.position.y -0.0001f,rightHandPosition.position.z), state);
+                        // rightHandPosition.position = Vector3.Lerp(rightHandPosition.position, new Vector3(rightHandPosition.position.x + 0.0005f,rightHandPosition.position.y +0.00003f,rightHandPosition.position.z), state);
                      }
                     if (positionActive)
-                    {
+                    {   
+                        if (!first) rightHandPosition.position = Vector3.Lerp(rightHandPosition.position, rightHandPosition.position+difference, state);
                         animator.SetIKPositionWeight(AvatarIKGoal.RightHand, state);
                         // animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+                        // rightHandPosition.position = new Vector3(rightHandPosition.position.x + 0.003f,rightHandPosition.position.y + 0.003f,rightHandPosition.position.z);
                         animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandPosition.position);
+                        // if (!first && !last) rightHandPosition.position = Vector3.Lerp(rightHandPosition.position, new Vector3(rightHandPosition.position.x + 0.0005f,rightHandPosition.position.y -0.0001f,rightHandPosition.position.z), state);
+                        // rightHandPosition.position = Vector3.Lerp(rightHandPosition.position, new Vector3(rightHandPosition.position.x + 0.0003f,rightHandPosition.position.y -0.0001f,rightHandPosition.position.z), state);
+
+                        // rightHandPosition.position = new Vector3(rightHandPosition.position.x +0.003f,rightHandPosition.position.y +0.0003f,rightHandPosition.position.z);
                     }
                 }
 
@@ -79,11 +93,10 @@ public class BasicIK : MonoBehaviour
                      elapsedTime += Time.deltaTime;
                      state = Mathf.Lerp(0, 1, elapsedTime / timeReaction);
                      state = 1 - state;
- 
+
                      animator.SetIKPositionWeight(AvatarIKGoal.RightHand, state);
                     //  animator.SetIKRotationWeight(AvatarIKGoal.RightHand, state);
- 
-                     animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandPosition.position);
+                    animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandPosition.position);
                     //  animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
  
                  }
@@ -106,3 +119,5 @@ public class BasicIK : MonoBehaviour
         }
     }
 }
+
+// yield return new WaitForSeconds(3f);
