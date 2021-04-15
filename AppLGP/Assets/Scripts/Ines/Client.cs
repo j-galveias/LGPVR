@@ -14,7 +14,7 @@ public class Client : MonoBehaviour {
 	Animator animator;
 	public Toggle toggle;
 	public GameObject replay_button;
-    public TMP_InputField sentence;
+    public InputField sentence;
 	public Text frase_pensar;
     public Text text;
     public Button button;
