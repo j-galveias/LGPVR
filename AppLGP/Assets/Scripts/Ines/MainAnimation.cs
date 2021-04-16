@@ -227,6 +227,7 @@ public class MainAnimation : MonoBehaviour
         text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 
          if (hasExprFaciais){
+                if (json.exprFaciais)
                 Debug.Log("expeeee");
                 animatorOverrideController["_tempExpFacial"] = expFacClips[json.exprFaciais.First().Value];
                 animator.runtimeAnimatorController = animatorOverrideController;
@@ -238,15 +239,6 @@ public class MainAnimation : MonoBehaviour
                 if ("negativa" == json.exprFaciais.First().Value && glosasIndex == Int32.Parse(split[1])) animator.SetBool("ExpFacial", false);
                 if ("negativa" == json.exprFaciais.First().Value) animator.SetBool("Loop", true);
          }
-        //  glosa = removeAccents(glosa);
-        // char[] values = glosa.ToCharArray();
-        // foreach (char letter in values)
-        // {
-        //     // Get the integral value of the character.
-        //     int value = Convert.ToInt32(letter);
-        //     // Convert the integer value to a hexadecimal value in string form.
-        //     Debug.Log($"Hexadecimal value of {letter} is {value:X}");
-        // }
 
         glosa = removeAccents(glosa);
         if (animationClips.ContainsKey(glosa)) {
@@ -298,7 +290,7 @@ public class MainAnimation : MonoBehaviour
         // if (glosa == "") Animating();
         Debug.Log("datilologiaaa");
         List<string> characters = new List<string>();
-        string asciiStr = Regex.Replace(glosa.Normalize(NormalizationForm.FormD), @"[^A-Za-z 0-9 \.,\?'""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*", string.Empty).Trim();    
+        string asciiStr = removeAccents(glosa);    
         Debug.Log(asciiStr);
         characters.AddRange(asciiStr.Select(c => c.ToString()));
 
