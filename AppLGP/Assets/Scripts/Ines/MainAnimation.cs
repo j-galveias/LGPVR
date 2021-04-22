@@ -227,12 +227,12 @@ public class MainAnimation : MonoBehaviour
         text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 
          if (hasExprFaciais){
-                if (json.exprFaciais)
-                Debug.Log("expeeee");
+                // Debug.Log("expeeee");
                 animatorOverrideController["_tempExpFacial"] = expFacClips[json.exprFaciais.First().Value];
                 animator.runtimeAnimatorController = animatorOverrideController;
                 split = (json.exprFaciais.First().Key).Split('-');
                 if (glosasIndex == (Int32.Parse(split[0]))){
+                    Debug.Log("negativa");
                     // StartCoroutine(Int()); // animate blendshape for interrogativa
                    animator.SetBool("ExpFacial", true); // negativa headshake && int blendshapes
                 }
@@ -404,5 +404,11 @@ public class MainAnimation : MonoBehaviour
         animator.ResetTrigger("Stop");
         animator.ResetTrigger("ExpFacial");
         basicIK.rightHandPosition.position = defaultPosition;
+
+        // for (int i = 0; i < skinnedMeshRenderer.sharedMesh.blendShapeCount; i++)
+        // {
+        //     if (i != skinnedMeshRenderer.sharedMesh.GetBlendShapeIndex("mClose"))
+        //         skinnedMeshRenderer.SetBlendShapeWeight(i, 0f);
+        // }
     }  
 }

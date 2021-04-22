@@ -27,7 +27,7 @@ public class Client : MonoBehaviour {
 	private TcpClient socketConnection; 	
 	private Thread clientReceiveThread;
 	private MainAnimation mainAnimation;
-	private string URL = "http://3.15.150.72:49152"; // https://www.hlt.inesc-id.pt/tradutor http://3.15.150.72:49152
+	private string URL = "http://18.189.180.110:49152"; // https://www.hlt.inesc-id.pt/tradutor http://3.15.150.72:49152
 	#endregion  	
 	// Use this for initialization 	
 	void Start () {
@@ -88,7 +88,7 @@ public class Client : MonoBehaviour {
 	/// </summary> 	
 	private IEnumerator ConnectToServer () {		
 
-			UnityWebRequest www = UnityWebRequest.Get(URL + "/get");
+			UnityWebRequest www = UnityWebRequest.Get(URL);
 
 			yield return www.SendWebRequest();
 
@@ -117,7 +117,7 @@ public class Client : MonoBehaviour {
 
 	IEnumerator Upload() {
 		byte[] myData = Encoding.UTF8.GetBytes(sentence.text);
-		UnityWebRequest www = UnityWebRequest.Put(URL + "/post", myData);
+		UnityWebRequest www = UnityWebRequest.Put(URL, myData);
 		www.method = "POST";
 		// www.method = "POST"; //hack to send POST to server instead of PUT
 		// www.SetRequestHeader("Content-Type", "application/json");
