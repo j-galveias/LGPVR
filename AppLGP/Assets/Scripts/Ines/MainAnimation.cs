@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Linq;
 using System.Text.Json;
 using System.Text;
@@ -129,6 +130,8 @@ public class MainAnimation : MonoBehaviour
             }
         }
 
+        // StartCoroutine(GetSigns());
+
         var getFingerSpelling = Resources.LoadAll("Animations/Fingerspelling/");
 
         foreach(var clip in getFingerSpelling)
@@ -150,6 +153,38 @@ public class MainAnimation : MonoBehaviour
         }
 
         defaultPosition = basicIK.rightHandPosition.position;
+    }
+
+    string authenticate(string username, string password)
+    {
+        string auth = username + ":" + password;
+        auth = System.Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(auth));
+        auth = "Basic " + auth;
+        return auth;
+    }
+
+
+    IEnumerator GetSigns() {
+        UnityWebRequest www = new UnityWebRequest("https://github.com/ineslacerda/Cluedo/master/Cluedo/README.md");
+        // string authorization = authenticate("ineslacerda", "3896Menina123ines");
+        // www.SetRequestHeader("AUTHORIZATION", authorization);
+        www.downloadHandler = new DownloadHandlerBuffer();
+        yield return www.SendWebRequest();
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else {
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
+            // Or retrieve results as binary data
+            byte[] results = www.downloadHandler.data;
+            foreach (var result in results)
+                Debug.Log(result);
+            // foreach (var sing in results) {
+            //     AnimationClip animClip =  (AnimationClip) sign;
+            //     var animation = (animClip.name.ToUpper()).Replace("GESTO_", "");
+            // }
+        }
     }
 
     // Update is called once per frame
