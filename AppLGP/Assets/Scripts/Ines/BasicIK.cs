@@ -20,7 +20,7 @@ public class BasicIK : MonoBehaviour
 
     float state = 0;
     float elapsedTime = 0;
-    public float timeReaction = 0.05f;
+    float timeReaction = 1f;
 
     void Start()
     {
@@ -52,7 +52,7 @@ public class BasicIK : MonoBehaviour
                      if (state < 1.0f)
                      {
                          elapsedTime += Time.deltaTime;
-                         state = Mathf.Lerp(0, 1, elapsedTime / timeReaction);
+                         state = Mathf.Lerp(0, 1, elapsedTime * timeReaction);
                      }
                      else
                      {
@@ -91,7 +91,7 @@ public class BasicIK : MonoBehaviour
                 if (state > 0f)
                  {
                      elapsedTime += Time.deltaTime;
-                     state = Mathf.Lerp(0, 1, elapsedTime / timeReaction);
+                     state = Mathf.Lerp(0, 1, elapsedTime * timeReaction);
                      state = 1 - state;
 
                      animator.SetIKPositionWeight(AvatarIKGoal.RightHand, state);
@@ -119,5 +119,3 @@ public class BasicIK : MonoBehaviour
         }
     }
 }
-
-// yield return new WaitForSeconds(3f);

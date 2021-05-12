@@ -27,7 +27,7 @@ public class Client : MonoBehaviour {
 	private TcpClient socketConnection; 	
 	private Thread clientReceiveThread;
 	private MainAnimation mainAnimation;
-	private string URL = "http://18.189.180.110:49152"; // https://www.hlt.inesc-id.pt/tradutor http://3.15.150.72:49152
+	private string URL = "https://www.hlt.inesc-id.pt/tradutor"; // https://www.hlt.inesc-id.pt/tradutor http://3.15.150.72:49152
 	#endregion  	
 	// Use this for initialization 	
 	void Start () {
@@ -92,7 +92,7 @@ public class Client : MonoBehaviour {
 
 			yield return www.SendWebRequest();
 
-			if (www.isNetworkError)
+			if (www.result == UnityWebRequest.Result.ConnectionError)
 			{
 				Debug.Log(www.error);
 				text.text = "Servidor não está ligado";
@@ -131,7 +131,7 @@ public class Client : MonoBehaviour {
 		// www.SetRequestHeader("Content-Type", "application/json; charset=UTF-8");
 		yield return www.SendWebRequest();
 
-		if(www.isNetworkError) {
+		if(www.result == UnityWebRequest.Result.ConnectionError) {
 			Debug.Log(www.error);
 			text.text = "Servidor não conseguiu responder";
 			text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
