@@ -29,6 +29,7 @@ public class MainAnimation : MonoBehaviour
     Dictionary<string, int> animationUtils = new Dictionary<string, int>();
     Dictionary<string, AnimationClip> fingerSpellClips = new Dictionary<string, AnimationClip>();
     Dictionary<string, AnimationClip> expFacClips = new Dictionary<string, AnimationClip>();
+    // Dictionary<string, string> expFacAnimated = new Dictionary<string, string>();
     // Dictionary<string, float> intBlendShapes = new Dictionary<string, float>() {
     //     {"F019", 26f},
     //     {"LEyeBMad", 100f},
@@ -62,8 +63,6 @@ public class MainAnimation : MonoBehaviour
     bool hasExprFaciais = false;
     string[] split = null;
 
-    CollisionDetection collisionDetection;
-
         //Muscles
     public enum AllMuscles : int
     {
@@ -96,7 +95,7 @@ public class MainAnimation : MonoBehaviour
         animator = character.GetComponent<Animator>();
         character.transform.localPosition += new Vector3(0,(float)0.9,0);
         basicIK = gameObject.GetComponent<BasicIK>();
-        collisionDetection = gameObject.GetComponentInChildren<CollisionDetection>();
+
         // get bone
         // Transform rightShoulder = animator.GetBoneTransform((HumanBodyBones)HumanTrait.BoneFromMuscle((int) AllMuscles.RIGHT_SHOULDER_DOWN_UP));
 
@@ -142,6 +141,13 @@ public class MainAnimation : MonoBehaviour
                 int util = animation.Contains(' ') ? animation.Split(' ').Length : 1;
                 Debug.Log(util);
                 animationUtils.Add(animation, util);
+                
+                // Debug.Log("nameeeeeee");
+                // Debug.Log(animClip.name);
+                // string content = System.IO.File.ReadAllText("Assets/Resources/Animations/Signs/" + animClip.name + ".json");
+                // JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
+
+                // foreach (var line in content.Split(new string[] { "atribute: " }, StringSplitOptions.None)) Debug.Log(line);
             }
         }
         trie.Build();
@@ -207,9 +213,11 @@ public class MainAnimation : MonoBehaviour
     void Update()
     {
         if (animator.GetBool("Stop") && animator.GetCurrentAnimatorStateInfo(0).IsName("idle_gestos")) Reset();
-        animator.SetBool("Blink", !animator.GetBool("Pensar") && !animator.GetBool("ExpFacial") && !animator.GetBool("olhos_franzidos"));
+        // animator.SetBool("Blink", !animator.GetBool("Pensar") && !animator.GetBool("ExpFacial") && !animator.GetBool("olhos_franzidos"));
+
         // basicIK.last = !(basicIK.last && (animator.GetCurrentAnimatorStateInfo(0).IsName("State0") || animator.GetCurrentAnimatorStateInfo(0).IsName("State1")));
         // Debug.Log(basicIK.blocked);
+        // if (animator.GetBool("Pensar")) animator.CrossFadeInFixedTime("pensar", 0.5f, 6, 0.2f);
     }
 
     public void Animate(string serverMessage) {
@@ -217,11 +225,8 @@ public class MainAnimation : MonoBehaviour
         text.text = "";
         glosasIndex = 0;
         estados = 0;
-        hasExprFaciais = false;
+        // hasExprFaciais = false;
         split = null;
-        animator.SetBool("Pensar", false);
-        animator.SetLayerWeight(animator.GetLayerIndex ("idle_pensar"), 0);
-        animator.SetLayerWeight(animator.GetLayerIndex ("idle"), 1);
         glosas = new List<string>();
 
         animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
@@ -251,6 +256,8 @@ public class MainAnimation : MonoBehaviour
 
         AhoCorasick(json.glosas);
 
+        animator.SetBool("Pensar", false);
+
         Animating();
         // animationEvent = new AnimationEvent();
         // animationEvent.time = 0.8f;
@@ -263,40 +270,46 @@ public class MainAnimation : MonoBehaviour
 
         // string[] animations = string.Join("",  json.glosas).split(' ');
         List<string> newLista = new List<string>();
-        foreach (var glosa in json_glosas) newLista.Add(removeAccents(glosa));
+        foreach (var glosa in json_glosas) newLista.Add(glosa);
 
-        List<string> matches = trie.Find(string.Join(" ", newLista)).ToList();
+        List<string> matches = trie.Find(removeAccents(string.Join(" ", newLista))).ToList();
 
-        List<string> finalLista = new List<string>();
+        // List<string> finalLista = new List<string>();
 
         List<string> matchesRemoveDupli = matches.Distinct().ToList();
 
+        Debug.Log("AhoCorasickkk");
+
         foreach(string glosa in newLista) {
+            Debug.Log(glosa);
             matches = new List<string>();
             foreach(string match in matchesRemoveDupli) {
                 if (match.Contains(' ')){
                     string[] split = match.Split(' ');
-                    if(split.Contains(glosa)) matches.Add(match);
+                    if(split.Contains(removeAccents(glosa))) matches.Add(match);
                 }
-                else if(match.Contains(glosa)) {
+                else if(match.Contains(removeAccents(glosa))) {
                     matches.Add(match);
                 }
             }
             if(matches.Count==0) // gesto não existe
                 glosas.Add(glosa);
-            else if(matches.Count==1) // só existe um match com o algoritmo
-                glosas.Add(matches[0]);
+            // só existe um match com o algoritmo
+            else if(matches.Count==1){
+                if (glosas.Count == 0 || glosas.Count > 0 && glosas[glosas.Count-1] != matches[0]) // acrescenta se a anteriro não for igual
+                    glosas.Add(matches[0]);
+            }
             else { // tem que escolher o gesto com base nas utilities
-                var values = matches.Where(k => animationUtils.ContainsKey(k)).Select(k => animationUtils[k]);
-                Dictionary<string, int> matchUtils = matches.Zip(values, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
-                var key = matchUtils.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-                glosas.Add(key);
+                var values = matches.Where(k => animationUtils.ContainsKey(k)).Select(k => animationUtils[k]); //get utils for each match
+                Dictionary<string, int> matchUtils = matches.Zip(values, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v); // dict with matches and their utils
+                var key = matchUtils.Aggregate((l, r) => l.Value > r.Value ? l : r).Key; //get match with the highest util
+                if (glosas.Count == 0 || glosas.Count > 0 && glosas[glosas.Count-1] != key) glosas.Add(key);
             }
         }
 
         Debug.Log("finallll matchesss");
 
-        glosas = glosas.Distinct().ToList();
+        // glosas = glosas.Distinct().ToList();
 
         foreach(var final in glosas) Debug.Log(final);
         Debug.Log("DONEEEE");
@@ -308,41 +321,53 @@ public class MainAnimation : MonoBehaviour
         // basicIK.last = false;
         basicIK.rightHandPosition.position = defaultPosition;
         repetition = new List<bool>();
+
         if (events.Count != 0){
             events[0].events = new AnimationEvent[0];
             events.RemoveAt(0);
         }
+
         var glosa = glosas[0];
-        hasExprFaciais = (json.exprFaciais.Count != 0);
+        // hasExprFaciais = (json.exprFaciais.Count != 0);
         // if (glosa.Contains("-"))
         //     glosa = glosa.Replace("-", " ");
         Debug.Log(hasExprFaciais);
 
-        if (text.text == "") text.text += glosa;
-        else text.text += " " + glosa;
+        if (text.text == "") text.text += glosa.ToUpper();
+        else text.text += " " + glosa.ToUpper();
         text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+        Debug.Log("indiceeeeee");
+        Debug.Log(glosasIndex);
 
-         if (hasExprFaciais){
-            foreach (var expression in json.exprFaciais.Keys){
-                split = expression.Split('-');
-                if(Int32.Parse(split[0]) == glosasIndex){
-                    if (json.exprFaciais[expression].Contains("interrogativa") || json.exprFaciais[expression].Contains("negativa")) {
-                        animatorOverrideController["_tempExpFacial"] = expFacClips[json.exprFaciais[expression]];
-                        animator.runtimeAnimatorController = animatorOverrideController;
-                        animator.SetBool("ExpFacial", true);
-                        animator.SetBool("Loop", json.exprFaciais[expression].Contains("negativa"));
-                    }
-                    else animator.SetBool("olhos_franzidos", true);
-                }
-                if(Int32.Parse(split[1]) == glosasIndex) {
-                    if (json.exprFaciais[expression].Contains("interrogativa") || json.exprFaciais[expression].Contains("negativa"))
-                        animator.SetBool("ExpFacial", false);
-                    else animator.SetBool("olhos_franzidos", false);
-                }
-            }
-         }
+        if (json.exprFaciais.Count != 0) animateFacialExpressions(); //Has facial expressions and animates them
 
         glosa = removeAccents(glosa);
+
+        // Debug.Log("lengthhhh glosa");
+        // Debug.Log(glosa.Length);
+
+        // Duration of the gesture animation
+        float duration = animationClips.ContainsKey(glosa) ? animationClips[glosa].length : (3f * json.fonemas[glosasIndex].Count);
+        // Debug.Log("duration");
+        // Debug.Log(duration);
+        // Debug.Log("fonemasss");
+        // Debug.Log(json.fonemas[glosasIndex]);
+        // Debug.Log(json.fonemas[glosasIndex].Count);
+
+        // duration = (duration<=(1f* json.fonemas[glosasIndex].Count)) ? (1f * json.fonemas[glosasIndex].Count) : duration;
+
+        duration = animationClips.ContainsKey(glosa) ? 0.5f * json.fonemas[glosasIndex].Count : ((1f * json.fonemas[glosasIndex].Count));
+
+        // Duration each sillable in the glosa --> gesture duration / number of sillables
+        float trans_duration = (glosasIndex == 0) ? 1.6f : 1f;
+        trans_duration = (duration <= 1.6f) ? 0.8f : trans_duration; 
+        // Debug.Log(trans_duration);
+        float sil_duration = (duration) / json.fonemas[glosasIndex].Count;
+        // Debug.Log("sil_duration");
+        // Debug.Log(sil_duration);
+
+        StartCoroutine(mouthing(sil_duration));
+
         if (animationClips.ContainsKey(glosa)) {
             // if (hasExprFaciais){
             //     if ("interrogativa" == json.exprFaciais.First().Value && glosasIndex == (Int32.Parse(split[1])-1)){
@@ -354,6 +379,13 @@ public class MainAnimation : MonoBehaviour
             animator.runtimeAnimatorController = animatorOverrideController;
             glosas.RemoveAt(0);
             animator.SetBool("Animating", true);
+            
+            // foreach (var line in lines) Debug.Log(line);
+
+            // AnimationState state = animator.GetCurrentAnimatorState(0);
+            // state.enabled = true;
+            // state.normalizedTime = (1.0f/totalAnimationTime) * specificFrame;
+            // animatorOverrideController.Sample();
 
             animationEvent = new AnimationEvent();
             animationEvent.time = animationClips[glosa].length;
@@ -374,6 +406,62 @@ public class MainAnimation : MonoBehaviour
         else Datilologia(glosa);
     }
 
+    void animateFacialExpressions() {
+        foreach (var key in json.exprFaciais.Keys.ToList()){
+            split = key.Split('-');
+            if(Int32.Parse(split[0]) == glosasIndex){
+                int index = 0;
+                foreach (var expression in json.exprFaciais[key]) {
+                    if (expression.Contains("interrogativa") || expression.Contains("negativa")) {
+                        animatorOverrideController["_tempExpFacial" + index] = expFacClips[expression];
+                        animator.runtimeAnimatorController = animatorOverrideController;
+                        // animator.CrossFadeInFixedTime("ExprFacial", 0.5f, 4 + index, 0.2f); 
+                        animator.SetBool("ExpFacial" + index, true);
+                        animator.SetBool("Loop" + index, expression.Contains("negativa"));
+                        index += 1;
+                    // animator.SetBool("ExpFacial", true);
+                    }
+                    else animator.SetBool("olhos_franzidos", true);
+                }
+            }
+            if(Int32.Parse(split[1]) == glosasIndex) {
+                int index = 0;
+                foreach (var expression in json.exprFaciais[key]) {
+                    if (expression.Contains("interrogativa") || expression.Contains("negativa")){
+                        animator.SetBool("ExpFacial" + index, false);
+                        animator.SetBool("Loop" + index, expression.Contains("negativa"));
+                        index += 1;
+                    }
+                    else animator.SetBool("olhos_franzidos", false);
+                }
+                json.exprFaciais.Remove(key);
+            }
+        }
+    }
+
+    IEnumerator mouthing(float sil_duration) {
+        var index = glosasIndex;
+        float trans_duration = (index == 0) ? 1f : 0.8f;
+        animator.CrossFadeInFixedTime("idle", 0.2f, 1, 0.8f);
+        yield return new WaitForSeconds(trans_duration);
+
+        foreach (var sillables in json.fonemas[index]) {
+            var viseme_index = 0;
+            // Duration of each viseme in each sillables --> sillable duration / number os visemes
+            float viseme_duration = (sil_duration) / sillables.Length;
+
+            foreach (var viseme in sillables){
+                var offset = 1f - viseme_duration;
+                animator.CrossFadeInFixedTime(viseme + "_viseme", viseme_duration, 1, offset);
+                Debug.Log(viseme);
+                yield return new WaitForSeconds(viseme_duration);
+                viseme_index ++;
+            }
+            Debug.Log("fdsfsdfs");
+        }
+        animator.CrossFadeInFixedTime("idle", 0.8f, 1, 0.2f);
+    }
+
     private IEnumerator Interrogativa(float time)
     {
         // yield return new WaitForSeconds(time);
@@ -381,7 +469,8 @@ public class MainAnimation : MonoBehaviour
         animator.SetBool("IntCabeca", true);
         yield return new WaitForSeconds(time+0.5f);
         animator.SetBool("IntCabeca", false);
-        animator.SetBool("ExpFacial", false);
+        animator.SetBool("ExpFacial0", false);
+        animator.SetBool("ExpFacial1", false);
     }
 
     void Datilologia(string glosa) {
@@ -446,6 +535,7 @@ public class MainAnimation : MonoBehaviour
         Debug.Log("event addeddd");
         fingerSpellClips[character].AddEvent(animationEvent);
         events.Add(fingerSpellClips[character]);
+        Debug.Log(events[0]);
         
         // animator.SetBool("Repeat", repeat);
         if (repetition.Count == 2 && repetition[0]){
@@ -485,7 +575,8 @@ public class MainAnimation : MonoBehaviour
         basicIK.last = true;
         Debug.Log("stopp");
         animator.SetBool("Stop", true);
-        animator.SetBool("ExpFacial", false);
+        animator.SetBool("ExpFacial0", false);
+        animator.SetBool("ExpFacial1", false);
         animator.SetBool("olhos_franzidos", false);
         // basicIK.ikActive = false;
         basicIK.first = false;
@@ -501,7 +592,8 @@ public class MainAnimation : MonoBehaviour
         animator.ResetTrigger("Animating2");
         animator.ResetTrigger("Animating3");
         animator.ResetTrigger("Stop");
-        animator.ResetTrigger("ExpFacial");
+        // animator.SetLayerWeight(animator.GetLayerIndex ("idle"), 1);
+        // animator.SetLayerWeight(animator.GetLayerIndex ("idle_animate"), 0);
         basicIK.rightHandPosition.position = defaultPosition;
 
         // for (int i = 0; i < skinnedMeshRenderer.sharedMesh.blendShapeCount; i++)
@@ -510,8 +602,4 @@ public class MainAnimation : MonoBehaviour
         //         skinnedMeshRenderer.SetBlendShapeWeight(i, 0f);
         // }
     }  
-
-    void OnAnimatorIK() {
-        if(collisionDetection.isCollided) collisionDetection.OnAnimatorIK();
-    }
 }
