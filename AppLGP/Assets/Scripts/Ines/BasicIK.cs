@@ -20,18 +20,22 @@ public class BasicIK : MonoBehaviour
 
     float state = 0;
     float elapsedTime = 0;
-    float timeReaction = 1f;
+    float timeReaction = 2f;
+
+    CollisionDetection collisionDetection;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         state = 0;
         defaultPosition = rightHandPosition.position;
+        collisionDetection = gameObject.GetComponentInChildren<CollisionDetection>();
     }
 
     //a callback for calculating IK
     void OnAnimatorIK()
     {
+        bool collision = false;
         if (animator)
         {
 
@@ -89,26 +93,27 @@ public class BasicIK : MonoBehaviour
             else
             {
                 if (state > 0f)
-                 {
-                     elapsedTime += Time.deltaTime;
-                     state = Mathf.Lerp(0, 1, elapsedTime * timeReaction);
-                     state = 1 - state;
+                {
+                    elapsedTime += Time.deltaTime;
+                    state = Mathf.Lerp(0, 1, elapsedTime * timeReaction);
+                    state = 1 - state;
 
-                     animator.SetIKPositionWeight(AvatarIKGoal.RightHand, state);
+                    animator.SetIKPositionWeight(AvatarIKGoal.RightHand, state);
                     //  animator.SetIKRotationWeight(AvatarIKGoal.RightHand, state);
                     animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandPosition.position);
                     //  animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
- 
-                 }
-                 else
-                 {
-                     state = 0;
-                     elapsedTime = 0;
-                     animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
-                    //  animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
-                    //  animator.SetLookAtWeight(0);
- 
-                 }
+                    collision = false;
+
+                }
+                else
+                {
+                    state = 0;
+                    elapsedTime = 0;
+                    animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
+                //  animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
+                //  animator.SetLookAtWeight(0);
+                    collision = true;
+                }
  
              }
                 // animator.SetFloat("HandWeight", 0);
@@ -116,6 +121,8 @@ public class BasicIK : MonoBehaviour
                 // animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
                 // animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
                 // animator.SetLookAtWeight(0);
+
+            // if(collisionDetection.isCollided && !ikActive && collision) collisionDetection.OnAnimatorIK();
         }
     }
 }

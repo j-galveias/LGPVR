@@ -13,6 +13,7 @@ public class CollisionDetection : MonoBehaviour
     float timeReaction = 1f;
 
     Vector3 difference = new Vector3();
+    Vector3 defaultPos = new Vector3();
     
     public bool IsCollided
     {
@@ -22,6 +23,7 @@ public class CollisionDetection : MonoBehaviour
     void Start() {
         animator = GetComponentInParent<Animator>();
         state = 0;
+        defaultPos = animator.GetBoneTransform(HumanBodyBones.RightHand).position;
     }
     
     void OnCollisionEnter(Collision collision) 
@@ -68,20 +70,23 @@ public class CollisionDetection : MonoBehaviour
                 }
             } else {
                 if (state > 0f)
-                 {
+                {
                     elapsedTime += Time.deltaTime;
                     state = Mathf.Lerp(0, 0.03f, elapsedTime * timeReaction);
                     state = 0.03f - state;
 
                     animator.SetIKPositionWeight(AvatarIKGoal.RightHand, state);
-                 }
-                 else
-                 {
+                }
+                else
+                {
                     state = 0;
                     elapsedTime = 0;
                     animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
-                 }
+                }
             }
+        } else {
+            animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
+            animator.SetIKPosition(AvatarIKGoal.RightHand, defaultPos);            
         }
     }
     
