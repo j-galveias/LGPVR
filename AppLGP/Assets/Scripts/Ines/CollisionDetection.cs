@@ -14,7 +14,7 @@ public class CollisionDetection : MonoBehaviour
 
     Vector3 difference = new Vector3();
     Vector3 defaultPos = new Vector3();
-    
+
     public bool IsCollided
     {
         get {return isCollided; }
