@@ -44,14 +44,18 @@ public class Client : MonoBehaviour {
             button.interactable = false; 
 
         if (received){
-			if (serverMessage == "Erro a traduzir frase, tente outra.")
+			Debug.Log("receivedddd");
+			if (serverMessage == "Erro")
 			{
-				text.text = serverMessage;
+				Debug.Log("erroooooo");
+				text.text = "Erro a traduzir frase, tente outra.";
 				text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+				frase_pensar.gameObject.SetActive(false);
 				sentence.gameObject.SetActive(true);
         		button.gameObject.SetActive(true);
-				replay_button.gameObject.SetActive(true);
+				// replay_button.gameObject.SetActive(true);
 				toggle.gameObject.SetActive(true);
+				animator.SetBool("Pensar", false);
 			}
 			else{
 				Animate();
@@ -65,15 +69,18 @@ public class Client : MonoBehaviour {
 			replay_button.gameObject.SetActive(false);
 			toggle.gameObject.SetActive(false);
             sent = false; 
-			animator.SetLayerWeight(animator.GetLayerIndex ("idle_pensar"), 1);
-			animator.SetLayerWeight(animator.GetLayerIndex ("idle"), 0);
+			// animator.SetLayerWeight(animator.GetLayerIndex ("idle_animate"), 1);
+			// animator.SetLayerWeight(animator.GetLayerIndex ("idle"), 0);
 			animator.SetBool("Pensar", true);
+			frase_pensar.gameObject.SetActive(true);
 			frase_pensar.text = sentence.text;
 			frase_pensar.rectTransform.sizeDelta = new Vector2(frase_pensar.preferredWidth, frase_pensar.preferredHeight);
         }
 	} 
 
 	public void Animate() {
+		// animator.SetLayerWeight(animator.GetLayerIndex ("idle_animate"), 1);
+		// animator.SetLayerWeight(animator.GetLayerIndex ("idle"), 0);
 		frase_pensar.text = "";
 		sentence.text = "";
 		sentence.gameObject.SetActive(false);
@@ -132,6 +139,7 @@ public class Client : MonoBehaviour {
 		yield return www.SendWebRequest();
 
 		if(www.result == UnityWebRequest.Result.ConnectionError) {
+			Application.LoadLevel(0);
 			Debug.Log(www.error);
 			text.text = "Servidor não conseguiu responder";
 			text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
