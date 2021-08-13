@@ -124,7 +124,7 @@
         {
           "property": "Muscles",
           "index": 2,
-          "time": 1.49999988,
+          "time": 1.52020192,
           "ints": {},
           "floats": {
             "muscle0": 2.13987573E-12,
@@ -237,7 +237,7 @@
         {
           "property": "Muscles",
           "index": 3,
-          "time": 1.99494934,
+          "time": 2.25252509,
           "ints": {},
           "floats": {
             "muscle0": 2.13987573E-12,
@@ -350,7 +350,7 @@
         {
           "property": "Muscles",
           "index": 4,
-          "time": 2.52020192,
+          "time": 2.78282809,
           "ints": {},
           "floats": {
             "muscle0": 2.13987573E-12,
@@ -465,9 +465,13 @@
           "index": 1,
           "time": 1,
           "ints": {
-            "hash": 417697792
+            "hash": -1373792256
           },
-          "floats": {},
+          "floats": {
+            "leftHandPositionX": -0.200895309,
+            "leftHandPositionY": 0.0119423941,
+            "leftHandPositionZ": -0.091847904
+          },
           "strings": {
             "name": "-"
           },
@@ -480,12 +484,15 @@
         {
           "property": "Left Hand Configuration",
           "index": 2,
-          "time": 1.49999988,
+          "time": 1.52020192,
           "ints": {
-            "hash": -726460416
+            "hash": 342445056
           },
           "floats": {
-            "duration": 0
+            "duration": 0,
+            "leftHandPositionX": -0.201351166,
+            "leftHandPositionY": 0.0293808132,
+            "leftHandPositionZ": -0.112369075
           },
           "strings": {
             "name": "-"
@@ -499,12 +506,15 @@
         {
           "property": "Left Hand Configuration",
           "index": 3,
-          "time": 1.99494934,
+          "time": 2.25252509,
           "ints": {
-            "hash": -726460416
+            "hash": 1339193344
           },
           "floats": {
-            "duration": 0
+            "duration": 0,
+            "leftHandPositionX": -0.199291229,
+            "leftHandPositionY": 0.0291566998,
+            "leftHandPositionZ": -0.113593832
           },
           "strings": {
             "name": "-"
@@ -518,12 +528,15 @@
         {
           "property": "Left Hand Configuration",
           "index": 4,
-          "time": 2.52020192,
+          "time": 2.78282809,
           "ints": {
-            "hash": 956283904
+            "hash": -667457536
           },
           "floats": {
-            "duration": 0
+            "duration": 0,
+            "leftHandPositionX": -0.20230484,
+            "leftHandPositionY": 0.0294208676,
+            "leftHandPositionZ": -0.112953916
           },
           "strings": {
             "name": "-"
@@ -539,9 +552,13 @@
           "index": 1,
           "time": 1,
           "ints": {
-            "hash": -154381312
+            "hash": -1945871360
           },
-          "floats": {},
+          "floats": {
+            "rightHandPositionX": 0.00871276855,
+            "rightHandPositionY": -0.236888051,
+            "rightHandPositionZ": 0.595133305
+          },
           "strings": {
             "name": "indicativa"
           },
@@ -554,12 +571,15 @@
         {
           "property": "Right Hand Configuration",
           "index": 2,
-          "time": 1.49999988,
+          "time": 1.52020192,
           "ints": {
-            "hash": 1280190464
+            "hash": -229634048
           },
           "floats": {
-            "duration": 0
+            "duration": 0,
+            "rightHandPositionX": 0.0092716217,
+            "rightHandPositionY": -0.219442487,
+            "rightHandPositionZ": 0.489721805
           },
           "strings": {
             "name": "indicativa"
@@ -573,12 +593,15 @@
         {
           "property": "Right Hand Configuration",
           "index": 3,
-          "time": 1.99494934,
+          "time": 2.25252509,
           "ints": {
-            "hash": 1280190464
+            "hash": 767114240
           },
           "floats": {
-            "duration": 0
+            "duration": 0,
+            "rightHandPositionX": -0.0548839569,
+            "rightHandPositionY": -0.22083199,
+            "rightHandPositionZ": 0.515368938
           },
           "strings": {
             "name": "indicativa"
@@ -592,12 +615,15 @@
         {
           "property": "Right Hand Configuration",
           "index": 4,
-          "time": 2.52020192,
+          "time": 2.78282809,
           "ints": {
-            "hash": -1492484096
+            "hash": -1811615744
           },
           "floats": {
-            "duration": 0
+            "duration": 0,
+            "rightHandPositionX": 0.0515956879,
+            "rightHandPositionY": -0.222782254,
+            "rightHandPositionZ": 0.513874054
           },
           "strings": {
             "name": "indicativa"
@@ -626,7 +652,7 @@
         {
           "property": "Facial Expression",
           "index": 2,
-          "time": 1.49999988,
+          "time": 1.52020192,
           "ints": {},
           "floats": {
             "duration": 0
@@ -643,7 +669,7 @@
         {
           "property": "Facial Expression",
           "index": 3,
-          "time": 1.99494934,
+          "time": 2.25252509,
           "ints": {},
           "floats": {
             "duration": 0
@@ -660,7 +686,7 @@
         {
           "property": "Facial Expression",
           "index": 4,
-          "time": 2.52020192,
+          "time": 2.78282809,
           "ints": {},
           "floats": {
             "duration": 0
