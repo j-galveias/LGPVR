@@ -27,7 +27,7 @@ public class Client : MonoBehaviour {
 	private TcpClient socketConnection; 	
 	private Thread clientReceiveThread;
 	private MainAnimation mainAnimation;
-	private string URL = "http://192.168.1.4:80"; // https://www.hlt.inesc-id.pt/tradutor http://3.15.150.72:49152
+	private string URL = "http://192.168.1.9:80"; // https://www.hlt.inesc-id.pt/tradutor http://3.15.150.72:49152
 	#endregion  	
 	// Use this for initialization 	
 	void Start () {

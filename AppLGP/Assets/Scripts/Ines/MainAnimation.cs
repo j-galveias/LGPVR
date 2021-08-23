@@ -173,7 +173,9 @@ public class MainAnimation : MonoBehaviour
                 var animation = removeAccents(clip.name.ToUpper().Replace("GESTO_", ""));
                 Debug.Log(animation);
                 // string content = System.IO.File.ReadAllText(clip.name + ".json");
-                jsonInfo = JsonSerializer.Deserialize<AnimatedSignData>(clip.ToString());
+                var jsonString = Regex.Replace(clip.ToString(), ":\\s*([-1234567890\\.E]+)", ":\"$1\"");
+                jsonString = Regex.Replace(jsonString, ":\\s*(true|false)", ":\"$1\"");
+                jsonInfo = JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
                 int count_right = 0;
                 int count_left = 0;
                 List<Vector3> hand_pos_right = new List<Vector3>();
@@ -199,9 +201,9 @@ public class MainAnimation : MonoBehaviour
                         Debug.Log(keyframe.property);
 
                          if (keyframe.property == "Right Hand Configuration" && keyframe.floats.Keys.Count > 1) {
-                            List<float> coordenates = keyframe.floats.Values.ToList();
+                            List<string> coordenates = keyframe.floats.Values.ToList();
                             foreach (var cor in coordenates) Debug.Log(cor);
-                            Vector3 position = new Vector3(coordenates[coordenates.Count-3], coordenates[coordenates.Count-2], coordenates[coordenates.Count-1]);
+                            Vector3 position = new Vector3(float.Parse(coordenates[coordenates.Count-3]), float.Parse(coordenates[coordenates.Count-2]), float.Parse(coordenates[coordenates.Count-1]));
                             Debug.Log("RIGHTTTT");
                             Debug.Log(position);
                             Debug.Log(position.magnitude);
@@ -211,9 +213,9 @@ public class MainAnimation : MonoBehaviour
                         }
 
                         if (keyframe.property == "Left Hand Configuration" && keyframe.floats.Keys.Count > 1) {
-                            List<float> coordenates = keyframe.floats.Values.ToList();
+                            List<string> coordenates = keyframe.floats.Values.ToList();
                             foreach (var cor in coordenates) Debug.Log(cor);
-                            Vector3 position = new Vector3(coordenates[coordenates.Count-3], coordenates[coordenates.Count-2], coordenates[coordenates.Count-1]);
+                            Vector3 position = new Vector3(float.Parse(coordenates[coordenates.Count-3]), float.Parse(coordenates[coordenates.Count-2]), float.Parse(coordenates[coordenates.Count-1]));
                             Debug.Log("LEFTTT");
                             Debug.Log(position);
                             Debug.Log(position.magnitude);
@@ -313,7 +315,9 @@ public class MainAnimation : MonoBehaviour
                 var animation = removeAccents(clip.name.ToUpper().Replace("GESTO_", ""));
                 Debug.Log(animation);
                 // string content = System.IO.File.ReadAllText(clip.name + ".json");
-                jsonInfo = JsonSerializer.Deserialize<AnimatedSignData>(clip.ToString());
+                var jsonString = Regex.Replace(clip.ToString(), ":\\s*([-1234567890\\.E]+)", ":\"$1\"");
+                jsonString = Regex.Replace(jsonString, ":\\s*(true|false)", ":\"$1\"");
+                jsonInfo = JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
                 int count_right = 0;
                 int count_left = 0;
                 List<Vector3> hand_pos_right = new List<Vector3>();
@@ -329,9 +333,9 @@ public class MainAnimation : MonoBehaviour
                         Debug.Log(keyframe.property);
 
                          if (keyframe.property == "Right Hand Configuration" && keyframe.floats.Keys.Count > 1) {
-                            List<float> coordenates = keyframe.floats.Values.ToList();
+                            List<string> coordenates = keyframe.floats.Values.ToList();
                             foreach (var cor in coordenates) Debug.Log(cor);
-                            Vector3 position = new Vector3(coordenates[coordenates.Count-3], coordenates[coordenates.Count-2], coordenates[coordenates.Count-1]);
+                            Vector3 position = new Vector3(float.Parse(coordenates[coordenates.Count-3]), float.Parse(coordenates[coordenates.Count-2]), float.Parse(coordenates[coordenates.Count-1]));
                             Debug.Log("RIGHTTTT");
                             Debug.Log(position);
                             Debug.Log(position.magnitude);
@@ -341,9 +345,9 @@ public class MainAnimation : MonoBehaviour
                         }
 
                         if (keyframe.property == "Left Hand Configuration" && keyframe.floats.Keys.Count > 1) {
-                            List<float> coordenates = keyframe.floats.Values.ToList();
+                            List<string> coordenates = keyframe.floats.Values.ToList();
                             foreach (var cor in coordenates) Debug.Log(cor);
-                            Vector3 position = new Vector3(coordenates[coordenates.Count-3], coordenates[coordenates.Count-2], coordenates[coordenates.Count-1]);
+                            Vector3 position = new Vector3(float.Parse(coordenates[coordenates.Count-3]), float.Parse(coordenates[coordenates.Count-2]), float.Parse(coordenates[coordenates.Count-1]));
                             Debug.Log("LEFTTT");
                             Debug.Log(position);
                             Debug.Log(position.magnitude);
@@ -560,7 +564,7 @@ public class MainAnimation : MonoBehaviour
         animator.SetBool("idle_viseme", !animateMouthing);
 
         //Adiciona expressão para a clausula condicional
-        animator.SetBool("Exp_cond", json.adv_cond[glosasIndex]);
+        animator.SetBool("Exp_cond", bool.Parse(json.adv_cond[glosasIndex]));
 
         if (animationClips.ContainsKey(removeAccents(glosa))) {
             glosa = removeAccents(glosa);
@@ -593,10 +597,10 @@ public class MainAnimation : MonoBehaviour
                 }
 
             }
-            trans_duration = json.gestos_compostos[glosasIndex] ? 0.3f : dur_value;
+            trans_duration = bool.Parse(json.gestos_compostos[glosasIndex]) ? 0.3f : dur_value;
             Debug.Log(glosa);
             offset = animationClips[glosa].length <= 1.5f ? 1.1f - trans_duration : 1.3f - trans_duration;
-            offset = json.gestos_compostos[glosasIndex] ? 1.4f - trans_duration : offset;
+            offset = bool.Parse(json.gestos_compostos[glosasIndex]) ? 1.4f - trans_duration : offset;
             offset = glosasIndexAux > 0 && !animationClips.ContainsKey(glosas_copy[glosasIndexAux-1]) ? 1f - trans_duration :  offset;
             // offset = 1f - trans_duration;
             animator.SetBool("Animating", true);

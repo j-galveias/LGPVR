@@ -121,8 +121,8 @@ public class Manager : MonoBehaviour
 
     public void PlaySign(string sign)
     {
-        animator.SetFloat("speedParam", animData[sign].globalSpeed);
-        repeat = animData[sign].globalRepetitions;
+        // animator.SetFloat("speedParam", animData[sign].globalSpeed);
+        // repeat = animData[sign].globalRepetitions;
         animator.CrossFadeInFixedTime(sign, 0.5f, -1, 0.5f);
         currentSign = sign;
         idle = false;

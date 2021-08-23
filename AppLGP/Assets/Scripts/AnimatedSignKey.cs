@@ -5,19 +5,19 @@ using UnityEngine;
 public class AnimatedSignKey: IComparable
 {
     public string property { get; set; } = "null";
-    public int index { get; set; } = -1;
+    public string index { get; set; } = "-1";
 
     //Time should really really really be private!
-    public float time { get; set; } = -1; //If time is not found, set it to index (in seconds)
-    public Dictionary<string, int> ints { get; set; } = new Dictionary<string, int>();
-    public Dictionary<string, float> floats { get; set; } = new Dictionary<string, float>();
+    public string time { get; set; } = "-1"; //If time is not found, set it to index (in seconds)
+    public Dictionary<string, string> ints { get; set; } = new Dictionary<string, string>();
+    public Dictionary<string, string> floats { get; set; } = new Dictionary<string, string>();
     public Dictionary<string, string> strings { get; set; } = new Dictionary<string, string>();
 
-    public float inTangent { get; set; } = 0;
-    public float inWeight { get; set; } = 1/3;
-    public float outTangent { get; set; } = 0;
-    public float outWeight { get; set; } = 1/3;
-    public WeightedMode weightedMode { get; set; } = WeightedMode.None;
+    public string inTangent { get; set; } = "0";
+    public string inWeight { get; set; } = "1/3";
+    public string outTangent { get; set; } = "0";
+    public string outWeight { get; set; } = "1/3";
+    // public WeightedMode weightedMode { get; set; } = WeightedMode.None;
 
     private const string NAME = "name";
     private const string FACE_NAME = "faceName";
@@ -40,23 +40,23 @@ public class AnimatedSignKey: IComparable
     {
     }
 
-    public AnimatedSignKey(string _property, int _index, float _time)
+    public AnimatedSignKey(string _property, string _index, string _time)
     {
         property = _property;
         index = _index;
         time = _time;
     }
 
-    public AnimatedSignKey(string _property, int _index, Keyframe keyframe)
+    public AnimatedSignKey(string _property, string _index, Keyframe keyframe)
     {
         property = _property;
         index = _index;
-        time = keyframe.time;
-        inTangent = keyframe.inTangent;
-        inWeight = keyframe.inWeight;
-        outTangent = keyframe.outTangent;
-        outWeight = keyframe.outWeight;
-        weightedMode = keyframe.weightedMode;
+        // time = keyframe.time;
+        // inTangent = keyframe.inTangent;
+        // inWeight = keyframe.inWeight;
+        // outTangent = keyframe.outTangent;
+        // outWeight = keyframe.outWeight;
+        // weightedMode = keyframe.weightedMode;
     }
 
     // private void SetHandPos(Vector3 pos, bool left)
