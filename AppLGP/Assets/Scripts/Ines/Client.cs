@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Net;
 using TMPro;
+using System.Security.Cryptography.X509Certificates;
 
 public class Client : MonoBehaviour {
 	Animator animator;
@@ -27,7 +28,7 @@ public class Client : MonoBehaviour {
 	private TcpClient socketConnection; 	
 	private Thread clientReceiveThread;
 	private MainAnimation mainAnimation;
-	private string URL = "http://192.168.1.9:80"; // https://www.hlt.inesc-id.pt/tradutor http://3.15.150.72:49152
+	private string URL = "http://3.139.64.204:80"; // https://www.hlt.inesc-id.pt/tradutor http://3.15.150.72:49152
 	#endregion  	
 	// Use this for initialization 	
 	void Start () {
@@ -151,4 +152,47 @@ public class Client : MonoBehaviour {
 			received = true;
 		}
 	}
+}
+
+public class BypassCertificate : CertificateHandler
+{
+    protected override bool ValidateCertificate(byte[] certificateData)
+    {
+        //Simply return true no matter what
+        return true;
+    }
+} 
+
+class AcceptAllCertificatesSignedWithASpecificPublicKey : CertificateHandler
+{
+    // Encoded RSAPublicKey
+    private static string PUB_KEY = "MIIDCzCCAfOgAwIBAgIUBHXWqXgGseaND7ny0RINKTtt980wDQYJKoZIhvcNAQEL"+
+									"BQAwFTETMBEGA1UECAwKU29tZS1TdGF0ZTAeFw0yMTAzMDkxMTAxMDNaFw0yMjAz"+
+									"MDkxMTAxMDNaMBUxEzARBgNVBAgMClNvbWUtU3RhdGUwggEiMA0GCSqGSIb3DQEB"+
+									"AQUAA4IBDwAwggEKAoIBAQDQJP8PJrb1eo6mM+DSIp8HD2CUQEzI2Lo/MAJLB1iK"+
+									"f9bVghClgcAUhRjZajjnYwbK62+Ucn4RCEt42KOujTSD9oPRFwsM8ghcmHkhhSwe"+
+									"RyxjvEzVYmPTIbaZSFWx3ZeqQ8pMc9QijfDldk6jM0VHFL+GnNmGq67Zypk7F3pE"+
+									"y9YPVSAYk7KMcPGPtDX/gMBRqhbf623l41RN9KVphUOvPiIlK35ZZd/Fur9G8Uxs"+
+									"mMRYEtaLkJtd2VJkF0B8q6SJin3MbDj4iu+jk/ERsa0Jy6n+Zx0iJCzRcaBHzVkC"+
+									"6KL/d4envYNxrZIHP98AaexAp41RIeQ0xw6csdQqViqPAgMBAAGjUzBRMB0GA1Ud"+
+									"DgQWBBSfVJAvu86vgog15qZQTtkZbQpuBDAfBgNVHSMEGDAWgBSfVJAvu86vgog1"+
+									"5qZQTtkZbQpuBDAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQAm"+
+									"ZYanwQPn3pUq65cruVGpVoydvPNcvnYqhNnq7icxSkD+wkFaIqk8/BqyUm2kxs0F"+
+									"entac9XdujvXOAqECtjFzIeJ8uHbtu3mDvxJ/E62lxVPArnVPEuOc70VCC+tN+Ql"+
+									"p/SsPm3/Aj4GdjvZExjIIdlW/EwOcSMdaepiXliOom+/g0flw4+LolcjdC50JHiw"+
+									"1UybiTkwWVrto3s8b8FfCy8DFDbSHLr7TpLF2JbNmwN/vN64DeKGrR46sZyKMBzy"+
+									"x9dwz64Q6TvrdUj6r49epne38FC64bDlejjnV3minqxM8JblZOZzoajaBfd3Y7pf"+
+									"hpQWVAsdenBIHjzZcwph";
+
+    protected override bool ValidateCertificate(byte[] certificateData)
+    {
+		Debug.Log(certificateData);
+        X509Certificate2 certificate = new X509Certificate2(certificateData);
+        string pk = certificate.GetPublicKeyString();
+        if (pk.Equals(PUB_KEY))
+            return true;
+
+        // Bad dog
+        return false;
+    }
 }

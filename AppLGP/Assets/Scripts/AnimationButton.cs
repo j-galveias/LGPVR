@@ -9,6 +9,6 @@ public class AnimationButton : MonoBehaviour
     
     public void PlaySign()
     {
-        manager.PlaySign(name);
+        StartCoroutine(manager.PlaySign(name));
     }
 }
