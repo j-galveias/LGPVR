@@ -12,6 +12,7 @@ using UnityEngine.Networking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using System.Runtime.InteropServices;
+using UnityEditor.Search;
 
 [System.Serializable]
 public class Manager : MonoBehaviour
@@ -67,6 +68,9 @@ public class Manager : MonoBehaviour
 
         // Serialize();
         StartCoroutine(GetBundle());
+
+        //Descomentar para usar o FuzzyMatch
+        //search.onValueChanged.AddListener(delegate {SortButtons();});
     }
 
     IEnumerator GetBundle() {
@@ -271,12 +275,57 @@ public class Manager : MonoBehaviour
                     b.gameObject.SetActive(true);
             }
         }
-        
-
     }
 
     string removeAccents(string word) {
         return Regex.Replace(word.Normalize(NormalizationForm.FormD), @"[^A-Za-z 0-9 \.,\?'""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*", string.Empty).Trim();
+    }
+
+    private void SortButtons()
+    {
+        int FuzzySearchCompare(Button b1, Button b2)
+        {
+            long score1 = 0;
+            long score2 = 0;
+            string pattern = removeAccents(search.text.ToLower()).Trim();
+            string name1 = removeAccents(b1.GetComponentInChildren<Text>().text.ToLower());
+            string name2 = removeAccents(b2.GetComponentInChildren<Text>().text.ToLower());
+
+            //FuzzySearch.FuzzyMatch(pattern, name1, ref score1, new List<int>());
+            //FuzzySearch.FuzzyMatch(pattern, name2, ref score2, new List<int>());
+
+            if (score1 > score2)
+                return -1;
+
+            if (score1 == score2)
+                return 0;
+
+            return 1;
+        }
+
+
+        Comparison<Button> compareFunction;
+
+        if (String.IsNullOrEmpty(search.text)) {
+            compareFunction = (b1, b2) => b1.GetComponentInChildren<Text>().text.CompareTo(b2.GetComponentInChildren<Text>().text);
+        }
+        else
+        {
+            compareFunction = FuzzySearchCompare;
+        }
+
+        SortButtons(compareFunction);
+    }
+
+    private void SortButtons(Comparison<Button> compareFunction)
+    {
+        Buttons.Sort(compareFunction);
+
+        for (int i=0; i<Buttons.Count; i++)
+        {
+            Button button = Buttons[i];
+            button.transform.SetSiblingIndex(i);
+        }
     }
 
     // private IEnumerator Blink(float waitTimeMin, float waitTimeMax)
