@@ -314,14 +314,9 @@ public class Manager : MonoBehaviour
             compareFunction = FuzzySearchCompare;
         }
 
-        SortButtons(compareFunction);
-    }
-
-    private void SortButtons(Comparison<Button> compareFunction)
-    {
         Buttons.Sort(compareFunction);
 
-        for (int i=0; i<Buttons.Count; i++)
+        for (int i = 0; i < Buttons.Count; i++)
         {
             Button button = Buttons[i];
             button.transform.SetSiblingIndex(i);
