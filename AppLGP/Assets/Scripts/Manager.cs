@@ -7,12 +7,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
 using System.Text;
-using UnityEditor;
 using UnityEngine.Networking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using System.Runtime.InteropServices;
-using UnityEditor.Search;
+using FuzzySharp;
 
 [System.Serializable]
 public class Manager : MonoBehaviour
@@ -70,7 +69,7 @@ public class Manager : MonoBehaviour
         StartCoroutine(GetBundle());
 
         //Descomentar para usar o FuzzyMatch
-        //search.onValueChanged.AddListener(delegate {SortButtons();});
+        search.onValueChanged.AddListener(delegate {SortButtons();});
     }
 
     IEnumerator GetBundle() {
@@ -269,10 +268,10 @@ public class Manager : MonoBehaviour
         if(loadedBundles) {
             foreach (Button b in Buttons){
                 b.interactable = currentSign == "idle";
-                if (!String.IsNullOrEmpty(search.text))
+                /*if (!String.IsNullOrEmpty(search.text))
                     b.gameObject.SetActive(removeAccents(b.name.ToLower()).IndexOf(removeAccents(search.text.ToLower()).Trim() ) >= 0);
                 else
-                    b.gameObject.SetActive(true);
+                    b.gameObject.SetActive(true);*/
             }
         }
     }
@@ -285,14 +284,12 @@ public class Manager : MonoBehaviour
     {
         int FuzzySearchCompare(Button b1, Button b2)
         {
-            long score1 = 0;
-            long score2 = 0;
-            string pattern = removeAccents(search.text.ToLower()).Trim();
-            string name1 = removeAccents(b1.GetComponentInChildren<Text>().text.ToLower());
-            string name2 = removeAccents(b2.GetComponentInChildren<Text>().text.ToLower());
+            string pattern = PreProcess(search.text);
+            string name1 = PreProcess(b1.GetComponentInChildren<Text>().text);
+            string name2 = PreProcess(b2.GetComponentInChildren<Text>().text);
 
-            //FuzzySearch.FuzzyMatch(pattern, name1, ref score1, new List<int>());
-            //FuzzySearch.FuzzyMatch(pattern, name2, ref score2, new List<int>());
+            long score1 = Fuzz.Ratio(pattern, name1);
+            long score2 = Fuzz.Ratio(pattern, name2);
 
             if (score1 > score2)
                 return -1;
@@ -321,6 +318,11 @@ public class Manager : MonoBehaviour
             Button button = Buttons[i];
             button.transform.SetSiblingIndex(i);
         }
+    }
+
+    private string PreProcess(string txt)
+    {
+        return removeAccents(txt.ToLower()).Trim();
     }
 
     // private IEnumerator Blink(float waitTimeMin, float waitTimeMax)
