@@ -237,7 +237,7 @@
         {
           "property": "Muscles",
           "index": 3,
-          "time": 1.61464608,
+          "time": 1.63989866,
           "ints": {},
           "floats": {
             "muscle0": 2.1398753E-12,
@@ -352,12 +352,12 @@
           "index": 1,
           "time": 1,
           "ints": {
-            "hash": -1031212032
+            "hash": 1511396352
           },
           "floats": {
             "leftHandPositionX": -0.205030441,
-            "leftHandPositionY": 0.00778818876,
-            "leftHandPositionZ": -0.0809044912
+            "leftHandPositionY": 0.00778866559,
+            "leftHandPositionZ": -0.0809040144
           },
           "strings": {
             "name": "-"
@@ -373,13 +373,13 @@
           "index": 2,
           "time": 1.51515114,
           "ints": {
-            "hash": -333149184
+            "hash": -1067333632
           },
           "floats": {
             "duration": 0.0101010101,
             "leftHandPositionX": -0.206609726,
             "leftHandPositionY": 0.0109782293,
-            "leftHandPositionZ": -0.0817747191
+            "leftHandPositionZ": -0.0817751959
           },
           "strings": {
             "name": "-"
@@ -393,15 +393,15 @@
         {
           "property": "Left Hand Configuration",
           "index": 3,
-          "time": 1.61464608,
+          "time": 1.63989866,
           "ints": {
-            "hash": -565239808
+            "hash": 1511396352
           },
           "floats": {
             "duration": 0.0101010101,
             "leftHandPositionX": -0.206609726,
             "leftHandPositionY": 0.011084564,
-            "leftHandPositionZ": -0.0817921236
+            "leftHandPositionZ": -0.0817916468
           },
           "strings": {
             "name": "-"
@@ -417,12 +417,12 @@
           "index": 1,
           "time": 1,
           "ints": {
-            "hash": -1603291136
+            "hash": 367238144
           },
           "floats": {
-            "rightHandPositionX": 0.207523346,
+            "rightHandPositionX": 0.207521439,
             "rightHandPositionY": -0.179103911,
-            "rightHandPositionZ": 0.285595894
+            "rightHandPositionZ": 0.28559494
           },
           "strings": {
             "name": "B_polegar-fechado"
@@ -438,12 +438,12 @@
           "index": 2,
           "time": 1.51515114,
           "ints": {
-            "hash": -905228288
+            "hash": 2083475456
           },
           "floats": {
             "duration": 0.0101010101,
-            "rightHandPositionX": 0.258565903,
-            "rightHandPositionY": -0.274865687,
+            "rightHandPositionX": 0.25856781,
+            "rightHandPositionY": -0.274866164,
             "rightHandPositionZ": 0.28469944
           },
           "strings": {
@@ -458,13 +458,13 @@
         {
           "property": "Right Hand Configuration",
           "index": 3,
-          "time": 1.61464608,
+          "time": 1.63989866,
           "ints": {
-            "hash": 1383088128
+            "hash": 367238144
           },
           "floats": {
             "duration": 0.0101010101,
-            "rightHandPositionX": 0.258565903,
+            "rightHandPositionX": 0.258563995,
             "rightHandPositionY": -0.274760306,
             "rightHandPositionZ": 0.284662724
           },
@@ -510,7 +510,7 @@
         {
           "property": "Facial Expression",
           "index": 3,
-          "time": 1.61464608,
+          "time": 1.63989866,
           "ints": {},
           "floats": {
             "duration": 0.0101010101
@@ -780,7 +780,11 @@
     }
   ],
   "linguisticTags": {
-    "pronoun": ""
+    "noun": "",
+    "pronoun": "",
+    "adverb": "",
+    "expression": "",
+    "verb": ""
   },
   "version": 12,
   "globalSpeed": 1,
