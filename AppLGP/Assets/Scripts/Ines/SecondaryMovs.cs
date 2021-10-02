@@ -10,6 +10,9 @@ public class SecondaryMovs : MonoBehaviour
     float elapsedTime = 0;
     float timeReaction = 2f;
     float startPosition = 0f;
+    Vector3 fromToPosition;
+    
+    public Camera camera;
 
     void Start()
     {
@@ -55,7 +58,7 @@ public class SecondaryMovs : MonoBehaviour
 
                 Vector3 handsMiddle = (RightHand.position + LeftHand.position)/2;
 
-                Vector3 fromToPosition = new Vector3(handsMiddle.x, head.position.y, handsMiddle.z); //+ para rodar o lado
+                fromToPosition = new Vector3(handsMiddle.x, camera.transform.position.y, handsMiddle.z + 0.15f); //+ para rodar o lado
 
                 // Debug.Log("handdddd");
                 // Debug.Log(handsMiddle);
@@ -76,8 +79,6 @@ public class SecondaryMovs : MonoBehaviour
                 //     animator.SetLookAtPosition(fromToPosition2);
                 // }
 
-
-                if (RightHand.position.y>=0) {
                     if (state <0.2f)
                     {
                         elapsedTime += Time.deltaTime;
@@ -89,26 +90,10 @@ public class SecondaryMovs : MonoBehaviour
                         state = 0.2f;
                         elapsedTime = 0;
                     }
-                    animator.SetLookAtWeight(state, 0.2f, 0.5f);
+                    animator.SetLookAtWeight(state, 0.8f, 1f);
                     // Debug.Log("LeftHand.position");
                     // Debug.Log(LeftHand.position);
                     animator.SetLookAtPosition(fromToPosition);
-                }
-                else {
-                    if (state > 0f)
-                    {
-                        elapsedTime += Time.deltaTime;
-                        state = Mathf.Lerp(0,0.2f, elapsedTime * timeReaction);
-                        state = 0.2f - state;
-                    }
-                    else
-                    {
-                        state = 0;
-                        elapsedTime = 0;
-                    }
-                    animator.SetLookAtWeight(state, 0.2f, 0.5f);
-                    animator.SetLookAtPosition(fromToPosition);
-                }
             }
             else {
                 if (state > 0f)
@@ -122,7 +107,8 @@ public class SecondaryMovs : MonoBehaviour
                     state = 0;
                     elapsedTime = 0;
                 }
-                animator.SetLookAtWeight(state);
+                animator.SetLookAtWeight(state, 0.8f, 1f);
+                animator.SetLookAtPosition(fromToPosition);
             }
         }
     }

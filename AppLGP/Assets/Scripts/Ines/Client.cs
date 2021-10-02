@@ -14,6 +14,8 @@ using System.Security.Cryptography.X509Certificates;
 public class Client : MonoBehaviour {
 	Animator animator;
 	public Toggle toggle;
+	public Toggle mouthing_toggle;
+	public Toggle toggle_hand;
 	public GameObject replay_button;
     public InputField sentence;
 	public Text frase_pensar;
@@ -56,6 +58,8 @@ public class Client : MonoBehaviour {
         		button.gameObject.SetActive(true);
 				// replay_button.gameObject.SetActive(true);
 				toggle.gameObject.SetActive(true);
+				mouthing_toggle.gameObject.SetActive(true);
+				toggle_hand.gameObject.SetActive(true);
 				animator.SetBool("Pensar", false);
 			}
 			else{
@@ -69,6 +73,8 @@ public class Client : MonoBehaviour {
             button.gameObject.SetActive(false);
 			replay_button.gameObject.SetActive(false);
 			toggle.gameObject.SetActive(false);
+			mouthing_toggle.gameObject.SetActive(false);
+			toggle_hand.gameObject.SetActive(false);
             sent = false; 
 			// animator.SetLayerWeight(animator.GetLayerIndex ("idle_animate"), 1);
 			// animator.SetLayerWeight(animator.GetLayerIndex ("idle"), 0);
@@ -88,6 +94,8 @@ public class Client : MonoBehaviour {
 		button.gameObject.SetActive(false);
 		replay_button.gameObject.SetActive(false);
 		toggle.gameObject.SetActive(false);
+		mouthing_toggle.gameObject.SetActive(false);
+		toggle_hand.gameObject.SetActive(false);
 		mainAnimation.Animate(serverMessage);
 	}
 

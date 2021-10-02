@@ -10,12 +10,22 @@ public class RotateSpine : MonoBehaviour
     float elapsedTime = 0;
     float timeReaction = 2f;
     float startPosition = 0f;
+    public Transform spine;
+    // Transform RightHand;
+    Quaternion rot = new Quaternion(0,0,0,0);
+
+    Quaternion lastAimRotation;
+
+    // Transform LeftHand;
 
     void Start()
     {
         // Transform spine = animator.GetBoneTransform(HumanBodyBones.Spine);
         animator = GetComponent<Animator>();
         state = 0;
+        // spine = animator.GetBoneTransform(HumanBodyBones.Spine);
+        // RightHand = animator.GetBoneTransform(HumanBodyBones.RightHand);
+        // LeftHand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
         // startPosition = spine.position.x;
 
     }
@@ -35,11 +45,15 @@ public class RotateSpine : MonoBehaviour
             // animator.SetBoneLocalRotation(HumanBodyBones.Head, Quaternion.Euler(hand.position));
 
             // Move headdd!!
-            if (animator.GetBool("Animating") && !animator.GetBool("ExpFacial0")) {
-                Transform RightHand = animator.GetBoneTransform(HumanBodyBones.RightHand);
+            if (animator.GetBool("Animating")) {
                 Transform LeftHand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
                 Transform head = animator.GetBoneTransform(HumanBodyBones.Head);
-                Transform spine = animator.GetBoneTransform(HumanBodyBones.Spine);
+                // Transform spine = animator.GetBoneTransform(HumanBodyBones.Spine);
+                Transform RightHand = animator.GetBoneTransform(HumanBodyBones.RightHand);
+
+                // rot = Quaternion.FromToRotation(spine.position, RightHand.position + LeftHand.position);
+
+                // spine.transform.rotation = rot * spine.transform.rotation;
 
                 // Transform spine = animator.GetBoneTransform(HumanBodyBones.Spine);
 
@@ -57,29 +71,21 @@ public class RotateSpine : MonoBehaviour
 
                 Vector3 fromToPosition = handsMiddle - spine.position; //+ para rodar o lado
 
-                // Debug.Log("handdddd");
-                // Debug.Log(handsMiddle);
+                // Debug.Log("z position: " + RightHand.position.z);
 
-                //  if (LeftHand.position.x>=-18.6) {
-                //     if (state2 <0.2f)
-                //     {
-                //         elapsedTime2 += Time.deltaTime;
-                //         state2 = Mathf.Lerp(0,0.2f, elapsedTime2 * timeReaction);
-                //         Debug.Log(state2);
-                //     }
-                //     else
-                //     {
-                //         state2 =0.2f;
-                //         elapsedTime2 = 0;
-                //     }
-                //     animator.SetLookAtWeight(state2, 0.2f, 0f);
-                //     animator.SetLookAtPosition(fromToPosition2);
-                // }
+                // Quaternion rot = Quaternion.FromToRotation(spine.position, RightHand.position);
 
-                Debug.Log("righthandpos: " + RightHand.position.y);
+                // Debug.Log("angles: " + Quaternion.Slerp(lastAimRotation, RightHand.rotation, Time.deltaTime * 1f));
+
+                // spine.rotation = Quaternion.Slerp(lastAimRotation, RightHand.rotation, Time.deltaTime * 1f);
+                // lastAimRotation = spine.rotation;
+
+                // transform.LookAt(RightHand.position, Vector3.up);
+
+                // animator.bodyRotation = RightHand.rotation;
 
 
-                if (RightHand.position.x>=-18.6 && RightHand.position.y<=2.2) {
+                if (RightHand.position.x>=-18.6 && RightHand.position.z >= -1.80) {
                     if (state <0.3f)
                     {
                         elapsedTime += Time.deltaTime;
@@ -91,9 +97,21 @@ public class RotateSpine : MonoBehaviour
                         state =0.3f;
                         elapsedTime = 0;
                     }
+
+
+                    // Quaternion rot = Quaternion.FromToRotation(spine.position, RightHand.position);
+                    // float angle = Quaternion.Angle(spine.rotation, RightHand.rotation);
+
+                    // transform.Rotate(Vector3.down, -angle*state);
+
+                    // spine.rotation = rot * spine.rotation;´
+
+                    // spine.rotation = Quaternion.Slerp(lastAimRotation, RightHand.rotation, Time.deltaTime * 1f);
+                    // lastAimRotation = spine.rotation;
+                    
                     animator.SetLookAtWeight(state, 0.3f, 0f);
-                    // Debug.Log("LeftHand.position");
-                    // Debug.Log(LeftHand.position);
+                    // // Debug.Log("LeftHand.position");
+                    // // Debug.Log(LeftHand.position);
                     animator.SetLookAtPosition(fromToPosition);
                 }
                 else {
@@ -109,7 +127,7 @@ public class RotateSpine : MonoBehaviour
                         elapsedTime = 0;
                     }
                     animator.SetLookAtWeight(state, 0.3f, 0f);
-                    animator.SetLookAtPosition(fromToPosition);
+                    // animator.SetLookAtPosition(spine.position);
                 }
             }
         }

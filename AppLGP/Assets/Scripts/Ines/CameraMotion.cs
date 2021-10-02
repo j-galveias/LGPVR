@@ -65,6 +65,8 @@ public class CameraMotion : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 // ZoomSliderDrag(valueChange);
             }
         }
+
+        if (Input.GetMouseButton(0)) OnDrag();
     }
 
     public void ZoomSliderDrag(float sliderValue)
@@ -102,15 +104,26 @@ public class CameraMotion : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         return hovering;
     }
 
-    public void OnMouseDrag(PointerEventData eventData)
-    {
-        Debug.Log("ENTROUUU");
-        float x = -Input.GetAxis("Mouse X") * 10; //default is 0.1
-        AddCameraRotation(x, 0);
+    public void OnDrag()
+	{
+        // Debug.Log("ENTROUUUU");
+        float rotationSpeed = 10f;
+		float XaxisRotation = Input.GetAxis("Mouse X")*rotationSpeed;
+		// float YaxisRotation = Input.GetAxis("Mouse Y")*rotationSpeed;
+		// select the axis by which you want to rotate the GameObject
+		character.transform.Rotate(Vector3.down, XaxisRotation);
+		// character.transform.RotateAround (Vector3.right, YaxisRotation);
+	}
 
-        // if (editorManager != null)
-        //     editorManager.EndPreview();
-    }
+    // public void OnMouseDrag(PointerEventData eventData)
+    // {
+    //     Debug.Log("ENTROUUU");
+    //     float x = -Input.GetAxis("Mouse X") * 10; //default is 0.1
+    //     AddCameraRotation(x, 0);
+
+    //     // if (editorManager != null)
+    //     //     editorManager.EndPreview();
+    // }
 
     public void AddCameraRotation(float angle, float angleVertical)
     {
