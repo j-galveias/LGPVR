@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44535214, g: 0.48935866, b: 0.54361594, a: 1}
+  m_IndirectSpecularColor: {r: 0.4453519, g: 0.48935795, b: 0.54361486, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -810,7 +810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2559b3dad392624aa0c503cc855c1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookIK: 1
+  lookIK: 0
   leftHandIK: 0
   rightHandIK: 0
   leftFootIK: 1
@@ -1233,6 +1233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 667029487}
+  - component: {fileID: 667029488}
   m_Layer: 0
   m_Name: Catarina2020
   m_TagString: Untagged
@@ -1259,6 +1260,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &667029488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667029486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8debde3eedf3d2b42ac62ca959933394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 238683280}
+  canRotate: 1
+  canZoom: 1
+  mainCamera: {fileID: 963194227}
+  previewCamera: {fileID: 0}
+  cameraFromAbove: {fileID: 0}
+  sideCamera: {fileID: 0}
+  yPanRange: 0.6
+  bezierControlPoint: {fileID: 0}
+  cameraRotation: 0
+  cameraRotationVertical: 0
+  cameraRotationVector: {x: 1, y: 0, z: 0}
+  cameraRotationVectorVertical: {x: 0, y: 0, z: 1}
 --- !u!1 &683291665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,7 +1979,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 411465960}
   m_HandleRect: {fileID: 411465959}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

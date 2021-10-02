@@ -66,10 +66,66 @@ public class Manager : MonoBehaviour
         // File.WriteAllText(Application.persistentDataPath + "/" + "ola.anim", "olaaa");
 
         // Serialize();
-        StartCoroutine(GetBundle());
+        // StartCoroutine(GetBundle());
+
+        InitializeButtons("Animations/Fingerspelling/", true);
+        InitializeButtons("Animations/AllSigns/");
+
 
         //Descomentar para usar o FuzzyMatch
         search.onValueChanged.AddListener(delegate {SortButtons();});
+    }
+        
+        void GetFirebaseBundles() {
+        // Get a reference to the storage service, using the default Firebase App
+        // FirebaseStorage storage = FirebaseStorage.DefaultInstance;
+
+        // // Create a storage reference from our storage service
+        // StorageReference storageRef = storage.GetReferenceFromUrl("gs://tradutor-55490.appspot.com/Signs/abacate");
+        
+        // storageRef.GetDownloadUrlAsync().ContinueWithOnMainThread((Task<Uri> task) => {
+        //     if (!task.IsFaulted && !task.IsCanceled) {
+        //         Debug.Log("Download URL: " + task.Result);
+        //         StartCoroutine(downloadFile(task.Result.ToString()));
+        //     }
+        // });
+
+
+        // storageRef.GetDownloadUrlAsync().ContinueWithOnMainThread(task => {
+        // if (!task.IsFaulted && !task.IsCanceled) {
+        //     Debug.Log("Download URL: " + task.Result.FirstOrDefault(x => x.Id == ""));
+        //     // ... now download the file via WWW or UnityWebRequest.
+        //     StartCoroutine(downloadFile(task.Result.FirstOrDefault(x => x.Id == "")));
+        // }
+        // });
+
+    }
+
+    IEnumerator downloadFile(string asset) {
+        Debug.Log(asset);
+        UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(asset);
+        yield return www.SendWebRequest();
+
+        Debug.Log("get requesttt");
+ 
+        if (www.result != UnityWebRequest.Result.Success) {
+            Debug.Log(www.error);
+        }
+        else {
+            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
+            AnimationClip[] animationsArray = bundle.LoadAllAssets<AnimationClip>();
+            foreach (var clip in animationsArray) {
+                string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
+                animations.Add(name.ToLower(), clip as AnimationClip);
+            }
+            TextAsset[] jsonArray = bundle.LoadAllAssets<TextAsset>();
+            foreach (var clip in jsonArray) {
+                string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
+                jsonFiles.Add(name.ToLower(), clip as TextAsset);
+            }
+            foreach(var anim in animations) Debug.Log(anim);
+            // InitializeButtons();
+        }
     }
 
     IEnumerator GetBundle() {
@@ -154,7 +210,7 @@ public class Manager : MonoBehaviour
                 jsonFiles.Add(name.ToLower(), clip as TextAsset);
             }
             foreach(var anim in animations) Debug.Log(anim);
-            if(last) InitializeButtons();
+            // if(last) InitializeButtons();
         }
     }
 
@@ -172,27 +228,28 @@ public class Manager : MonoBehaviour
         // animationsArray[0].toJSON();
     }
 
-    private void InitializeButtons(bool pause=false)
+    private void InitializeButtons(string path, bool pause=false)
     {
         buttonModel.SetActive(true);
 
         // LoadAssetBundle(path);
 
-        // AnimationClip[] animationsArray = Resources.LoadAll<AnimationClip>(path);
-        // TextAsset[] jsonArray = Resources.LoadAll<TextAsset>(path);
-        // animations = new Dictionary<string, AnimationClip>();
-        // Dictionary<string, TextAsset> jsonFiles = new Dictionary<string, TextAsset>();
+        AnimationClip[] animationsArray = Resources.LoadAll<AnimationClip>(path);
+        TextAsset[] jsonArray = Resources.LoadAll<TextAsset>(path);
+        Dictionary<string, AnimationClip> animations_aux = new Dictionary<string, AnimationClip>();
+        Dictionary<string, TextAsset> jsonFiles = new Dictionary<string, TextAsset>();
 
-        // foreach (AnimationClip animFile in animationsArray){
-        //     Debug.Log(animFile);
-        //     animations.Add(animFile.name, animFile as AnimationClip);
-        // }
+        foreach (AnimationClip animFile in animationsArray){
+            Debug.Log(animFile);
+            animations.Add(animFile.name.ToUpper(), animFile as AnimationClip);
+            animations_aux.Add(animFile.name.ToUpper(), animFile as AnimationClip);
+        }
 
-        // foreach (TextAsset json in jsonArray)
-        //     jsonFiles.Add(json.name, json);
+        foreach (TextAsset json in jsonArray)
+            jsonFiles.Add(json.name.ToUpper(), json);
 
 
-        List<string> list = animations.Keys.ToList();
+        List<string> list = animations_aux.Keys.ToList();
         foreach(var a in list) Debug.Log("a: " + a);
         list.Sort();
 
@@ -207,7 +264,6 @@ public class Manager : MonoBehaviour
         }
 
         controller.AddMotion(emptyAnim, signLayer);*/
-
 
         foreach (string key in list)
         {
