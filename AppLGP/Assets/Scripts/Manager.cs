@@ -18,6 +18,7 @@ public class Manager : MonoBehaviour
 {
     const string PATH_FINGERSPELL = "/Fingerspelling/";
     const string PATH_SIGNS = "/Signs/";
+    private const float SEARCH_DELAY = 0.3f;
 
     Dictionary<string, AnimationClip> animations = new Dictionary<string, AnimationClip>();
     Dictionary<string, TextAsset> jsonFiles = new Dictionary<string, TextAsset>();
@@ -39,6 +40,8 @@ public class Manager : MonoBehaviour
     private Coroutine idleCoroutine;
     private int repeat = 1;
     private bool doRepeat = false;
+
+    private int searchDelayCounter = 0;
 
     private Dictionary<string, bool> hasPause = new Dictionary<string, bool>();
     private Dictionary<string, AnimatedSignData> animData = new Dictionary<string, AnimatedSignData>();
@@ -73,7 +76,7 @@ public class Manager : MonoBehaviour
 
 
         //Descomentar para usar o FuzzyMatch
-        search.onValueChanged.AddListener(delegate {SortButtons();});
+        search.onValueChanged.AddListener(delegate {IncrementSearchDelay();});
     }
         
         void GetFirebaseBundles() {
@@ -334,6 +337,23 @@ public class Manager : MonoBehaviour
 
     string removeAccents(string word) {
         return Regex.Replace(word.Normalize(NormalizationForm.FormD), @"[^A-Za-z 0-9 \.,\?'""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*", string.Empty).Trim();
+    }
+
+    public void IncrementSearchDelay()
+    {
+        searchDelayCounter++;
+        StartCoroutine(DecrementSearchDelay());
+    }
+
+    public IEnumerator DecrementSearchDelay()
+    {
+        yield return new WaitForSeconds(SEARCH_DELAY);
+        searchDelayCounter--;
+
+        if (searchDelayCounter <= 0)
+        {
+            SortButtons();
+        }
     }
 
     private void SortButtons()
