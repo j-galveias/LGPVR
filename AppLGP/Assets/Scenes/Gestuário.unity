@@ -188,17 +188,17 @@ PrefabInstance:
     - target: {fileID: 6355568694925315774, guid: 9b4c159986c1c424e8220d5fdd67f8e2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6355568694925315774, guid: 9b4c159986c1c424e8220d5fdd67f8e2,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6355568694925315774, guid: 9b4c159986c1c424e8220d5fdd67f8e2,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 279.42
       objectReference: {fileID: 0}
     - target: {fileID: 6355568694925315774, guid: 9b4c159986c1c424e8220d5fdd67f8e2,
         type: 3}
@@ -208,12 +208,12 @@ PrefabInstance:
     - target: {fileID: 6355568694925315774, guid: 9b4c159986c1c424e8220d5fdd67f8e2,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6355568694925315774, guid: 9b4c159986c1c424e8220d5fdd67f8e2,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6355568696044365320, guid: 9b4c159986c1c424e8220d5fdd67f8e2,
         type: 3}
@@ -1120,6 +1120,20 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 232935378}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &238683283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238683280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaafb8da2e882fd4bb4addfeca2647a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationActive: 0
+  camera: {fileID: 963194227}
 --- !u!1 &267892453 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6355568694889114899, guid: 9b4c159986c1c424e8220d5fdd67f8e2,
