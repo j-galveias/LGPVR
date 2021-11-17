@@ -12,6 +12,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using System.Runtime.InteropServices;
 using FuzzySharp;
+// using Firebase.Storage;
+// using Firebase.Database;
+// using Firebase.Extensions;
 
 [System.Serializable]
 public class Manager : MonoBehaviour
@@ -55,7 +58,7 @@ public class Manager : MonoBehaviour
         // signLayer = animator.GetLayerIndex("signLayer");
         animator.transform.localPosition += new Vector3(0,(float)0.9,0);
 
-        // InitializeButtons(Application.dataPath + "/AssetBundles/fingerspelling", true);
+         // InitializeButtons(Application.dataPath + "/AssetBundles/fingerspelling", true);
         // InitializeButtons(Application.dataPath + "/AssetBundles/signs");
 
         // LoadAssetBundle(@"C:\Users\nesla\Desktop\AssetBundles\signs");
@@ -73,38 +76,86 @@ public class Manager : MonoBehaviour
         // Serialize();
         // StartCoroutine(GetBundle());
 
+        // FIREBASEEE
+
+        // DatabaseReference database = FirebaseDatabase.DefaultInstance.RootReference;
+        // FirebaseDatabase.DefaultInstance.GetReference("Signs")
+        // .GetValueAsync().ContinueWithOnMainThread(task => {
+        //     if (task.IsFaulted) {
+        //     // Handle the error...
+        //     }
+        //     else if (task.IsCompleted) {
+        //         DataSnapshot snapshot = task.Result;
+        //         Debug.Log(snapshot.GetValue(Database));
+        //         Debug.Log(snapshot.Key);
+
+        //         // var json = JsonSerializer.Deserialize<Database>(snapshot.Value);
+                
+        //         // int i = 0;
+        //         // while (i <  snapshot.Value.Count){
+        //         //     Debug.Log(snapshot.Value[i]);
+        //         //     i ++;
+        //         // }
+        //         // foreach(var sign in snapshot.Value)
+        //         //     Debug.Log(sign);
+        //         // GetFirebaseBundles(snapshot);
+        //     }
+        // });
+
+        // FirebaseStorage storage = FirebaseStorage.DefaultInstance;
+
+        // StorageReference storageRef = storage.GetReferenceFromUrl("gs://tradutor-55490.appspot.com/files.txt");
+
+        // storageRef.GetDownloadUrlAsync().ContinueWithOnMainThread((Task<Uri> task) => {
+        //     if (!task.IsFaulted && !task.IsCanceled) {
+        //         Debug.Log("Download URL: " + task.Result);
+        //         StartCoroutine(downloadTextFile(task.Result.ToString()));
+        //     }
+        // });
+
         InitializeButtons("Animations/Fingerspelling/", true);
-        InitializeButtons("Animations/AllSigns/");
+        InitializeButtons("Animations/Signs/");
 
 
         //Descomentar para usar o FuzzyMatch
         search.onValueChanged.AddListener(delegate {IncrementSearchDelay();});
     }
         
-        void GetFirebaseBundles() {
-        // Get a reference to the storage service, using the default Firebase App
-        // FirebaseStorage storage = FirebaseStorage.DefaultInstance;
+// IEnumerator downloadTextFile(string text) {
+        //     UnityWebRequest www = new UnityWebRequest(text);
+        //     www.downloadHandler = new DownloadHandlerBuffer();
+        //     yield return www.SendWebRequest();
 
-        // // Create a storage reference from our storage service
-        // StorageReference storageRef = storage.GetReferenceFromUrl("gs://tradutor-55490.appspot.com/Signs/abacate");
-        
-        // storageRef.GetDownloadUrlAsync().ContinueWithOnMainThread((Task<Uri> task) => {
-        //     if (!task.IsFaulted && !task.IsCanceled) {
-        //         Debug.Log("Download URL: " + task.Result);
-        //         StartCoroutine(downloadFile(task.Result.ToString()));
+        //     if (www.result != UnityWebRequest.Result.Success) {
+        //         Debug.Log(www.error);
         //     }
-        // });
-
-
-        // storageRef.GetDownloadUrlAsync().ContinueWithOnMainThread(task => {
-        // if (!task.IsFaulted && !task.IsCanceled) {
-        //     Debug.Log("Download URL: " + task.Result.FirstOrDefault(x => x.Id == ""));
-        //     // ... now download the file via WWW or UnityWebRequest.
-        //     StartCoroutine(downloadFile(task.Result.FirstOrDefault(x => x.Id == "")));
+        //     else {
+        //         // Show results as text
+        //         Debug.Log(www.downloadHandler.text);
+        //         foreach(var line in www.downloadHandler.text.Split('\n')) {
+        //             Debug.Log(line);
+        //             GetFirebaseBundles(line);
+        //         }
+        //     }
         // }
-        // });
+        
+        // void GetFirebaseBundles(string sign) {
+        //     Debug.Log("functionn");
+        // // Get a reference to the storage service, using the default Firebase App
+        //     FirebaseStorage storage = FirebaseStorage.DefaultInstance;
 
-    }
+        //     // Create a storage reference from our storage service
+        //     StorageReference storageRef = storage.GetReferenceFromUrl("gs://tradutor-55490.appspot.com/Signs/" + sign);
+        //     Debug.Log(storageRef);
+        //     storageRef.GetDownloadUrlAsync().ContinueWithOnMainThread((Task<Uri> task) => {
+        //         Debug.Log(task.Result.ToString());
+        //         if (!task.IsFaulted && !task.IsCanceled) {
+        //             Debug.Log("Download URL: " + task.Result);
+        //             StartCoroutine(downloadFile(task.Result.ToString()));
+        //         }
+        //     });
+
+        // }
 
     IEnumerator downloadFile(string asset) {
         Debug.Log(asset);
@@ -129,7 +180,7 @@ public class Manager : MonoBehaviour
                 jsonFiles.Add(name, clip as TextAsset);
             }
             foreach(var anim in animations) Debug.Log(anim);
-            // InitializeButtons();
+            InitializeButtons();
         }
     }
 
@@ -219,39 +270,28 @@ public class Manager : MonoBehaviour
         }
     }
 
-    void Serialize() {
-        AnimationClip[] animationsArray = Resources.LoadAll<AnimationClip>("Animations/Signs/");
-        // var fileStream = new FileStream(Path.Combine(Application.streamingAssetsPath, animationsArray[0].name+".dat"), FileMode.Create);
-        // // System.IO.File.WriteAllText(Path.Combine(Application.streamingAssetsPath, link), www.downloadHandler.text);
-        // // Construct a BinaryFormatter and use it to serialize the data to the stream.
-        // var formatter = new BinaryFormatter();
-        // Instantiate(animationsArray[0]);
-        // formatter.Serialize(fileStream, animationsArray[0]);
-        // fileStream.Close();
-
-        // AssetDatabase.Refresh();
-        // animationsArray[0].toJSON();
-    }
-
-    private void InitializeButtons(string path, bool pause=false)
+    private void InitializeButtons(string path = null, bool pause=false)
     {
         buttonModel.SetActive(true);
 
         // LoadAssetBundle(path);
 
-        AnimationClip[] animationsArray = Resources.LoadAll<AnimationClip>(path);
-        TextAsset[] jsonArray = Resources.LoadAll<TextAsset>(path);
         Dictionary<string, AnimationClip> animations_aux = new Dictionary<string, AnimationClip>();
-        Dictionary<string, TextAsset> jsonFiles = new Dictionary<string, TextAsset>();
+        if (path != null) {
+            AnimationClip[] animationsArray = Resources.LoadAll<AnimationClip>(path);
+            TextAsset[] jsonArray = Resources.LoadAll<TextAsset>(path);
+            Dictionary<string, TextAsset> jsonFiles = new Dictionary<string, TextAsset>();
 
-        foreach (AnimationClip animFile in animationsArray){
-            Debug.Log(animFile);
-            animations.Add(animFile.name.ToUpper(), animFile as AnimationClip);
-            animations_aux.Add(animFile.name.ToUpper(), animFile as AnimationClip);
+            foreach (AnimationClip animFile in animationsArray){
+                Debug.Log(animFile);
+                animations.Add(animFile.name.ToUpper(), animFile as AnimationClip);
+                animations_aux.Add(animFile.name.ToUpper(), animFile as AnimationClip);
+            }
+
+            foreach (TextAsset json in jsonArray)
+                jsonFiles.Add(json.name.ToUpper(), json);
+
         }
-
-        foreach (TextAsset json in jsonArray)
-            jsonFiles.Add(json.name.ToUpper(), json);
 
 
         List<string> list = animations_aux.Keys.ToList();
@@ -328,7 +368,8 @@ public class Manager : MonoBehaviour
         // if (search.text != null) {
         if(loadedBundles) {
             foreach (Button b in Buttons){
-                b.interactable = currentSign == "idle";
+                if (b.name == currentSign) b.interactable = true;
+                else b.interactable = currentSign == "idle";
                 /*if (!String.IsNullOrEmpty(search.text))
                     b.gameObject.SetActive(removeAccents(b.name.ToLower()).IndexOf(removeAccents(search.text.ToLower()).Trim() ) >= 0);
                 else
@@ -417,20 +458,22 @@ public class Manager : MonoBehaviour
         animatorOverrideController["_signAnim0"] = animations[sign];
         animator.runtimeAnimatorController = animatorOverrideController;
         animator.CrossFadeInFixedTime("Sign", 0.5f, 1, 0.5f);
+        animator.SetBool("Animating", true);
         currentSign = sign;
         // idle = false;
         doRepeat = false;
 
         float waitTime = hasPause[currentSign] ? 0.1f : 0f;
         yield return new WaitForSeconds(animations[sign].length + waitTime);
-        currentSign = "idle";
         animator.CrossFadeInFixedTime("Idle", 0.5f, 1, 0.5f);
         yield return new WaitForSeconds(0.5f);
         currentSign = "idle";
+        animator.SetBool("Animating", false);
         // animator.transform.localPosition -= new Vector3(0.1f,0,0);
         // canvas.SetActive(true);
 
     }
+
 
     public void Idle() {
         animator.CrossFadeInFixedTime("Idle", 0.5f, 1, 0.5f);

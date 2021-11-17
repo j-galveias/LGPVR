@@ -691,6 +691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40275b7ff2658d843a3c12afb3ec4660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  error: 
   toggle: {fileID: 966450428}
   mouthing_toggle: {fileID: 1365299699}
   toggle_hand: {fileID: 699321733}
@@ -1209,6 +1210,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697799447051780538, guid: 0fd22b57596a2f9429763d5617d76801,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1697799447051780538, guid: 0fd22b57596a2f9429763d5617d76801,
         type: 3}
@@ -1783,7 +1789,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2122,7 +2128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &989468204
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2476,7 +2482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1131017430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2559,7 +2565,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1143701499}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2568,7 +2574,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 32, y: 370}
+  m_AnchoredPosition: {x: 28.418396, y: 372.32288}
   m_SizeDelta: {x: 217.07336, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1143701501
@@ -3750,10 +3756,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.1
+  m_Radius: 0.15
   m_Height: 0.2
   m_Direction: 0
-  m_Center: {x: -0.1, y: 0.02, z: 0}
+  m_Center: {x: -0.12, y: 0, z: 0}
 --- !u!54 &2030565720
 Rigidbody:
   m_ObjectHideFlags: 0
