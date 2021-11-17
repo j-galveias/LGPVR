@@ -58,7 +58,7 @@ public class SecondaryMovs : MonoBehaviour
 
                 Vector3 handsMiddle = (RightHand.position + LeftHand.position)/2;
 
-                fromToPosition = new Vector3(handsMiddle.x, camera.transform.position.y, handsMiddle.z + 0.15f); //+ para rodar o lado
+                fromToPosition = new Vector3(handsMiddle.x, head.transform.position.y, handsMiddle.z + 0.15f); //+ para rodar o lado
 
                 // Debug.Log("handdddd");
                 // Debug.Log(handsMiddle);
@@ -90,6 +90,10 @@ public class SecondaryMovs : MonoBehaviour
                         state = 0.2f;
                         elapsedTime = 0;
                     }
+
+                    // if (RightHand.position.y >= 0) fromToPosition.y = Mathf.Lerp(fromToPosition.y, RightHand.position.y, state);
+                    // else fromToPosition.y = Mathf.Lerp(fromToPosition.y, camera.transform.position.y, state);
+
                     animator.SetLookAtWeight(state, 0.8f, 1f);
                     // Debug.Log("LeftHand.position");
                     // Debug.Log(LeftHand.position);
@@ -107,6 +111,7 @@ public class SecondaryMovs : MonoBehaviour
                     state = 0;
                     elapsedTime = 0;
                 }
+                // fromToPosition.y = Mathf.Lerp(fromToPosition.y, camera.transform.position.y, state);
                 animator.SetLookAtWeight(state, 0.8f, 1f);
                 animator.SetLookAtPosition(fromToPosition);
             }

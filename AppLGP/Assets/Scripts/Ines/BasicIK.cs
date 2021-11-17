@@ -69,11 +69,11 @@ public class BasicIK : MonoBehaviour
                      }
                     if (positionActive)
                     {   
-                        if (!first) rightHandPosition.position = Vector3.Lerp(rightHandPosition.position, rightHandPosition.position+difference, state);
+                        if (!first) rightHandPosition.localPosition = Vector3.Lerp(rightHandPosition.localPosition, rightHandPosition.localPosition+difference, state);
                         animator.SetIKPositionWeight(AvatarIKGoal.RightHand, state);
                         // animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
                         // rightHandPosition.position = new Vector3(rightHandPosition.position.x + 0.003f,rightHandPosition.position.y + 0.003f,rightHandPosition.position.z);
-                        animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandPosition.position);
+                        animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandPosition.localPosition);
                         // if (!first && !last) rightHandPosition.position = Vector3.Lerp(rightHandPosition.position, new Vector3(rightHandPosition.position.x + 0.0005f,rightHandPosition.position.y -0.0001f,rightHandPosition.position.z), state);
                         // rightHandPosition.position = Vector3.Lerp(rightHandPosition.position, new Vector3(rightHandPosition.position.x + 0.0003f,rightHandPosition.position.y -0.0001f,rightHandPosition.position.z), state);
 
@@ -102,7 +102,7 @@ public class BasicIK : MonoBehaviour
 
                     animator.SetIKPositionWeight(AvatarIKGoal.RightHand, state);
                     //  animator.SetIKRotationWeight(AvatarIKGoal.RightHand, state);
-                    animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandPosition.position);
+                    animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandPosition.localPosition);
                     //  animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
                     collision = false;
 
@@ -123,10 +123,10 @@ public class BasicIK : MonoBehaviour
                 // animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
                 // animator.SetLookAtWeight(0);
 
-            // if(collisionDetection.isCollided && !ikActive && collision) {
-            //     if (glosasIndex == 1) Wait();
-            //     else collisionDetection.OnAnimatorIK(); 
-            // }
+            if(collisionDetection.isCollided && !ikActive && collision) {
+                // if (glosasIndex == 1) Wait();
+                collisionDetection.OnAnimatorIK(); 
+            }
         }
     }
 

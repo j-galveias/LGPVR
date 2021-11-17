@@ -76,12 +76,14 @@ public class CollisionDetection : MonoBehaviour
                     state = 0.03f - state;
 
                     animator.SetIKPositionWeight(AvatarIKGoal.RightHand, state);
+                    animator.SetIKPosition(AvatarIKGoal.RightHand, defaultPos); 
                 }
                 else
                 {
                     state = 0;
                     elapsedTime = 0;
                     animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
+                    animator.SetIKPosition(AvatarIKGoal.RightHand, defaultPos);
                 }
             }
         } else {
