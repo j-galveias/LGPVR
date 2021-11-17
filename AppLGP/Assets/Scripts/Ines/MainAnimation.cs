@@ -154,7 +154,7 @@ public class MainAnimation : MonoBehaviour
         {
             if (clip is AnimationClip){
                 AnimationClip animClip =  (AnimationClip) clip;
-                var animation = removeAccents(animClip.name.ToUpper().Replace("GESTO_", ""));
+                var animation = NLP.removeAccents(NLP.StandardizeName(animClip.name)).ToUpper();
                 animationClips.Add(animation, animClip);
                 // Debug.Log(animation);
                 // Debug.Log(animClip.name);
@@ -177,12 +177,10 @@ public class MainAnimation : MonoBehaviour
             }
             else {
                 Debug.Log("JSONNNNN");
-                var animation = removeAccents(clip.name.ToUpper().Replace("GESTO_", ""));
+                var animation = NLP.removeAccents(NLP.StandardizeName(clip.name)).ToUpper();
                 Debug.Log(animation);
                 // string content = System.IO.File.ReadAllText(clip.name + ".json");
-                var jsonString = Regex.Replace(clip.ToString(), ":\\s*([-1234567890\\.E]+)", ":\"$1\"");
-                jsonString = Regex.Replace(jsonString, ":\\s*(true|false)", ":\"$1\"");
-                jsonInfo = JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
+                jsonInfo = Manager.GetAnimData(clip);
                 int count_right = 0;
                 int count_left = 0;
                 List<Vector3> hand_pos_right = new List<Vector3>();
@@ -297,7 +295,7 @@ public class MainAnimation : MonoBehaviour
         // foreach (var folder in folders) {
         //     Debug.Log("FOLDERRR " + folder);
         //     string[] folderName = folder.Split('/');
-        //     var gesto_composto = removeAccents(folderName[folderName.Length - 1].ToUpper().Replace("GESTO_", ""));
+        //     var gesto_composto = NLP.removeAccents(folderName[folderName.Length - 1].ToUpper().Replace("GESTO_", ""));
         //     trie.Add(gesto_composto);
         //     int util = gesto_composto.Contains(' ') ? gesto_composto.Split(' ').Length : 1;
         //     // Debug.Log(util);
@@ -332,12 +330,10 @@ public class MainAnimation : MonoBehaviour
             }
             else {
                 Debug.Log("JSONNNNN");
-                var animation = removeAccents(clip.name.ToUpper().Replace("GESTO_", ""));
+                var animation = NLP.removeAccents(NLP.StandardizeName(clip.name)).ToUpper();
                 Debug.Log(animation);
                 // string content = System.IO.File.ReadAllText(clip.name + ".json");
-                var jsonString = Regex.Replace(clip.ToString(), ":\\s*([-1234567890\\.E]+)", ":\"$1\"");
-                jsonString = Regex.Replace(jsonString, ":\\s*(true|false)", ":\"$1\"");
-                jsonInfo = JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
+                jsonInfo = Manager.GetAnimData(clip);
                 int count_right = 0;
                 int count_left = 0;
                 List<Vector3> hand_pos_right = new List<Vector3>();
@@ -474,7 +470,7 @@ public class MainAnimation : MonoBehaviour
         // List<string> newLista = new List<string>();
         // foreach (var glosa in json_glosas) newLista.Add(glosa);
 
-        List<string> matches = trie.Find(removeAccents(string.Join(" ", json_glosas))).ToList();
+        List<string> matches = trie.Find(NLP.removeAccents(string.Join(" ", json_glosas))).ToList();
 
         // List<string> finalLista = new List<string>();
 
@@ -491,9 +487,9 @@ public class MainAnimation : MonoBehaviour
             foreach(string match in matchesRemoveDupli) {
                 if (match.Contains(' ')){
                     string[] split = match.Split(' ');
-                    if(split.Contains(removeAccents(glosa))) matches.Add(match);
+                    if(split.Contains(NLP.removeAccents(glosa))) matches.Add(match);
                 }
-                else if(match == removeAccents(glosa)) {
+                else if(match == NLP.removeAccents(glosa)) {
                     matches.Add(match);
                 }
             }
@@ -552,15 +548,15 @@ public class MainAnimation : MonoBehaviour
 
         // // duration = (duration<=(1f* json.fonemas[glosasIndex].Count)) ? (1f * json.fonemas[glosasIndex].Count) : duration;
 
-        bool animateMouthing = mouthingAnim.ContainsKey(removeAccents(glosa)) ? mouthingAnim[removeAccents(glosa)] : true;
+        bool animateMouthing = mouthingAnim.ContainsKey(NLP.removeAccents(glosa)) ? mouthingAnim[NLP.removeAccents(glosa)] : true;
 
         animator.SetBool("idle_viseme", !animateMouthing);
 
         //Adiciona expressão para a clausula condicional
         animator.SetBool("Exp_cond", bool.Parse(json.adv_cond[glosasIndex]));
 
-        if (animationClips.ContainsKey(removeAccents(glosa))) {
-            glosa = removeAccents(glosa);
+        if (animationClips.ContainsKey(NLP.removeAccents(glosa))) {
+            glosa = NLP.removeAccents(glosa);
             // if (hasExprFaciais){
             //     if ("interrogativa" == json.exprFaciais.First().Value && glosasIndex == (Int32.Parse(split[1])-1)){
             //         StartCoroutine(Interrogativa(animationClips[glosa].length)); // play animations for facial expressions
@@ -583,10 +579,10 @@ public class MainAnimation : MonoBehaviour
             float trans_duration;
             float offset;
             if (glosasIndexAux > 0){
-                if (animationClips.ContainsKey(removeAccents(glosas_copy[glosasIndexAux-1])))
-                    dur_value = dynamicTrans(glosa, removeAccents(glosas_copy[glosasIndexAux-1]));
+                if (animationClips.ContainsKey(NLP.removeAccents(glosas_copy[glosasIndexAux-1])))
+                    dur_value = dynamicTrans(glosa, NLP.removeAccents(glosas_copy[glosasIndexAux-1]));
                 else {
-                    dur_value = dynamicTrans(glosa, removeAccents(glosas_copy[glosasIndexAux-1]).Last().ToString());
+                    dur_value = dynamicTrans(glosa, NLP.removeAccents(glosas_copy[glosasIndexAux-1]).Last().ToString());
                 }
             }
             trans_duration = bool.Parse(json.gestos_compostos[glosasIndex]) ? 0.2f : dur_value;
@@ -846,7 +842,7 @@ public class MainAnimation : MonoBehaviour
 
         // foreach (var charr in glosa) Debug.Log(charr);
 
-        string asciiStr = removeAccents(glosa);    
+        string asciiStr = NLP.removeAccents(glosa);    
         Debug.Log(asciiStr);
         characters.AddRange(asciiStr.Select(c => c.ToString()));
 
@@ -885,10 +881,10 @@ public class MainAnimation : MonoBehaviour
             float dur_value = int.TryParse(character, out int index) ? 0.8f : 0.8f; //optimal transition duration based on study
 
             if (basicIK.first && glosasIndexAux > 0) {
-                if (animationClips.ContainsKey(removeAccents(glosas_copy[glosasIndexAux-1])))
-                    dur_value = dynamicTrans(character, removeAccents(glosas_copy[glosasIndexAux-1]));
+                if (animationClips.ContainsKey(NLP.removeAccents(glosas_copy[glosasIndexAux-1])))
+                    dur_value = dynamicTrans(character, NLP.removeAccents(glosas_copy[glosasIndexAux-1]));
                 else {
-                    dur_value = dynamicTrans(character, removeAccents(glosas_copy[glosasIndexAux-1]).Last().ToString());
+                    dur_value = dynamicTrans(character, NLP.removeAccents(glosas_copy[glosasIndexAux-1]).Last().ToString());
                 }
             }
             float trans_duration = dur_value;
@@ -957,10 +953,6 @@ public class MainAnimation : MonoBehaviour
         Debug.Log(events[0]);
     }
 
-    string removeAccents(string word) {
-        word = Regex.Replace(word.Normalize(NormalizationForm.FormD), @"[^A-Za-z 0-9 \.,\?'""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*", string.Empty).Trim();
-        return word.Replace("-", " ").Replace("_", " ").Replace(" DE ", " ").Replace(" DO ", " ");
-    }
 
      private IEnumerator Wait()
      {
@@ -1013,5 +1005,5 @@ public class MainAnimation : MonoBehaviour
         //     if (i != skinnedMeshRenderer.sharedMesh.GetBlendShapeIndex("mClose"))
         //         skinnedMeshRenderer.SetBlendShapeWeight(i, 0f);
         // }
-    }  
+    }
 }

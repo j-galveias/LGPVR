@@ -44,7 +44,9 @@ public class Manager : MonoBehaviour
     private int searchDelayCounter = 0;
 
     private Dictionary<string, bool> hasPause = new Dictionary<string, bool>();
-    private Dictionary<string, AnimatedSignData> animData = new Dictionary<string, AnimatedSignData>();
+
+    private static bool animDataLoaded = false;
+    private static Dictionary<string, AnimatedSignData> animData = new Dictionary<string, AnimatedSignData>();
 
     //private Dictionary<string, Motion> animations = new Dictionary<string, Motion>();
 
@@ -118,13 +120,13 @@ public class Manager : MonoBehaviour
             AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
             AnimationClip[] animationsArray = bundle.LoadAllAssets<AnimationClip>();
             foreach (var clip in animationsArray) {
-                string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
-                animations.Add(name.ToLower(), clip as AnimationClip);
+                string name = NLP.StandardizeName(clip.name);
+                animations.Add(name, clip as AnimationClip);
             }
             TextAsset[] jsonArray = bundle.LoadAllAssets<TextAsset>();
             foreach (var clip in jsonArray) {
-                string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
-                jsonFiles.Add(name.ToLower(), clip as TextAsset);
+                string name = NLP.StandardizeName(clip.name);
+                jsonFiles.Add(name, clip as TextAsset);
             }
             foreach(var anim in animations) Debug.Log(anim);
             // InitializeButtons();
@@ -335,10 +337,6 @@ public class Manager : MonoBehaviour
         }
     }
 
-    string removeAccents(string word) {
-        return Regex.Replace(word.Normalize(NormalizationForm.FormD), @"[^A-Za-z 0-9 \.,\?'""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*", string.Empty).Trim();
-    }
-
     public void IncrementSearchDelay()
     {
         searchDelayCounter++;
@@ -398,7 +396,7 @@ public class Manager : MonoBehaviour
 
     private string PreProcess(string txt)
     {
-        return removeAccents(txt.ToLower()).Trim();
+        return NLP.removeAccents(txt.ToLower()).Trim();
     }
 
     // private IEnumerator Blink(float waitTimeMin, float waitTimeMax)
@@ -437,6 +435,49 @@ public class Manager : MonoBehaviour
     public void Idle() {
         animator.CrossFadeInFixedTime("Idle", 0.5f, 1, 0.5f);
         canvas.SetActive(true);
+    }
+
+    public static Dictionary<string, AnimatedSignData> GetAnimAllData()
+    {
+        if (!animDataLoaded)
+        {
+            animDataLoaded = true;
+            var getClips = Resources.LoadAll("Animations/Signs/");
+
+            foreach (var clip in getClips)
+            {
+                if (!(clip is AnimationClip))
+                {
+                    GetAnimData(clip);
+                }
+            }
+        }
+
+        return animData;
+    }
+
+    public static AnimatedSignData GetAnimData(UnityEngine.Object json)
+    {
+        string name = NLP.StandardizeName(json.name);
+
+        if (!animData.ContainsKey(name)) {
+            var jsonString = Regex.Replace(json.ToString(), ":\\s*([-1234567890\\.E]+)", ":\"$1\"");
+            jsonString = Regex.Replace(jsonString, ":\\s*(true|false)", ":\"$1\"");
+            animData[name] = JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
+        }
+
+        return animData[name];
+    }
+
+    public static AnimatedSignData GetAnimData(string signName)
+    {
+        var json = Resources.Load("Animations/Signs/"+signName+".json");
+        return GetAnimData(json);
+    }
+
+    private static void LoadAnimationData()
+    {
+
     }
 
     // public void Update()

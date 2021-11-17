@@ -6,4 +6,10 @@ public class AnimatedSignTrack
     public string loops { get; set; } = "false"; //Used for hand animations
 
     public List<AnimatedSignKey> keyFrames { get; set; } = new List<AnimatedSignKey>();
+
+    public List<AnimatedSignKey> GetSortedKeyframes()
+    {
+        keyFrames.Sort();
+        return keyFrames;
+    }
 }

@@ -115,13 +115,13 @@ public class AnimatedSignKey: IComparable
     //     strings[NAME] = name;
     // }
 
-    // public string GetHandName()
-    // {
-    //     if (strings.ContainsKey(NAME))
-    //         return strings[NAME];
-    //     else
-    //         return AnimatedSign.HAND_DEFAULT;
-    // }
+    public string GetHandName()
+    {
+        if (strings.ContainsKey(NAME))
+            return strings[NAME];
+        else
+            return AnimatedSign.HAND_DEFAULT;
+    }
 
     // public void SetHandHash(int hash)
     // {

@@ -16,7 +16,7 @@ public class CameraMotion : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Transform cameraFromAbove;
     public Camera sideCamera;
 
-    private bool hovering = true;
+    public bool hovering = true;
     private float initialY;
     private Vector3 originalCameraPos;
     private Vector3 originalCameraRot;
@@ -95,24 +95,21 @@ public class CameraMotion : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("ENTROUUU");
-        hovering = true;
-    }
-
-    public bool IsHovering()
-    {
-        return hovering;
+        hovering = false;
     }
 
     public void OnDrag()
 	{
-        // Debug.Log("ENTROUUUU");
-        float rotationSpeed = 10f;
-		float XaxisRotation = Input.GetAxis("Mouse X")*rotationSpeed;
-		// float YaxisRotation = Input.GetAxis("Mouse Y")*rotationSpeed;
-		// select the axis by which you want to rotate the GameObject
-		character.transform.Rotate(Vector3.down, XaxisRotation);
-		// character.transform.RotateAround (Vector3.right, YaxisRotation);
+        if (hovering)
+        {
+            // Debug.Log("ENTROUUUU");
+            float rotationSpeed = 10f;
+            float XaxisRotation = Input.GetAxis("Mouse X") * rotationSpeed;
+            // float YaxisRotation = Input.GetAxis("Mouse Y")*rotationSpeed;
+            // select the axis by which you want to rotate the GameObject
+            character.transform.Rotate(Vector3.down, XaxisRotation);
+            // character.transform.RotateAround (Vector3.right, YaxisRotation);
+        }
 	}
 
     // public void OnMouseDrag(PointerEventData eventData)
