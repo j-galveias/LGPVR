@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InitializeHandGroups : MonoBehaviour
@@ -12,6 +13,7 @@ public class InitializeHandGroups : MonoBehaviour
     public const string GROUP_FILE_PATH = "Assets\\HandPanel\\HandGroups\\groups.json";
     public const string GROUP_IMAGE_FILE_PATH = "Assets\\Resources\\HandPoseGroups\\";
     public const string HAND_IMAGE_FILE_PATH = "Assets\\Resources\\HandPoses\\";
+    public const string SIGN_IMAGE_FILE_PATH = "Assets\\Resources\\HandPoses\\";
 
     private const string MAIN_LIST_NAME = "Main List";
 
@@ -19,17 +21,21 @@ public class InitializeHandGroups : MonoBehaviour
 
     private Dictionary<string, InitializeHandButtons> everyList = new Dictionary<string, InitializeHandButtons>();
     private InitializeHandButtons mainList;
-    private static Dictionary<string, HashSet<string>> poseUsedInSigns = new Dictionary<string, HashSet<string>>(); //Key is a Hand Pose, value is a set of Signs
+    private GameObject currentList;
+    private static Dictionary<string, HashSet<string>> signsThatUsePose = new Dictionary<string, HashSet<string>>(); //Key is a Hand Pose, value is a set of Signs
+    private HandGroups groupData;
 
     void Start()
     {
         InitSignHandPoses();
 
         string jsonString = File.ReadAllText(GROUP_FILE_PATH);
-        var groupData = JsonSerializer.Deserialize<HandGroups>(jsonString);
+        groupData = JsonSerializer.Deserialize<HandGroups>(jsonString);
         modelHandList.SetActive(false);
 
         mainList = CreateList(MAIN_LIST_NAME);
+        currentList = mainList.gameObject;
+        currentList.SetActive(true);
 
         foreach (var groupEntry in groupData)
         {
@@ -38,10 +44,10 @@ public class InitializeHandGroups : MonoBehaviour
 
             var list = CreateList(groupName);
             Button backButton = list.AddButton("Back", true, "Assets\\Resources\\back.png");
-            backButton.onClick.AddListener(delegate () { SelectMainList(); });
+            AddListenerSelectList(backButton, mainList);
 
             Button button = mainList.AddButton(groupName, false, GROUP_IMAGE_FILE_PATH + groupName + ".png");
-            button.onClick.AddListener(delegate () { SelectList(list.gameObject); });
+            AddListenerSelectList(button, list);
 
 
             foreach (var subgroupEntry in subgroup)
@@ -51,10 +57,31 @@ public class InitializeHandGroups : MonoBehaviour
                 subPoses.Sort((s1, s2) => EditDistanceComparator(mainPose, s1, s2));
                 List<string> signsInGroup = GetSignsInGroup(subPoses);
 
+                var sublist = CreateList(mainPose);
+                backButton = sublist.AddButton("Back", true, "Assets\\Resources\\back.png");
+                AddListenerSelectList(backButton, list);
+
                 button = list.AddButton(mainPose, false, HAND_IMAGE_FILE_PATH + mainPose + ".png");
-                //button.onClick.AddListener(delegate () { SelectList(handPose); });
+                AddListenerSelectList(button, sublist);
+
+                /*foreach (string sign in signsInGroup) {
+                    button = sublist.AddButton(sign.ToUpper(), false, SIGN_IMAGE_FILE_PATH + sign + ".png");
+                    button.GetComponent<AnimationButton>().playAnimation = true;
+                }*/
+
+                sublist.gameObject.SetActive(false);
             }
+
+            list.gameObject.SetActive(false);
         }
+    }
+
+    private void AddListenerSelectList(Button button, InitializeHandButtons list)
+    {
+        EventTrigger trigger = button.GetComponent<EventTrigger>();
+        var pointerUp = trigger.triggers[0]; //If this crashes, the Button Model needs to have a PointerUp event Type
+        pointerUp.callback.AddListener((x) => SelectList(list.gameObject));
+        trigger.triggers.Add(pointerUp);
     }
 
     private List<string> GetSignsInGroup(List<string> poseGroup)
@@ -64,9 +91,10 @@ public class InitializeHandGroups : MonoBehaviour
 
         foreach (string subpose in poseGroup)
         {
-            var add = poseUsedInSigns[subpose].Except(dontRepeat);
-            dontRepeat.Concat(add);
-            result.AddRange(add);
+            var add = GetSignsThatUsePose(subpose).Except(dontRepeat);
+            var addList = add.ToList();
+            dontRepeat.UnionWith(add);
+            result.AddRange(addList);
         }
 
         return result;
@@ -85,14 +113,22 @@ public class InitializeHandGroups : MonoBehaviour
         }
     }
 
+    private static HashSet<string> GetSignsThatUsePose(string poseName)
+    {
+        if (signsThatUsePose.ContainsKey(poseName))
+            return signsThatUsePose[poseName];
+        else
+            return new HashSet<string>();
+    }
+
     private static void AddToHandPoses(string signName, HashSet<string> handPoses)
     {
         foreach (string pose in handPoses)
         {
-            if (!poseUsedInSigns.ContainsKey(pose))
-                poseUsedInSigns[pose] = new HashSet<string>();
+            if (!signsThatUsePose.ContainsKey(pose))
+                signsThatUsePose[pose] = new HashSet<string>();
 
-            poseUsedInSigns[pose].Add(signName);
+            signsThatUsePose[pose].Add(signName);
         }
     }
 
@@ -131,8 +167,13 @@ public class InitializeHandGroups : MonoBehaviour
 
     public void SelectList(GameObject list)
     {
-        HideAllLists();
-        list.SetActive(true);
+        if (list != currentList)
+        {
+            GameObject oldList = currentList;
+            currentList = list;
+            list.SetActive(true);
+            oldList.SetActive(false);
+        }
     }
 
     private int EditDistanceComparator(string baseStr, string s1, string s2)

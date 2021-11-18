@@ -83,7 +83,7 @@ public class SecondaryMovs : MonoBehaviour
                     {
                         elapsedTime += Time.deltaTime;
                         state = Mathf.Lerp(0,0.2f, elapsedTime * timeReaction);
-                        Debug.Log(state);
+                        //Debug.Log(state);
                     }
                     else
                     {

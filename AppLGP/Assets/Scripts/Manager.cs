@@ -283,7 +283,7 @@ public class Manager : MonoBehaviour
             Dictionary<string, TextAsset> jsonFiles = new Dictionary<string, TextAsset>();
 
             foreach (AnimationClip animFile in animationsArray){
-                Debug.Log(animFile);
+                //Debug.Log(animFile);
                 animations.Add(animFile.name.ToUpper(), animFile as AnimationClip);
                 animations_aux.Add(animFile.name.ToUpper(), animFile as AnimationClip);
             }
@@ -295,7 +295,7 @@ public class Manager : MonoBehaviour
 
 
         List<string> list = animations_aux.Keys.ToList();
-        foreach(var a in list) Debug.Log("a: " + a);
+        //foreach(var a in list) Debug.Log("a: " + a);
         list.Sort();
 
 
