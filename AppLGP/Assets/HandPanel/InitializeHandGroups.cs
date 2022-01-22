@@ -13,41 +13,53 @@ public class InitializeHandGroups : MonoBehaviour
     public const string GROUP_FILE_PATH = "Assets\\HandPanel\\HandGroups\\groups.json";
     public const string GROUP_IMAGE_FILE_PATH = "Assets\\Resources\\HandPoseGroups\\";
     public const string HAND_IMAGE_FILE_PATH = "Assets\\Resources\\HandPoses\\";
-    public const string SIGN_IMAGE_FILE_PATH = "Assets\\Resources\\HandPoses\\";
+    public const string SIGN_IMAGE_FILE_PATH = "Assets\\Resources\\SignImages\\";
 
     private const string MAIN_LIST_NAME = "Main List";
 
     public GameObject modelHandList;
+    public Manager manager;
 
     private Dictionary<string, InitializeHandButtons> everyList = new Dictionary<string, InitializeHandButtons>();
-    private InitializeHandButtons mainList;
-    private GameObject currentList;
+    //private InitializeHandButtons mainList;
+    private MenuList mainList;
+    private GameObject currentList = null;
     private static Dictionary<string, HashSet<string>> signsThatUsePose = new Dictionary<string, HashSet<string>>(); //Key is a Hand Pose, value is a set of Signs
-    private HandGroups groupData;
+    private HandGroupsJson groupData;
 
     void Start()
     {
+        MenuList.handGroupManager = this;
         InitSignHandPoses();
 
         string jsonString = File.ReadAllText(GROUP_FILE_PATH);
-        groupData = JsonSerializer.Deserialize<HandGroups>(jsonString);
+        groupData = JsonSerializer.Deserialize<HandGroupsJson>(jsonString);
         modelHandList.SetActive(false);
 
-        mainList = CreateList(MAIN_LIST_NAME);
-        currentList = mainList.gameObject;
-        currentList.SetActive(true);
+        mainList = new MenuList(MAIN_LIST_NAME);
+        mainList.AddButtonClose("Close", true, "Assets\\Resources\\back.png");
+
+        //mainList = CreateList(MAIN_LIST_NAME);
+        //currentList = mainList.gameObject;
+        //currentList.SetActive(true);
 
         foreach (var groupEntry in groupData)
         {
             string groupName = groupEntry.Key;
             var subgroup = groupEntry.Value;
 
-            var list = CreateList(groupName);
+            MenuList list = new MenuList(groupName, mainList);
+            MenuButton backButton = list.AddButtonBack("Back", true, "Assets\\Resources\\back.png");
+
+            MenuButton button = mainList.AddButtonSelect(groupName, false, GROUP_IMAGE_FILE_PATH + groupName + ".png", list);
+
+
+            /*var list = CreateList(groupName);
             Button backButton = list.AddButton("Back", true, "Assets\\Resources\\back.png");
             AddListenerSelectList(backButton, mainList);
 
             Button button = mainList.AddButton(groupName, false, GROUP_IMAGE_FILE_PATH + groupName + ".png");
-            AddListenerSelectList(button, list);
+            AddListenerSelectList(button, list);*/
 
 
             foreach (var subgroupEntry in subgroup)
@@ -57,31 +69,36 @@ public class InitializeHandGroups : MonoBehaviour
                 subPoses.Sort((s1, s2) => EditDistanceComparator(mainPose, s1, s2));
                 List<string> signsInGroup = GetSignsInGroup(subPoses);
 
-                var sublist = CreateList(mainPose);
-                backButton = sublist.AddButton("Back", true, "Assets\\Resources\\back.png");
+                MenuList subList = new MenuList(mainPose, list);
+                backButton = subList.AddButtonBack("Back", true, "Assets\\Resources\\back.png");
+
+                button = list.AddButtonSelect(mainPose, false, HAND_IMAGE_FILE_PATH + mainPose + ".png", subList);
+
+                /*var subList = CreateList(mainPose);
+                backButton = subList.AddButton("Back", true, "Assets\\Resources\\back.png");
                 AddListenerSelectList(backButton, list);
 
                 button = list.AddButton(mainPose, false, HAND_IMAGE_FILE_PATH + mainPose + ".png");
-                AddListenerSelectList(button, sublist);
+                AddListenerSelectList(button, subList);*/
+
+                foreach (string sign in signsInGroup) {
+                    button = subList.AddButtonPlayAnimation(sign.ToUpper(), false, SIGN_IMAGE_FILE_PATH + sign + ".png", sign.ToUpper());
+                    //button.GetComponent<AnimationButton>().playAnimation = true;
+                }
 
                 /*foreach (string sign in signsInGroup) {
-                    button = sublist.AddButton(sign.ToUpper(), false, SIGN_IMAGE_FILE_PATH + sign + ".png");
+                    button = subList.AddButton(sign.ToUpper(), false, SIGN_IMAGE_FILE_PATH + sign + ".png");
                     button.GetComponent<AnimationButton>().playAnimation = true;
                 }*/
 
-                sublist.gameObject.SetActive(false);
+                //subList.gameObject.SetActive(false);
             }
 
-            list.gameObject.SetActive(false);
+            //list.gameObject.SetActive(false);
         }
-    }
 
-    private void AddListenerSelectList(Button button, InitializeHandButtons list)
-    {
-        EventTrigger trigger = button.GetComponent<EventTrigger>();
-        var pointerUp = trigger.triggers[0]; //If this crashes, the Button Model needs to have a PointerUp event Type
-        pointerUp.callback.AddListener((x) => SelectList(list.gameObject));
-        trigger.triggers.Add(pointerUp);
+        mainList.Instantiate();
+        MenuButton.currentList = mainList;
     }
 
     private List<string> GetSignsInGroup(List<string> poseGroup)
@@ -107,9 +124,9 @@ public class InitializeHandGroups : MonoBehaviour
         foreach (var entry in allSigns)
         {
             string signName = entry.Key;
-            AnimatedSignData anim = entry.Value;
+            AnimatedSignMini anim = entry.Value;
 
-            AddToHandPoses(signName, anim.GetHandPoses());
+            AddToHandPoses(signName, anim.GetHandPosesSet());
         }
     }
 
@@ -160,10 +177,10 @@ public class InitializeHandGroups : MonoBehaviour
         }
     }
 
-    public void SelectMainList()
+    /*public void SelectMainList()
     {
         SelectList(mainList.gameObject);
-    }
+    }*/
 
     public void SelectList(GameObject list)
     {

@@ -2,35 +2,62 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using UnityEditor;
+using UnityEngine.EventSystems;
 
 /// <summary>	
 /// </summary>
 public class InitializeHandButtons : MonoBehaviour
 {
-    public GameObject buttonModel;
+    public GameObject buttonModelPlayAnim;
+    public GameObject buttonModelSelect;
+    public GameObject buttonModelClose;
 
     void Start()
     {
-        buttonModel.SetActive(false);
+        buttonModelPlayAnim.SetActive(false);
+        buttonModelSelect.SetActive(false);
+        buttonModelClose.SetActive(false);
     }
 
-    public Button AddButton(string name, bool hideText, string imagePath)
+    public Button AddButton(MenuButton button)
     {
-        GameObject newButtonObj = Instantiate(buttonModel);
-        newButtonObj.SetActive(true);
-        Button newButton = newButtonObj.GetComponentInChildren<Button>();
-        Text newButtonText = newButton.transform.parent.GetComponentInChildren<Text>();
+        GameObject buttonModel = null;
 
-        newButton.transform.name = name;
+        if (button is MenuButtonSelectAbstract)
+        {
+            buttonModel = buttonModelSelect;
+        }
+
+        if (button is MenuButtonPlayAnimation)
+        {
+            buttonModel = buttonModelPlayAnim;
+        }
+
+        if (button is MenuButtonClose)
+        {
+            buttonModel = buttonModelClose;
+        }
+
+        string name = button.GetName();
+        bool hideText = button.GetHideText();
+        string imagePath = button.GetImagePath();
+
+        GameObject newButtonObj = Instantiate(buttonModel);
+        button.obj = newButtonObj;
+        newButtonObj.SetActive(true);
+        Button buttonComponent = newButtonObj.GetComponentInChildren<Button>();
+        Text newButtonText = buttonComponent.transform.parent.GetComponentInChildren<Text>();
+
+        buttonComponent.transform.name = name;
         newButtonObj.name = name;
         newButtonText.text = hideText ? "" : name;
-        SetThumbnail(newButton.transform.GetChild(0).GetComponent<Image>(), imagePath);
+        SetThumbnail(buttonComponent.transform.GetChild(0).GetComponent<Image>(), imagePath);
 
         newButtonObj.transform.SetParent(transform);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>());
 
-        return newButton;
+        return buttonComponent;
     }
 
 
