@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using TMPro;
 using Microsoft.VisualBasic;
-// using UnityEditor.Animations;
 
 // [System.Serializable]
 // public class AnimationEvent : UnityEvent<List<string>> { }
@@ -31,7 +30,7 @@ public class MainAnimation : MonoBehaviour
     Dictionary<string, AnimationClip> animationClips = new Dictionary<string, AnimationClip>();
     Dictionary<string, bool> mouthingAnim = new Dictionary<string, bool>();
     string[] facialExprWithMouthing = new string[]{
-        "Alegre", "F021", "F022", "F023", "F029", "Olhos fechados", "Olhos Semifechados",
+        "Neutra", "Alegre", "F021", "F022", "F023", "F029", "Olhos fechados", "Olhos Semifechados",
         "Sobrancelhas Contraídas", "Triste", "Tristucha", "Zangar", "Zangar Movimento"
     };
     Dictionary<string, int> animationUtils = new Dictionary<string, int>();
@@ -57,7 +56,7 @@ public class MainAnimation : MonoBehaviour
     AnimationEvent animationEvent;
     int glosasIndex, glosasIndexAux, estados;
     TranslatorInfo json;
-    AnimatedSignData jsonInfo;
+    AnimatedSignMini jsonInfo;
     public GameObject replay_button;
     public InputField sentence;
     public Text frase_pensar;
@@ -153,11 +152,14 @@ public class MainAnimation : MonoBehaviour
         var getClips = Resources.LoadAll("Animations/Signs/");
 
         foreach(var clip in getClips)
-        {   
-            if (! animationClips.ContainsKey(removeAccents(clip.name.ToUpper()))) {
+        {
+            string animation = clip.name.Normalize(NLP.NORMALIZATION);
+
+            if (! animationClips.ContainsKey(removeAccents(animation.ToUpper()))) {
                 if (clip is AnimationClip){
                     AnimationClip animClip =  (AnimationClip) clip;
-                    var animation = removeAccents(animClip.name.ToUpper().Replace("GESTO_", ""));
+                    //var animation = removeAccents(animClip.name.ToUpper().Replace("GESTO_", ""));
+                    animation = NLP.RemoveAccents(NLP.StandardizeName(animation)).ToUpper();
                     animationClips.Add(animation, animClip);
                     // Debug.Log(animation);
                     // Debug.Log(animClip.name);
@@ -174,78 +176,40 @@ public class MainAnimation : MonoBehaviour
                     // Debug.Log("nameeeeeee");
                     // Debug.Log(animClip.name);
                     // string content = System.IO.File.ReadAllText("Assets/Resources/Animations/Signs/" + animClip.name + ".json");
-                    // JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
+                    // JsonSerializer.Deserialize<AnimatedSignMini>(jsonString);
 
                     // foreach (var line in content.Split(new string[] { "atribute: " }, StringSplitOptions.None)) Debug.Log(line);
                 }
-                else {
+                else if (animation.EndsWith(AnimatedSign.MINI_SUFFIX)) {
                     Debug.Log("JSONNNNN");
-                    var animation = removeAccents(clip.name.ToUpper().Replace("GESTO_", ""));
+                    animation = animation.RemoveSuffix(AnimatedSign.MINI_SUFFIX);
+                    animation = NLP.RemoveAccents(NLP.StandardizeName(animation)).ToUpper();
                     Debug.Log(animation);
                     // string content = System.IO.File.ReadAllText(clip.name + ".json");
                     var jsonString = Regex.Replace(clip.ToString(), ":\\s*([-1234567890\\.E]+)", ":\"$1\"");
                     jsonString = Regex.Replace(jsonString, ":\\s*(true|false)", ":\"$1\"");
-                    jsonInfo = JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
-                    int count_right = 0;
-                    int count_left = 0;
+                    jsonInfo = JsonSerializer.Deserialize<AnimatedSignMini>(jsonString);
+
                     List<Vector3> hand_pos_right = new List<Vector3>();
-                    hand_pos_right.Insert(0, new Vector3());
-                    hand_pos_right.Insert(1,  new Vector3());
-                    List<Vector3> hand_pos_left =  new List<Vector3>();
-                    hand_pos_left.Insert(0,  new Vector3());
-                    hand_pos_left.Insert(1,  new Vector3());
-                    Debug.Log("animetedSIGN DESENNN");
-                    // Saves whether mouthing can be done or not --> only if facial expression is not in the lower part of the face
-                    foreach (AnimatedSignTrack animTrack in jsonInfo.animTracks) {
-                        Debug.Log("animetedTRACK DESENNN");
-                        foreach (string property in animTrack.properties) {
-                            if (property.Contains("Face Animation") && !property.Contains("Neutra") && !mouthingAnim.ContainsKey(animation)){
-                                string facialExpr = property.Replace("Face Animation ", "");
-                                mouthingAnim.Add(animation, facialExprWithMouthing.Contains(facialExpr));
-                            }
-                                // animationClipInfo.Add("facial_exp", );
-                        }
-                        // saves hand positions for the first and last keyframes
-                        foreach (AnimatedSignKey keyframe in animTrack.keyFrames) {
-                            Debug.Log("animetedKEYY DESENNN");
-                            Debug.Log(keyframe.property);
+                    List<Vector3> hand_pos_left = new List<Vector3>();
 
-                            if (keyframe.property == "Right Hand Configuration" && keyframe.floats.Keys.Count > 1) {
-                                List<string> coordenates = keyframe.floats.Values.ToList();
-                                foreach (var cor in coordenates) Debug.Log(cor);
-                                Vector3 position = new Vector3(float.Parse(coordenates[coordenates.Count-3]), float.Parse(coordenates[coordenates.Count-2]), float.Parse(coordenates[coordenates.Count-1]));
-                                Debug.Log("RIGHTTTT");
-                                Debug.Log(position);
-                                Debug.Log(position.magnitude);
-                                int index = (count_right == 0) ? 0 : 1;
-                                hand_pos_right[index] = position;
-                                count_right += 1;
-                            }
+                    hand_pos_right.Add(jsonInfo.rightHandPositions[0].GetPos());
+                    hand_pos_right.Add(jsonInfo.rightHandPositions[jsonInfo.rightHandPositions.Count - 1].GetPos());
+                    hand_pos_left.Add(jsonInfo.leftHandPositions[0].GetPos());
+                    hand_pos_left.Add(jsonInfo.leftHandPositions[jsonInfo.leftHandPositions.Count - 1].GetPos());
 
-                            if (keyframe.property == "Left Hand Configuration" && keyframe.floats.Keys.Count > 1) {
-                                List<string> coordenates = keyframe.floats.Values.ToList();
-                                foreach (var cor in coordenates) Debug.Log(cor);
-                                Vector3 position = new Vector3(float.Parse(coordenates[coordenates.Count-3]), float.Parse(coordenates[coordenates.Count-2]), float.Parse(coordenates[coordenates.Count-1]));
-                                Debug.Log("LEFTTT");
-                                Debug.Log(position);
-                                Debug.Log(position.magnitude);
-                                int index = (count_left == 0) ? 0 : 1;
-                                hand_pos_left[index] = position;
-                                count_left += 1;
-                            }
-                        }
-                        if (count_right == 1 && count_left == 1) {
-                            hand_pos_right[1] =  hand_pos_right[0];
-                            hand_pos_left[1] =  hand_pos_left[0];
-                        }
-                    }
-                    Debug.Log("FINAAAALLLLLL POSSSSSS");
-                    Debug.Log("RIGHT");
                     rightHandPos.Add(animation, hand_pos_right);
                     leftHandPos.Add(animation, hand_pos_left);
-                    foreach (var pos in hand_pos_right) Debug.Log(animation + " | " + "right: " + pos);
-                    Debug.Log("LEFT");
-                    foreach (var pos in hand_pos_left) Debug.Log(animation + " | " + "left: " + pos);
+
+                    HashSet<string> facialExpressions = jsonInfo.GetFacialExpressionSet();
+
+                    // Saves whether mouthing can be done or not --> only if facial expression is not in the lower part of the face
+                    mouthingAnim.Add(animation, true);
+
+                    foreach (string face in facialExpressions)
+                    {
+                        mouthingAnim[animation] = mouthingAnim[animation] || facialExprWithMouthing.Contains(face);
+                    }
                 }
             }
         }
@@ -330,68 +294,33 @@ public class MainAnimation : MonoBehaviour
 
         foreach(var clip in getFingerSpelling)
         {
+            string animation = clip.name.Normalize(NLP.NORMALIZATION);
+
             if (clip is AnimationClip){
                 AnimationClip animClip =  (AnimationClip) clip;
-                fingerSpellClips.Add((animClip.name.ToUpper()).Replace("GESTO_", ""), animClip);
+                fingerSpellClips.Add((animation.ToUpper()).Replace("GESTO_", ""), animClip);
             }
-            else {
+            else if (clip.name.EndsWith(AnimatedSign.MINI_SUFFIX))
+            {
                 Debug.Log("JSONNNNN");
-                var animation = removeAccents(clip.name.ToUpper().Replace("GESTO_", ""));
+                animation = animation.RemoveSuffix(AnimatedSign.MINI_SUFFIX);
+                animation = removeAccents(animation.ToUpper().Replace("GESTO_", ""));
                 Debug.Log(animation);
                 // string content = System.IO.File.ReadAllText(clip.name + ".json");
                 var jsonString = Regex.Replace(clip.ToString(), ":\\s*([-1234567890\\.E]+)", ":\"$1\"");
                 jsonString = Regex.Replace(jsonString, ":\\s*(true|false)", ":\"$1\"");
-                jsonInfo = JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
-                int count_right = 0;
-                int count_left = 0;
+                jsonInfo = JsonSerializer.Deserialize<AnimatedSignMini>(jsonString);
+
                 List<Vector3> hand_pos_right = new List<Vector3>();
-                hand_pos_right.Insert(0, new Vector3());
-                hand_pos_right.Insert(1,  new Vector3());
                 List<Vector3> hand_pos_left =  new List<Vector3>();
-                hand_pos_left.Insert(0,  new Vector3());
-                hand_pos_left.Insert(1,  new Vector3());
-                // Saves whether mouthing can be done or not --> only if facial expression is not in the lower part of the face
-                foreach (AnimatedSignTrack animTrack in jsonInfo.animTracks) {
-                    // saves hand positions for the first and last keyframes
-                    foreach (AnimatedSignKey keyframe in animTrack.keyFrames) {
-                        Debug.Log(keyframe.property);
 
-                         if (keyframe.property == "Right Hand Configuration" && keyframe.floats.Keys.Count > 1) {
-                            List<string> coordenates = keyframe.floats.Values.ToList();
-                            foreach (var cor in coordenates) Debug.Log(cor);
-                            Vector3 position = new Vector3(float.Parse(coordenates[coordenates.Count-3]), float.Parse(coordenates[coordenates.Count-2]), float.Parse(coordenates[coordenates.Count-1]));
-                            Debug.Log("RIGHTTTT");
-                            Debug.Log(position);
-                            Debug.Log(position.magnitude);
-                            int index = (count_right == 0) ? 0 : 1;
-                            hand_pos_right[index] = position;
-                            count_right += 1;
-                        }
+                hand_pos_right.Add(jsonInfo.rightHandPositions[0].GetPos());
+                hand_pos_right.Add(jsonInfo.rightHandPositions[jsonInfo.rightHandPositions.Count - 1].GetPos());
+                hand_pos_left.Add(jsonInfo.leftHandPositions[0].GetPos());
+                hand_pos_left.Add(jsonInfo.leftHandPositions[jsonInfo.leftHandPositions.Count - 1].GetPos());
 
-                        if (keyframe.property == "Left Hand Configuration" && keyframe.floats.Keys.Count > 1) {
-                            List<string> coordenates = keyframe.floats.Values.ToList();
-                            foreach (var cor in coordenates) Debug.Log(cor);
-                            Vector3 position = new Vector3(float.Parse(coordenates[coordenates.Count-3]), float.Parse(coordenates[coordenates.Count-2]), float.Parse(coordenates[coordenates.Count-1]));
-                            Debug.Log("LEFTTT");
-                            Debug.Log(position);
-                            Debug.Log(position.magnitude);
-                            int index = (count_left == 0) ? 0 : 1;
-                            hand_pos_left[index] = position;
-                            count_left += 1;
-                        }
-                    }
-                    if (count_right == 1 && count_left == 1) {
-                        hand_pos_right[1] =  hand_pos_right[0];
-                        hand_pos_left[1] =  hand_pos_left[0];
-                    }
-                }
-                Debug.Log("FINAAAALLLLLL POSSSSSS");
-                Debug.Log("RIGHT");
                 rightHandPos.Add(animation, hand_pos_right);
                 leftHandPos.Add(animation, hand_pos_left);
-                foreach (var pos in hand_pos_right) Debug.Log(animation + " | " + "right: " + pos);
-                Debug.Log("LEFT");
-                foreach (var pos in hand_pos_left) Debug.Log(animation + " | " + "left: " + pos);
             }
         }
 
@@ -400,8 +329,8 @@ public class MainAnimation : MonoBehaviour
         foreach(var clip in getExprs)
         {
             if (clip is AnimationClip){
-                AnimationClip animClip =  (AnimationClip) clip;
-                expFacClips.Add(animClip.name, animClip);
+                AnimationClip animClip = (AnimationClip) clip;
+                expFacClips.Add(animClip.name.Normalize(NLP.NORMALIZATION), animClip);
             }
         }
 
@@ -672,6 +601,7 @@ public class MainAnimation : MonoBehaviour
                 percentage = ((diff_value_right + diff_value_left) - 0.01f) / (0.15f - 0.01f);
             Debug.Log("percentageeee " + percentage);
             float dur_value = Mathf.Lerp(0.3f, 0.7f, percentage);
+            Debug.Log("dur_value " + dur_value);
 
             return dur_value;
         }
@@ -879,8 +809,8 @@ public class MainAnimation : MonoBehaviour
             // if (glosa == "") Animating();
             Debug.Log("datilologiaaa");
             List<string> characters = new List<string>();
-            
-            // glosa = glosa.Normalize(NormalizationForm.FormD);
+
+            // glosa = glosa.Normalize(NLP.NORMALIZATION);
 
             // foreach (var charr in glosa) Debug.Log(charr);
 
@@ -1002,7 +932,7 @@ public class MainAnimation : MonoBehaviour
     }
 
     string removeAccents(string word) {
-        word = Regex.Replace(word.Normalize(NormalizationForm.FormD), @"[^A-Za-z 0-9 \.,\?'""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*", string.Empty).Trim();
+        word = Regex.Replace(word.Normalize(NLP.NORMALIZATION), @"[^A-Za-z 0-9 \.,\?'""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*", string.Empty).Trim();
         return word.Replace("-", " ").Replace("_", " ").Replace(" DE ", " ").Replace(" DO ", " ");
     }
 

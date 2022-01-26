@@ -8,4 +8,6 @@
     public const string MUSCLES = "Muscles";
 
     public const string HAND_DEFAULT = "-";
+
+    public const string MINI_SUFFIX = "_MINI";
 }

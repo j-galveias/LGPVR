@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using UnityEditor;
 using UnityEngine.EventSystems;
+using System.Text;
+using System.Collections.Generic;
 
 /// <summary>	
 /// </summary>
@@ -23,7 +24,7 @@ public class InitializeHandButtons : MonoBehaviour
     {
         GameObject buttonModel = null;
 
-        if (button is MenuButtonSelectAbstract)
+        if (button is MenuButtonSelect)
         {
             buttonModel = buttonModelSelect;
         }
@@ -31,11 +32,6 @@ public class InitializeHandButtons : MonoBehaviour
         if (button is MenuButtonPlayAnimation)
         {
             buttonModel = buttonModelPlayAnim;
-        }
-
-        if (button is MenuButtonClose)
-        {
-            buttonModel = buttonModelClose;
         }
 
         string name = button.GetName();
@@ -63,24 +59,14 @@ public class InitializeHandButtons : MonoBehaviour
 
     private void SetThumbnail(Image image, string path)
     {
-        Sprite texture = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-
-        if (texture == null)
-        {
-            TextureImporter importer = (TextureImporter)AssetImporter.GetAtPath(path);
-
-            if (importer != null)
-            {
-                importer.textureType = TextureImporterType.Sprite;
-                AssetDatabase.WriteImportSettingsIfDirty(path);
-
-                importer.SaveAndReimport();
-
-                texture = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-            }
-        }
+        path = path.Normalize(NLP.NORMALIZATION);
+        Sprite texture = ImageManager.GetSprite(path);
 
         if (texture != null)
             image.sprite = texture;
+        else
+        {
+            Debug.Log("No image found for sign " + Path.GetFileName(path));
+        }
     }
 }

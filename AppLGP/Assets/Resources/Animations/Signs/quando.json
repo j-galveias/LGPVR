@@ -28,8 +28,8 @@
             "muscle10": -4.0711097E-14,
             "muscle11": -3.25688776E-13,
             "muscle12": 1.38737931E-07,
-            "muscle13": 1.30605528E-07,
-            "muscle14": 1.02331555E-07,
+            "muscle13": -0.115000322,
+            "muscle14": 0.295000017,
             "muscle15": 0,
             "muscle16": -3.13225756E-09,
             "muscle17": 0,
@@ -240,13 +240,10 @@
           "index": 1,
           "time": 1.01515138,
           "ints": {
-            "hash": 1077744640
+            "hash": 1631716352
           },
           "floats": {
-            "duration": 0,
-            "leftHandPositionX": -0.210493088,
-            "leftHandPositionY": 0.00543976575,
-            "leftHandPositionZ": -0.0907192305
+            "duration": 0
           },
           "strings": {
             "name": "-"
@@ -262,13 +259,10 @@
           "index": 2,
           "time": 1.55555546,
           "ints": {
-            "hash": 206503936
+            "hash": -665348096
           },
           "floats": {
-            "duration": 0.212121218,
-            "leftHandPositionX": -0.207870483,
-            "leftHandPositionY": 0.00972128659,
-            "leftHandPositionZ": -0.0894823149
+            "duration": 0.212121218
           },
           "strings": {
             "name": "-"
@@ -284,13 +278,10 @@
           "index": 1,
           "time": 1.01515138,
           "ints": {
-            "hash": 505665536
+            "hash": 1059637248
           },
           "floats": {
-            "duration": 0,
-            "rightHandPositionX": 0.302343369,
-            "rightHandPositionY": -0.0489283204,
-            "rightHandPositionZ": 0.577319682
+            "duration": 0
           },
           "strings": {
             "name": "QUANDOO"
@@ -306,13 +297,10 @@
           "index": 2,
           "time": 1.55555546,
           "ints": {
-            "hash": -365575168
+            "hash": -1237427200
           },
           "floats": {
-            "duration": 0.212121218,
-            "rightHandPositionX": 0.241891861,
-            "rightHandPositionY": -0.119718611,
-            "rightHandPositionZ": 0.540976107
+            "duration": 0.212121218
           },
           "strings": {
             "name": "QUANDOO"
@@ -528,7 +516,12 @@
       ]
     }
   ],
-  "linguisticTags": {},
+  "linguisticTags": {
+    "noun": "",
+    "pronoun": "",
+    "adverb": "",
+    "expression": ""
+  },
   "version": 12,
   "globalSpeed": 1,
   "globalRepetitions": 1

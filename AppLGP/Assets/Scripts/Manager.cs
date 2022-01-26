@@ -49,7 +49,7 @@ public class Manager : MonoBehaviour
     private Dictionary<string, bool> hasPause = new Dictionary<string, bool>();
 
     private static bool animDataLoaded = false;
-    private static Dictionary<string, AnimatedSignData> animData = new Dictionary<string, AnimatedSignData>();
+    private static Dictionary<string, AnimatedSignMini> animData = new Dictionary<string, AnimatedSignMini>();
 
     //private Dictionary<string, Motion> animations = new Dictionary<string, Motion>();
 
@@ -258,11 +258,13 @@ public class Manager : MonoBehaviour
             AnimationClip[] animationsArray = bundle.LoadAllAssets<AnimationClip>();
             foreach (var clip in animationsArray) {
                 string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
+                name = name.Normalize(NLP.NORMALIZATION);
                 animations.Add(name.ToLower(), clip as AnimationClip);
             }
             TextAsset[] jsonArray = bundle.LoadAllAssets<TextAsset>();
             foreach (var clip in jsonArray) {
                 string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
+                name = name.Normalize(NLP.NORMALIZATION);
                 jsonFiles.Add(name.ToLower(), clip as TextAsset);
             }
             foreach(var anim in animations) Debug.Log(anim);
@@ -272,7 +274,7 @@ public class Manager : MonoBehaviour
 
     private void InitializeButtons(string path = null, bool pause=false)
     {
-        buttonModel.SetActive(true);
+        buttonModel.SetActive(false);
 
         // LoadAssetBundle(path);
 
@@ -282,14 +284,22 @@ public class Manager : MonoBehaviour
             TextAsset[] jsonArray = Resources.LoadAll<TextAsset>(path);
             Dictionary<string, TextAsset> jsonFiles = new Dictionary<string, TextAsset>();
 
-            foreach (AnimationClip animFile in animationsArray){
-                //Debug.Log(animFile);
-                animations.Add(animFile.name.ToUpper(), animFile as AnimationClip);
-                animations_aux.Add(animFile.name.ToUpper(), animFile as AnimationClip);
+            foreach (AnimationClip animFile in animationsArray) {
+                string animName = animFile.name.Normalize(NLP.NORMALIZATION).ToUpper();
+                animations.Add(animName, animFile as AnimationClip);
+                animations_aux.Add(animName, animFile as AnimationClip);
             }
 
             foreach (TextAsset json in jsonArray)
-                jsonFiles.Add(json.name.ToUpper(), json);
+            {
+                string name = json.name.Normalize(NLP.NORMALIZATION);
+
+                if (name.EndsWith(AnimatedSign.MINI_SUFFIX))
+                {
+                    name = name.RemoveSuffix(AnimatedSign.MINI_SUFFIX).ToUpper();
+                    jsonFiles.Add(name, json);
+                }
+            }
 
         }
 
@@ -320,6 +330,7 @@ public class Manager : MonoBehaviour
             newButton.name = animName;
             hasPause[animName] = pause;
 
+            newButton.gameObject.SetActive(true);
             newButton.transform.GetChild(0).GetComponent<Text>().text = animName;
             newButton.transform.SetParent(buttonModel.transform.parent);
 
@@ -335,16 +346,16 @@ public class Manager : MonoBehaviour
             Buttons.Add(newButton);
 
 
-            // AnimatedSignData data = new AnimatedSignData();
+            // AnimatedSignMini data = new AnimatedSignMini();
 
             // try
             // {
             //     //TextAsset json = Resources.Load<TextAsset>(path + "/" + animName + ".json");
             //     //string jsonString = File.ReadAllText("Assets/Resources/"+path +"/"+animName+".json");
-            //     //data = JsonConvert.DeserializeObject<AnimatedSignData>(jsonString);
+            //     //data = JsonConvert.DeserializeObject<AnimatedSignMini>(jsonString);
             //     var jsonString = Regex.Replace(jsonFiles[key].text, ":\\s*([-1234567890\\.E]+)", ":\"$1\"");
             //     jsonString = Regex.Replace(jsonString, ":\\s*(true|false)", ":\"$1\"");
-            //     data = JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
+            //     data = JsonSerializer.Deserialize<AnimatedSignMini>(jsonString);
             // }
             // catch (System.Exception e)
             // {
@@ -357,7 +368,6 @@ public class Manager : MonoBehaviour
             //controller.AddMotion(animations[key] as AnimationClip, signLayer);
         }
 
-        buttonModel.SetActive(false);
         loadedBundles = true;
     }
 
@@ -437,7 +447,7 @@ public class Manager : MonoBehaviour
 
     private string PreProcess(string txt)
     {
-        return NLP.removeAccents(txt.ToLower()).Trim();
+        return NLP.RemoveAccents(txt.ToLower()).Trim();
     }
 
     // private IEnumerator Blink(float waitTimeMin, float waitTimeMax)
@@ -480,18 +490,22 @@ public class Manager : MonoBehaviour
         canvas.SetActive(true);
     }
 
-    public static Dictionary<string, AnimatedSignData> GetAnimAllData()
+    public static Dictionary<string, AnimatedSignMini> GetAnimAllData()
     {
+        int i = 0;
+
         if (!animDataLoaded)
         {
             animDataLoaded = true;
             var getClips = Resources.LoadAll("Animations/Signs/");
 
-            foreach (var clip in getClips)
+            foreach (var sign in getClips)
             {
-                if (!(clip is AnimationClip))
+                string signName = sign.name.Normalize(NLP.NORMALIZATION);
+
+                if (!(sign is AnimationClip) && signName.EndsWith(AnimatedSign.MINI_SUFFIX))
                 {
-                    GetAnimData(clip);
+                    GetAnimData(sign);
                 }
             }
         }
@@ -499,28 +513,26 @@ public class Manager : MonoBehaviour
         return animData;
     }
 
-    public static AnimatedSignData GetAnimData(UnityEngine.Object json)
+    public static AnimatedSignMini GetAnimData(UnityEngine.Object json)
     {
-        string name = NLP.StandardizeName(json.name);
+        string signName = json.name.RemoveSuffix(AnimatedSign.MINI_SUFFIX);
+        signName = NLP.StandardizeName(signName);
 
-        if (!animData.ContainsKey(name)) {
-            var jsonString = Regex.Replace(json.ToString(), ":\\s*([-1234567890\\.E]+)", ":\"$1\"");
+        if (!animData.ContainsKey(signName)) {
+            string jsonString = json.ToString().Normalize(NLP.NORMALIZATION);
+            jsonString = Regex.Replace(jsonString, ":\\s*([-1234567890\\.E]+)", ":\"$1\"");
             jsonString = Regex.Replace(jsonString, ":\\s*(true|false)", ":\"$1\"");
-            animData[name] = JsonSerializer.Deserialize<AnimatedSignData>(jsonString);
+            animData[signName] = JsonSerializer.Deserialize<AnimatedSignMini>(jsonString);
         }
 
-        return animData[name];
+        return animData[signName];
     }
 
-    public static AnimatedSignData GetAnimData(string signName)
+    public static AnimatedSignMini GetAnimData(string signName)
     {
-        var json = Resources.Load("Animations/Signs/"+signName+".json");
+        signName = signName.Normalize(NLP.NORMALIZATION);
+        var json = Resources.Load("Animations/Signs/"+signName+AnimatedSign.MINI_SUFFIX);
         return GetAnimData(json);
-    }
-
-    private static void LoadAnimationData()
-    {
-
     }
 
     // public void Update()

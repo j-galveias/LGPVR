@@ -1,0 +1,70 @@
+{
+  "linguisticTags": {
+    "expression": "",
+    "adverb": "",
+    "noun": "",
+    "pronoun": "",
+    "verb": ""
+  },
+  "version": "17",
+  "globalSpeed": "1",
+  "globalRepetitions": "1",
+  "facialExpressions": [
+    [
+      "1.010101",
+      "Neutra"
+    ],
+    [
+      "1.737374",
+      "Neutra"
+    ]
+  ],
+  "leftHandPoses": [
+    [
+      "1.010101",
+      "O"
+    ],
+    [
+      "1.737374",
+      "garra aberta"
+    ]
+  ],
+  "rightHandPoses": [
+    [
+      "1.010101",
+      "O"
+    ],
+    [
+      "1.737374",
+      "garra aberta"
+    ]
+  ],
+  "leftHandPositions": [
+    {
+      "time": "1.010101",
+      "x": "-0.2132077",
+      "y": "0",
+      "z": "0"
+    },
+    {
+      "time": "1.737374",
+      "x": "-0.1050701",
+      "y": "-0.2049304",
+      "z": "0.1779408"
+    }
+  ],
+  "rightHandPositions": [
+    {
+      "time": "1.010101",
+      "x": "-0.2132077",
+      "y": "0",
+      "z": "0"
+    },
+    {
+      "time": "1.737374",
+      "x": "0.1097736",
+      "y": "-0.1932116",
+      "z": "0.1925893"
+    }
+  ]
+}

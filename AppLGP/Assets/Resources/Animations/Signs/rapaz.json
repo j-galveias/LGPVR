@@ -182,25 +182,25 @@
             "muscle52": -0.633775711,
             "muscle53": 0.172462478,
             "muscle54": 0.927890182,
-            "muscle55": 0,
-            "muscle56": 0,
-            "muscle57": 0,
-            "muscle58": 0,
-            "muscle59": 0,
-            "muscle60": 0,
-            "muscle61": 0,
-            "muscle62": 0,
-            "muscle63": 0,
-            "muscle64": 0,
-            "muscle65": 0,
-            "muscle66": 0,
-            "muscle67": 0,
-            "muscle68": 0,
-            "muscle69": 0,
-            "muscle70": 0,
-            "muscle71": 0,
-            "muscle72": 0,
-            "muscle73": 0,
+            "muscle55": -5.08888755E-15,
+            "muscle56": 1.36603788E-07,
+            "muscle57": 8.53297095E-08,
+            "muscle58": 9.11898752E-08,
+            "muscle59": -6.83018726E-08,
+            "muscle60": 8.53773443E-08,
+            "muscle61": -7.58909735E-08,
+            "muscle62": -2.20871803E-18,
+            "muscle63": 3.07358476E-07,
+            "muscle64": 1.13836499E-07,
+            "muscle65": -7.58909806E-08,
+            "muscle66": 2.2767297E-07,
+            "muscle67": 3.41509399E-08,
+            "muscle68": -1.13836471E-07,
+            "muscle69": -1.51781947E-07,
+            "muscle70": -2.76089676E-19,
+            "muscle71": -3.41509399E-08,
+            "muscle72": 4.26886793E-08,
+            "muscle73": 1.51781947E-07,
             "muscle74": 0,
             "muscle75": -0.244445115,
             "muscle76": 0.138887912,
@@ -239,13 +239,9 @@
           "index": 1,
           "time": 1,
           "ints": {
-            "hash": 113984512
+            "hash": -1052612608
           },
-          "floats": {
-            "leftHandPositionX": -0.0812969208,
-            "leftHandPositionY": -0.281154186,
-            "leftHandPositionZ": 0.0217060745
-          },
+          "floats": {},
           "strings": {
             "name": "-"
           },
@@ -260,13 +256,10 @@
           "index": 2,
           "time": 2,
           "ints": {
-            "hash": -1198900224
+            "hash": 476142592
           },
           "floats": {
-            "duration": 0,
-            "leftHandPositionX": -0.0832233429,
-            "leftHandPositionY": -0.280822784,
-            "leftHandPositionZ": 0.0245828331
+            "duration": 0
           },
           "strings": {
             "name": "-"
@@ -282,13 +275,9 @@
           "index": 1,
           "time": 1,
           "ints": {
-            "hash": -458094592
+            "hash": -1624691712
           },
-          "floats": {
-            "rightHandPositionX": -0.0523052216,
-            "rightHandPositionY": -0.0850940049,
-            "rightHandPositionZ": 0.327325374
-          },
+          "floats": {},
           "strings": {
             "name": "0Ea"
           },
@@ -303,13 +292,10 @@
           "index": 2,
           "time": 2,
           "ints": {
-            "hash": 686063616
+            "hash": -95936512
           },
           "floats": {
-            "duration": 0,
-            "rightHandPositionX": -0.0312576294,
-            "rightHandPositionY": -0.151651919,
-            "rightHandPositionZ": 0.193867698
+            "duration": 0
           },
           "strings": {
             "name": "0Ea"
@@ -523,13 +509,7 @@
       ]
     }
   ],
-  "linguisticTags": {
-    "pronoun": "",
-    "noun": "",
-    "adverb": "",
-    "expression": "",
-    "verb": ""
-  },
+  "linguisticTags": {},
   "version": 12,
   "globalSpeed": 1,
   "globalRepetitions": 1

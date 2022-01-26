@@ -12,7 +12,7 @@
         {
           "property": "Muscles",
           "index": 1,
-          "time": 0.999999881,
+          "time": 1,
           "ints": {},
           "floats": {
             "muscle0": 2.1398753E-12,
@@ -54,42 +54,42 @@
             "muscle36": 1.94633657E-07,
             "muscle37": -0.499999434,
             "muscle38": 0.00360223628,
-            "muscle39": -0.304801226,
-            "muscle40": -0.0979672521,
-            "muscle41": 0.267045021,
-            "muscle42": -0.441621959,
-            "muscle43": 1.02642322,
+            "muscle39": -0.311380327,
+            "muscle40": -0.0876251981,
+            "muscle41": 0.261185646,
+            "muscle42": -0.440159172,
+            "muscle43": 1.14017963,
             "muscle44": 0.572096288,
             "muscle45": 0.26455,
             "muscle46": -0.499998987,
             "muscle47": 0.00360562769,
-            "muscle48": -0.483151466,
-            "muscle49": -0.0183304902,
-            "muscle50": 0.183537483,
-            "muscle51": -0.577328742,
-            "muscle52": 1.14940536,
+            "muscle48": -0.50087589,
+            "muscle49": -0.046746105,
+            "muscle50": 0.15357092,
+            "muscle51": -0.569714367,
+            "muscle52": 1.17264926,
             "muscle53": 0.526827574,
             "muscle54": -0.205371499,
-            "muscle55": -0.690208733,
-            "muscle56": 0.605554163,
-            "muscle57": 0.711111069,
+            "muscle55": -0.690208375,
+            "muscle56": 0.60555464,
+            "muscle57": 0.71111083,
             "muscle58": 1,
             "muscle59": 0.642144799,
             "muscle60": -0.902222157,
-            "muscle61": 0.800000012,
-            "muscle62": 0.800000012,
-            "muscle63": 0.620695353,
-            "muscle64": -1.09015131,
-            "muscle65": 0.904009461,
-            "muscle66": 0.904009461,
-            "muscle67": 0.61873138,
-            "muscle68": -1.39999998,
-            "muscle69": 0.833333254,
-            "muscle70": 0.833333254,
-            "muscle71": 0.644782901,
-            "muscle72": -0.766606927,
-            "muscle73": 0.878024578,
-            "muscle74": 0.878024578,
+            "muscle61": 0.799999952,
+            "muscle62": 0.799999952,
+            "muscle63": 0.620695531,
+            "muscle64": -1.09014964,
+            "muscle65": 0.904009938,
+            "muscle66": 0.904009581,
+            "muscle67": 0.618731081,
+            "muscle68": -1.39999866,
+            "muscle69": 0.83333236,
+            "muscle70": 0.833332896,
+            "muscle71": 0.644782603,
+            "muscle72": -0.766606271,
+            "muscle73": 0.87802422,
+            "muscle74": 0.87802428,
             "muscle75": -0.690208852,
             "muscle76": 0.605554342,
             "muscle77": 0.71111083,
@@ -110,8 +110,7 @@
             "muscle92": -0.76660639,
             "muscle93": 0.87802428,
             "muscle94": 0.87802428,
-            "muscle-1": 1,
-            "duration": 0.106060609
+            "muscle-1": 1
           },
           "strings": {
             "interpolation": "default"
@@ -125,7 +124,7 @@
         {
           "property": "Muscles",
           "index": 2,
-          "time": 2.01010132,
+          "time": 3,
           "ints": {},
           "floats": {
             "muscle0": 2.15925563E-12,
@@ -183,26 +182,26 @@
             "muscle52": 1.16427016,
             "muscle53": 0.356796026,
             "muscle54": -0.198754758,
-            "muscle55": -0.690208733,
-            "muscle56": 0.605554163,
-            "muscle57": 0.711111069,
-            "muscle58": 1,
+            "muscle55": -0.690208554,
+            "muscle56": 0.605555534,
+            "muscle57": 0.71111083,
+            "muscle58": 0.999999702,
             "muscle59": 0.642144799,
             "muscle60": -0.902222157,
-            "muscle61": 0.800000012,
-            "muscle62": 0.800000012,
-            "muscle63": 0.620695353,
-            "muscle64": -1.09015131,
-            "muscle65": 0.904009461,
-            "muscle66": 0.904009461,
-            "muscle67": 0.61873138,
-            "muscle68": -1.39999998,
-            "muscle69": 0.833333254,
-            "muscle70": 0.833333254,
-            "muscle71": 0.644782901,
-            "muscle72": -0.766606927,
-            "muscle73": 0.878024578,
-            "muscle74": 0.878024578,
+            "muscle61": 0.799999952,
+            "muscle62": 0.799999952,
+            "muscle63": 0.620695531,
+            "muscle64": -1.09014964,
+            "muscle65": 0.904010177,
+            "muscle66": 0.904009581,
+            "muscle67": 0.618730664,
+            "muscle68": -1.39999855,
+            "muscle69": 0.83333236,
+            "muscle70": 0.833332777,
+            "muscle71": 0.644782603,
+            "muscle72": -0.766606271,
+            "muscle73": 0.87802422,
+            "muscle74": 0.87802422,
             "muscle75": -0.690208733,
             "muscle76": 0.605554581,
             "muscle77": 0.71111083,
@@ -223,7 +222,7 @@
             "muscle92": -0.76660639,
             "muscle93": 0.87802428,
             "muscle94": 0.87802428,
-            "duration": 0.106060609,
+            "duration": 0,
             "muscle-1": 1
           },
           "strings": {
@@ -238,16 +237,11 @@
         {
           "property": "Left Hand Configuration",
           "index": 1,
-          "time": 0.999999881,
+          "time": 1,
           "ints": {
-            "hash": 1319066624
+            "hash": 1552673792
           },
-          "floats": {
-            "leftHandPositionX": -0.104115486,
-            "leftHandPositionY": -0.219592631,
-            "leftHandPositionZ": 0.313498497,
-            "duration": 0.106060609
-          },
+          "floats": {},
           "strings": {
             "name": "4uEa"
           },
@@ -260,15 +254,12 @@
         {
           "property": "Left Hand Configuration",
           "index": 2,
-          "time": 2.01010132,
+          "time": 3,
           "ints": {
-            "hash": -815377408
+            "hash": 121348096
           },
           "floats": {
-            "duration": 0.106060609,
-            "leftHandPositionX": -0.11091423,
-            "leftHandPositionY": -0.339475214,
-            "leftHandPositionZ": 0.278395653
+            "duration": 0
           },
           "strings": {
             "name": "4uEa"
@@ -282,16 +273,11 @@
         {
           "property": "Right Hand Configuration",
           "index": 1,
-          "time": 0.999999881,
+          "time": 1,
           "ints": {
-            "hash": 746987520
+            "hash": -163563520
           },
-          "floats": {
-            "rightHandPositionX": 0.0798139572,
-            "rightHandPositionY": -0.177954257,
-            "rightHandPositionZ": 0.294978142,
-            "duration": 0.106060609
-          },
+          "floats": {},
           "strings": {
             "name": "4uEa"
           },
@@ -304,15 +290,12 @@
         {
           "property": "Right Hand Configuration",
           "index": 2,
-          "time": 2.01010132,
+          "time": 3,
           "ints": {
-            "hash": -1387456512
+            "hash": -1022810112
           },
           "floats": {
-            "duration": 0.106060609,
-            "rightHandPositionX": 0.047077179,
-            "rightHandPositionY": -0.31867224,
-            "rightHandPositionZ": 0.257994175
+            "duration": 0
           },
           "strings": {
             "name": "4uEa"
@@ -326,11 +309,9 @@
         {
           "property": "Facial Expression",
           "index": 1,
-          "time": 0.999999881,
+          "time": 1,
           "ints": {},
-          "floats": {
-            "duration": 0.106060609
-          },
+          "floats": {},
           "strings": {
             "faceName": "Neutra"
           },
@@ -343,10 +324,10 @@
         {
           "property": "Facial Expression",
           "index": 2,
-          "time": 2.01010132,
+          "time": 3,
           "ints": {},
           "floats": {
-            "duration": 0.106060609
+            "duration": 0
           },
           "strings": {
             "faceName": "Neutra"
@@ -531,5 +512,5 @@
   "linguisticTags": {},
   "version": 12,
   "globalSpeed": 1,
-  "globalRepetitions": 1
+  "globalRepetitions": 2
 }

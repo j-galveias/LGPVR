@@ -54,20 +54,20 @@
             "muscle36": 1.94633657E-07,
             "muscle37": -0.499999434,
             "muscle38": 0.00360223628,
-            "muscle39": -0.336622626,
-            "muscle40": -0.0865321979,
-            "muscle41": 0.247541457,
-            "muscle42": -0.253600925,
-            "muscle43": -0.557182789,
+            "muscle39": -0.270660579,
+            "muscle40": -0.05272929,
+            "muscle41": 0.308654457,
+            "muscle42": -0.24796842,
+            "muscle43": -0.557553351,
             "muscle44": -0.512620687,
             "muscle45": -0.132180691,
             "muscle46": -0.499998987,
             "muscle47": 0.00360562769,
-            "muscle48": -0.275561541,
-            "muscle49": 0.147249937,
-            "muscle50": 0.0712865591,
-            "muscle51": -0.661077976,
-            "muscle52": -0.635060787,
+            "muscle48": -0.296844125,
+            "muscle49": 0.125327095,
+            "muscle50": 0.0391237773,
+            "muscle51": -0.653605521,
+            "muscle52": -0.640470326,
             "muscle53": -0.339701802,
             "muscle54": 0.200699121,
             "muscle55": -1.26666522,
@@ -124,7 +124,7 @@
         {
           "property": "Muscles",
           "index": 2,
-          "time": 1.52020192,
+          "time": 1.70202005,
           "ints": {},
           "floats": {
             "muscle0": 2.1398753E-12,
@@ -175,11 +175,11 @@
             "muscle45": -0.13216795,
             "muscle46": -0.499999434,
             "muscle47": 0.00360656274,
-            "muscle48": -0.153687865,
-            "muscle49": -0.201773435,
-            "muscle50": 0.15000622,
-            "muscle51": -0.123834737,
-            "muscle52": -0.652458787,
+            "muscle48": -0.179054111,
+            "muscle49": -0.221437857,
+            "muscle50": 0.127996638,
+            "muscle51": -0.112989232,
+            "muscle52": -0.652630687,
             "muscle53": -0.339629143,
             "muscle54": 0.200945988,
             "muscle55": -1.26666391,
@@ -226,119 +226,6 @@
             "muscle-1": 1
           },
           "strings": {
-            "interpolation": "smooth"
-          },
-          "inTangent": 0,
-          "inWeight": 0,
-          "outTangent": 0,
-          "outWeight": 0,
-          "weightedMode": 0
-        },
-        {
-          "property": "Muscles",
-          "index": 3,
-          "time": 2.01010084,
-          "ints": {},
-          "floats": {
-            "muscle0": 2.1398753E-12,
-            "muscle1": -4.07110923E-13,
-            "muscle2": -9.56710622E-13,
-            "muscle3": -1.48849899E-12,
-            "muscle4": -1.69222731E-25,
-            "muscle5": -3.25688776E-13,
-            "muscle6": 0,
-            "muscle7": 0,
-            "muscle8": 0,
-            "muscle9": -3.96933029E-13,
-            "muscle10": -4.0711097E-14,
-            "muscle11": -3.25688776E-13,
-            "muscle12": 5.33605551E-08,
-            "muscle13": 2.27312896E-07,
-            "muscle14": -6.22717238E-08,
-            "muscle15": 0,
-            "muscle16": -3.13225756E-09,
-            "muscle17": 0,
-            "muscle18": -2.60550999E-12,
-            "muscle19": 0,
-            "muscle20": 0,
-            "muscle21": 0.524241209,
-            "muscle22": -0.0713674948,
-            "muscle23": -0.415071636,
-            "muscle24": 0.939664185,
-            "muscle25": 0.309937596,
-            "muscle26": -0.0621798486,
-            "muscle27": 0.0624696277,
-            "muscle28": 3.74593156E-07,
-            "muscle29": 0.524238408,
-            "muscle30": -0.0713507682,
-            "muscle31": -0.415079296,
-            "muscle32": 0.939663231,
-            "muscle33": 0.309939235,
-            "muscle34": -0.062134441,
-            "muscle35": 0.0624400526,
-            "muscle36": 3.996727E-07,
-            "muscle37": -0.499998987,
-            "muscle38": 0.00360269262,
-            "muscle39": -0.33659476,
-            "muscle40": -0.0865180567,
-            "muscle41": 0.247549236,
-            "muscle42": -0.253599823,
-            "muscle43": -0.557163179,
-            "muscle44": -0.51261431,
-            "muscle45": -0.132204756,
-            "muscle46": -0.499999613,
-            "muscle47": 0.00360401603,
-            "muscle48": -0.27527374,
-            "muscle49": 0.147215009,
-            "muscle50": 0.0711521953,
-            "muscle51": -0.661034763,
-            "muscle52": -0.634955049,
-            "muscle53": -0.339585751,
-            "muscle54": 0.201140687,
-            "muscle55": -1.26666582,
-            "muscle56": -1.99999976,
-            "muscle57": -0.022222098,
-            "muscle58": -0.200000063,
-            "muscle59": -0.888888657,
-            "muscle60": -0.831361413,
-            "muscle61": -0.0333332531,
-            "muscle62": 0.99999994,
-            "muscle63": -1.00000012,
-            "muscle64": -1.27681434,
-            "muscle65": 0.200000063,
-            "muscle66": 0.999999464,
-            "muscle67": -1.00000024,
-            "muscle68": -0.506229341,
-            "muscle69": 0.399999857,
-            "muscle70": 0.999998927,
-            "muscle71": -0.99999994,
-            "muscle72": -0.393272996,
-            "muscle73": 0.533332944,
-            "muscle74": 0.999999702,
-            "muscle75": -1.26666701,
-            "muscle76": -1.99999988,
-            "muscle77": -0.0222220272,
-            "muscle78": -0.200000003,
-            "muscle79": -0.888888657,
-            "muscle80": -0.831361532,
-            "muscle81": -0.0333333835,
-            "muscle82": 1.00000012,
-            "muscle83": -0.999999464,
-            "muscle84": -1.27681744,
-            "muscle85": 0.200000092,
-            "muscle86": 0.99999994,
-            "muscle87": -0.99999994,
-            "muscle88": -0.506229281,
-            "muscle89": 0.399999857,
-            "muscle90": 0.99999994,
-            "muscle91": -1,
-            "muscle92": -0.393272877,
-            "muscle93": 0.533333302,
-            "muscle94": 0.99999994,
-            "duration": 0,
-            "muscle-1": 1
-          },
-          "strings": {
             "interpolation": "default"
           },
           "inTangent": 0,
@@ -352,13 +239,9 @@
           "index": 1,
           "time": 1,
           "ints": {
-            "hash": 1425572864
+            "hash": -1236856832
           },
-          "floats": {
-            "leftHandPositionX": -0.109308243,
-            "leftHandPositionY": -0.259676039,
-            "leftHandPositionZ": 0.269226074
-          },
+          "floats": {},
           "strings": {
             "name": "4OF-"
           },
@@ -371,37 +254,12 @@
         {
           "property": "Left Hand Configuration",
           "index": 2,
-          "time": 1.52020192,
+          "time": 1.70202005,
           "ints": {
-            "hash": -1725236224
+            "hash": -2058749952
           },
           "floats": {
-            "duration": 0,
-            "leftHandPositionX": -0.111795425,
-            "leftHandPositionY": -0.126132071,
-            "leftHandPositionZ": 0.275762558
-          },
-          "strings": {
-            "name": "4OF-"
-          },
-          "inTangent": 0,
-          "inWeight": 0,
-          "outTangent": 0,
-          "outWeight": 0,
-          "weightedMode": 0
-        },
-        {
-          "property": "Left Hand Configuration",
-          "index": 3,
-          "time": 2.01010084,
-          "ints": {
-            "hash": -1115398144
-          },
-          "floats": {
-            "duration": 0,
-            "leftHandPositionX": -0.109319687,
-            "leftHandPositionY": -0.25950104,
-            "leftHandPositionZ": 0.269176483
+            "duration": 0
           },
           "strings": {
             "name": "4OF-"
@@ -417,13 +275,9 @@
           "index": 1,
           "time": 1,
           "ints": {
-            "hash": 1715986432
+            "hash": -1800187904
           },
-          "floats": {
-            "rightHandPositionX": 0.0925979614,
-            "rightHandPositionY": -0.149237692,
-            "rightHandPositionZ": 0.268755913
-          },
+          "floats": {},
           "strings": {
             "name": "4OF-"
           },
@@ -436,37 +290,12 @@
         {
           "property": "Right Hand Configuration",
           "index": 2,
-          "time": 1.52020192,
+          "time": 1.70202005,
           "ints": {
-            "hash": 1997651968
+            "hash": 1664138240
           },
           "floats": {
-            "duration": 0,
-            "rightHandPositionX": 0.0783863068,
-            "rightHandPositionY": -0.289925158,
-            "rightHandPositionZ": 0.296295166
-          },
-          "strings": {
-            "name": "4OF-"
-          },
-          "inTangent": 0,
-          "inWeight": 0,
-          "outTangent": 0,
-          "outWeight": 0,
-          "weightedMode": 0
-        },
-        {
-          "property": "Right Hand Configuration",
-          "index": 3,
-          "time": 2.01010084,
-          "ints": {
-            "hash": -1687477248
-          },
-          "floats": {
-            "duration": 0,
-            "rightHandPositionX": 0.0925865173,
-            "rightHandPositionY": -0.149070799,
-            "rightHandPositionZ": 0.268702507
+            "duration": 0
           },
           "strings": {
             "name": "4OF-"
@@ -495,7 +324,7 @@
         {
           "property": "Facial Expression",
           "index": 2,
-          "time": 1.52020192,
+          "time": 1.70202005,
           "ints": {},
           "floats": {
             "duration": 0
@@ -507,107 +336,6 @@
           "inWeight": 0,
           "outTangent": 0,
           "outWeight": 0,
-          "weightedMode": 0
-        },
-        {
-          "property": "Facial Expression",
-          "index": 3,
-          "time": 2.01010084,
-          "ints": {},
-          "floats": {
-            "duration": 0
-          },
-          "strings": {
-            "faceName": "Neutra"
-          },
-          "inTangent": 0,
-          "inWeight": 0,
-          "outTangent": 0,
-          "outWeight": 0,
-          "weightedMode": 0
-        }
-      ]
-    },
-    {
-      "properties": [
-        "Face Animation Neutra"
-      ],
-      "loops": false,
-      "keyFrames": [
-        {
-          "property": "Face Animation Neutra",
-          "index": 0,
-          "time": 0,
-          "ints": {},
-          "floats": {
-            "girl_head_.blendShape.mClose": 100,
-            "girl_head_.blendShape.A": 0,
-            "girl_head_.blendShape.Cons": 0,
-            "girl_head_.blendShape.Fv": 0,
-            "girl_head_.blendShape.mLSide": 0,
-            "girl_head_.blendShape.mLSideUp": 0,
-            "girl_head_.blendShape.mRSide": 0,
-            "girl_head_.blendShape.mRSideUp": 0,
-            "girl_head_.blendShape.O": 0,
-            "girl_head_.blendShape.smile": 0,
-            "girl_head_.blendShape.U": 0,
-            "girl_hair.blendShape.cheek1": 0,
-            "girl_hair.blendShape.cheek2": 0,
-            "girl_hair.blendShape.cheek3": 0,
-            "girl_head_.blendShape.Bmp": 0,
-            "girl_head_.blendShape.E": 0,
-            "girl_head_.blendShape.F001": 0,
-            "girl_head_.blendShape.F003": 0,
-            "girl_head_.blendShape.F005": 0,
-            "girl_head_.blendShape.F006": 0,
-            "girl_head_.blendShape.F007": 0,
-            "girl_head_.blendShape.F007left": 0,
-            "girl_head_.blendShape.F008": 0,
-            "girl_head_.blendShape.F017": 0,
-            "girl_head_.blendShape.F019": 0,
-            "girl_head_.blendShape.F024": 0,
-            "girl_head_.blendShape.F031": 0,
-            "girl_head_.blendShape.LEyeBMad": 0,
-            "girl_head_.blendShape.LEyeClose": 0,
-            "girl_head_.blendShape.LEyeLidUp": 0,
-            "girl_head_.blendShape.LEyeMad": 0,
-            "girl_head_.blendShape.LEyeSad": 0,
-            "girl_head_.blendShape.LeyeBUp": 0,
-            "girl_head_.blendShape.mSad": 0,
-            "girl_head_.blendShape.REyeBMad": 0,
-            "girl_head_.blendShape.REyeClose": 0,
-            "girl_head_.blendShape.REyeLidUp": 0,
-            "girl_head_.blendShape.REyeMad": 0,
-            "girl_head_.blendShape.REyeSad": 0,
-            "girl_head_.blendShape.ReyeBSad": 0,
-            "girl_head_.blendShape.ReyeBUp": 0,
-            "girl_head_.blendShape.ReyeLSad": 0,
-            "tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove/tgrl1_tongue.blendShape.tongue_A": 0,
-            "tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove/tgrl1_tongue.blendShape.tongue_down": 0,
-            "tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove/tgrl1_tongue.blendShape.tongue_F007": 0,
-            "tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove/tgrl1_tongue.blendShape.tongue_F007left": 0,
-            "tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove/tgrl1_tongue.blendShape.tongue_left": 0,
-            "tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove/tgrl1_tongue.blendShape.tongue_O": 0,
-            "tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove/tgrl1_tongue.blendShape.tongue_out": 0,
-            "tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove/tgrl1_tongue.blendShape.tongue_right": 0,
-            "tgrl1_dmyHeadObjsRoot/tgrl1_logGumTeethAngle/tgrl1_logGumTeethMove/tgrl1_tongue.blendShape.tongue_up": 0,
-            "rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rig_boneTongue.m_LocalPosition.x": -0.0188717656,
-            "rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rig_boneTongue.m_LocalPosition.y": 0.0733392909,
-            "rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rig_boneTongue.m_LocalPosition.z": 1.52587887E-07,
-            "rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rig_boneTongue.localEulerAnglesRaw.x": 178.884003,
-            "rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rig_boneTongue.localEulerAnglesRaw.y": 89.9999924,
-            "rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rig_boneTongue.localEulerAnglesRaw.z": 0,
-            "rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rig_boneTongue.m_LocalScale.x": 1,
-            "rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rig_boneTongue.m_LocalScale.y": 1,
-            "rig_CharRoot/bip/bip Pelvis/bip Spine/bip Spine1/bip Neck/bip Head/rig_boneTongue.m_LocalScale.z": 1,
-            "muscle15": 0,
-            "muscle17": 0
-          },
-          "strings": {},
-          "inTangent": 0,
-          "inWeight": 0.333333343,
-          "outTangent": 0,
-          "outWeight": 0.333333343,
           "weightedMode": 0
         }
       ]
@@ -781,10 +509,7 @@
       ]
     }
   ],
-  "linguisticTags": {
-    "pronoun": "",
-    "noun": ""
-  },
+  "linguisticTags": {},
   "version": 12,
   "globalSpeed": 1,
   "globalRepetitions": 3

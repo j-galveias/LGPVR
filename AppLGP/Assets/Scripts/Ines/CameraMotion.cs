@@ -90,7 +90,8 @@ public class CameraMotion : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        hovering = true;
+        if (!Input.GetMouseButton(0))
+            hovering = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)

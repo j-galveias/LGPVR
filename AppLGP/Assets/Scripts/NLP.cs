@@ -7,16 +7,30 @@ using UnityEngine;
 
 public static class NLP
 {
+    public const NormalizationForm NORMALIZATION = NormalizationForm.FormKC;
+
     public static string StandardizeName(string signName)
     {
-        string name = signName.ToUpper().Replace("GESTO_", "");
+        string name = signName.Normalize(NORMALIZATION).ToUpper().Replace("GESTO_", "");
         return name.ToLower();
     }
 
-    public static string removeAccents(string word)
+    public static string RemoveAccents(string word)
     {
-        word = Regex.Replace(word.Normalize(NormalizationForm.FormD), @"[^A-Za-z 0-9 \.,\?'""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*", string.Empty).Trim();
+        word = Regex.Replace(word.Normalize(NORMALIZATION), @"[^A-Za-z 0-9 \.,\?'""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*", string.Empty).Trim();
         return word.Replace("-", " ").Replace("_", " ").Replace(" DE ", " ").Replace(" DO ", " ");
+    }
+
+    public static string RemoveSuffix(this string s, string suffix)
+    {
+        if (s.EndsWith(suffix))
+        {
+            return s.Substring(0, s.Length - suffix.Length);
+        }
+        else
+        {
+            return s;
+        }
     }
 
     public static int LevenshteinDistance(string source1, string source2) //O(n*m)
