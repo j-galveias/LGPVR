@@ -49,10 +49,10 @@ public class Client : MonoBehaviour {
             button.interactable = false; 
 
         if (received){
-			Debug.Log("receivedddd");
+			// Debug.Log("receivedddd");
 			if (serverMessage == "Erro")
 			{
-				Debug.Log("erroooooo");
+				// Debug.Log("erroooooo");
 				text.text = "Erro a traduzir frase, tente outra.";
 				text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 				frase_pensar.gameObject.SetActive(false);
@@ -102,7 +102,7 @@ public class Client : MonoBehaviour {
 			mainAnimation.Animate(serverMessage);
 		}
 		catch{
-			Debug.Log("ERRO");
+			// Debug.Log("ERRO");
 			text.text = "Erro a traduzir frase, tente outra.";
 			text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 			frase_pensar.gameObject.SetActive(false);
@@ -127,7 +127,7 @@ public class Client : MonoBehaviour {
 
 			if (www.result == UnityWebRequest.Result.ConnectionError)
 			{
-				Debug.Log(www.error);
+				// Debug.Log(www.error);
 				text.text = "Servidor não está ligado";
 				text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 			}
@@ -165,14 +165,14 @@ public class Client : MonoBehaviour {
 		yield return www.SendWebRequest();
 
 		if(www.result == UnityWebRequest.Result.ConnectionError) {
-			Debug.Log(www.error);
+			// Debug.Log(www.error);
 			text.text = "Servidor não conseguiu responder";
 			text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 		}
 		else {
-			Debug.Log("Client sent his message - should be received by server");
-			Debug.Log("POST successful!");
-			Debug.Log("Received: " + www.downloadHandler.text);
+			// Debug.Log("Client sent his message - should be received by server");
+			// Debug.Log("POST successful!");
+			// Debug.Log("Received: " + www.downloadHandler.text);
 			serverMessage = www.downloadHandler.text;
 			received = true;
 		}

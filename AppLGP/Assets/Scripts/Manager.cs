@@ -29,6 +29,10 @@ public class Manager : MonoBehaviour
 
     List<Button> Buttons = new List<Button>();
 
+    Dictionary<string, List<AnimationClip>> compostosList = new Dictionary<string, List<AnimationClip>>();
+
+    AnimatorOverrideController animatorOverrideController;
+
     public InputField search;
 
     int bundles = 0;
@@ -37,7 +41,7 @@ public class Manager : MonoBehaviour
     public GameObject buttonModel;
     public GameObject canvas;
     public Animator animator;
-    private int signLayer;
+    private int signIndex = 0;
     private string currentSign = "idle";
     private bool idle = true;
     private Coroutine idleCoroutine;
@@ -116,9 +120,93 @@ public class Manager : MonoBehaviour
         InitializeButtons("Animations/Fingerspelling/", true);
         InitializeButtons("Animations/Signs/");
 
+        AnimateCompositeUtterances("Animations/Compostos/");
+
+        animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+
 
         //Descomentar para usar o FuzzyMatch
         search.onValueChanged.AddListener(delegate {IncrementSearchDelay();});
+    }
+
+    void AnimateCompositeUtterances(string path) {
+        AnimationClip[] compostosSigns = Resources.LoadAll<AnimationClip>(path);
+
+        Dictionary<string, AnimationClip> compostosSignsDict = new Dictionary<string, AnimationClip>();
+
+        foreach(var clip in compostosSigns)
+        {
+            string animation = clip.name.Normalize(NLP.NORMALIZATION).ToUpper();
+
+            if (!compostosSignsDict.ContainsKey(animation)) {
+                AnimationClip animClip =  (AnimationClip) clip;
+                compostosSignsDict.Add(animation, animClip);
+            }
+        }
+        compostosList = ReadCompositList("Animations/Compostos", compostosSignsDict);
+
+        List<string> list = compostosList.Keys.ToList();
+        //foreach(var a in list) Debug.Log("a: " + a);
+        list.Sort();
+
+        foreach (string key in list)
+        {
+            Button newButton = Instantiate(buttonModel).GetComponent<Button>();
+
+            string animName = key;
+
+            newButton.name = animName;
+
+            newButton.gameObject.SetActive(true);
+            newButton.transform.GetChild(0).GetComponent<Text>().text = animName;
+            newButton.transform.SetParent(buttonModel.transform.parent);
+
+            newButton.GetComponent<Button>().onClick.AddListener( () =>
+            {
+                StartCoroutine(PlayCompositeSign(newButton.name));
+            });
+
+            Buttons.Add(newButton);
+        }
+    }
+
+    public Dictionary<string, List<AnimationClip>> ReadCompositList(string filePath, Dictionary<string, AnimationClip> compostosSignsDict)
+    {
+        Dictionary<string, List<AnimationClip>> result = new Dictionary<string, List<AnimationClip>>();
+        TextAsset compostos = Resources.Load<TextAsset>(filePath);
+        // string[] lines = File.ReadAllLines(filePath);
+
+        string[] lines = Regex.Split(compostos.text, "\n");
+
+        Debug.Log(lines);
+
+        foreach (string line in lines)
+        {
+            string[] parts = line.Split(',');
+            // Debug.Log(parts[0]);
+            // Debug.Log(parts[1]);
+            if (parts.Length > 1) {
+                string[] components = Regex.Replace(parts[1], @"\s+", "").Split('+');
+
+                List<AnimationClip> clipsList = new List<AnimationClip>();
+
+                foreach(string component in components) {
+
+                    string componentNorm = component.Normalize(NLP.NORMALIZATION).ToUpper();
+
+                    if (compostosSignsDict.ContainsKey(componentNorm)) {
+                        clipsList.Add(compostosSignsDict[componentNorm]);
+                    }
+                    else if (animations.ContainsKey(componentNorm)) {
+                        clipsList.Add(animations[componentNorm]);
+                    }
+                }
+                
+                result[parts[0].Normalize(NLP.NORMALIZATION).ToUpper()] = clipsList;
+                // break;
+            }
+        }
+        return result;
     }
         
 // IEnumerator downloadTextFile(string text) {
@@ -157,120 +245,120 @@ public class Manager : MonoBehaviour
 
         // }
 
-    IEnumerator downloadFile(string asset) {
-        Debug.Log(asset);
-        UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(asset);
-        yield return www.SendWebRequest();
+    // IEnumerator downloadFile(string asset) {
+    //     Debug.Log(asset);
+    //     UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(asset);
+    //     yield return www.SendWebRequest();
 
-        Debug.Log("get requesttt");
+    //     Debug.Log("get requesttt");
  
-        if (www.result != UnityWebRequest.Result.Success) {
-            Debug.Log(www.error);
-        }
-        else {
-            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
-            AnimationClip[] animationsArray = bundle.LoadAllAssets<AnimationClip>();
-            foreach (var clip in animationsArray) {
-                string name = NLP.StandardizeName(clip.name);
-                animations.Add(name, clip as AnimationClip);
-            }
-            TextAsset[] jsonArray = bundle.LoadAllAssets<TextAsset>();
-            foreach (var clip in jsonArray) {
-                string name = NLP.StandardizeName(clip.name);
-                jsonFiles.Add(name, clip as TextAsset);
-            }
-            foreach(var anim in animations) Debug.Log(anim);
-            InitializeButtons();
-        }
-    }
+    //     if (www.result != UnityWebRequest.Result.Success) {
+    //         Debug.Log(www.error);
+    //     }
+    //     else {
+    //         AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
+    //         AnimationClip[] animationsArray = bundle.LoadAllAssets<AnimationClip>();
+    //         foreach (var clip in animationsArray) {
+    //             string name = NLP.StandardizeName(clip.name);
+    //             animations.Add(name, clip as AnimationClip);
+    //         }
+    //         TextAsset[] jsonArray = bundle.LoadAllAssets<TextAsset>();
+    //         foreach (var clip in jsonArray) {
+    //             string name = NLP.StandardizeName(clip.name);
+    //             jsonFiles.Add(name, clip as TextAsset);
+    //         }
+    //         foreach(var anim in animations) Debug.Log(anim);
+    //         InitializeButtons();
+    //     }
+    // }
 
-    IEnumerator GetBundle() {
-        // var assetbundles = Directory.EnumerateFiles(Application.streamingAssetsPath + "/Bundle/").Where(s => !s.Contains(".")).Select(Path.GetFileName);
-        // Debug.Log(Application.streamingAssetsPath + "/Bundle/");
-        // foreach(var assetbundle in assetbundles) {
-        //     if (assetbundle != "Bundle"){
-        //         Debug.Log(assetbundle);
-        //         GetAssets(assetbundle.ToString(), assetbundle == assetbundles.Last());
-        //     } 
-        // }
-        UnityWebRequest www = new UnityWebRequest("https://web.tecnico.ulisboa.pt/ist186436/tese/gestuario/StreamingAssets/Bundle/"); //Application.streamingAssetsPath + "/Bundle/"
-        www.downloadHandler = new DownloadHandlerBuffer();
-        yield return www.SendWebRequest();
+    // IEnumerator GetBundle() {
+    //     // var assetbundles = Directory.EnumerateFiles(Application.streamingAssetsPath + "/Bundle/").Where(s => !s.Contains(".")).Select(Path.GetFileName);
+    //     // Debug.Log(Application.streamingAssetsPath + "/Bundle/");
+    //     // foreach(var assetbundle in assetbundles) {
+    //     //     if (assetbundle != "Bundle"){
+    //     //         Debug.Log(assetbundle);
+    //     //         GetAssets(assetbundle.ToString(), assetbundle == assetbundles.Last());
+    //     //     } 
+    //     // }
+    //     UnityWebRequest www = new UnityWebRequest("https://web.tecnico.ulisboa.pt/ist186436/tese/gestuario/StreamingAssets/Bundle/"); //Application.streamingAssetsPath + "/Bundle/"
+    //     www.downloadHandler = new DownloadHandlerBuffer();
+    //     yield return www.SendWebRequest();
 
-        if (www.result != UnityWebRequest.Result.Success) {
-            Debug.Log(www.error);
-        }
-        else {
-            // Show results as text
-            Debug.Log(www.downloadHandler.text);
+    //     if (www.result != UnityWebRequest.Result.Success) {
+    //         Debug.Log(www.error);
+    //     }
+    //     else {
+    //         // Show results as text
+    //         Debug.Log(www.downloadHandler.text);
 
-            Regex regex = new Regex("<a href=\".*\">(?<name>.*)</a>");
-            MatchCollection matches = regex.Matches(www.downloadHandler.text);
-            // bundles = matches.Count;
-            List<string> finalLinks = new List<string>();
-            foreach (Match match in matches) {
-                Debug.Log(match.Groups["name"].Value);
-                if (match.Groups["name"].Value != "Description" && match.Groups["name"].Value != "Parent Directory" && !match.Groups["name"].Value.Contains("Bundle") && !match.Groups["name"].Value.Contains("meta")  && !match.Groups["name"].Value.Contains("manifest")){
-                    finalLinks.Add(match.Groups["name"].Value);
-                    Debug.Log(bundles);
-                    Debug.Log(matches.Count);
-                    StartCoroutine(GetAssets(match.Groups["name"].Value, match.Groups["name"].Value==matches[matches.Count-1].Groups["name"].Value.Split('.')[0]));
-                }
-            }
-        }
-    }
+    //         Regex regex = new Regex("<a href=\".*\">(?<name>.*)</a>");
+    //         MatchCollection matches = regex.Matches(www.downloadHandler.text);
+    //         // bundles = matches.Count;
+    //         List<string> finalLinks = new List<string>();
+    //         foreach (Match match in matches) {
+    //             Debug.Log(match.Groups["name"].Value);
+    //             if (match.Groups["name"].Value != "Description" && match.Groups["name"].Value != "Parent Directory" && !match.Groups["name"].Value.Contains("Bundle") && !match.Groups["name"].Value.Contains("meta")  && !match.Groups["name"].Value.Contains("manifest")){
+    //                 finalLinks.Add(match.Groups["name"].Value);
+    //                 Debug.Log(bundles);
+    //                 Debug.Log(matches.Count);
+    //                 StartCoroutine(GetAssets(match.Groups["name"].Value, match.Groups["name"].Value==matches[matches.Count-1].Groups["name"].Value.Split('.')[0]));
+    //             }
+    //         }
+    //     }
+    // }
 
-    IEnumerator GetAssets(string asset, bool last) {
-        // Debug.Log(Path.Combine(Application.streamingAssetsPath + "/Bundle/", asset));
-        // var myLoadedAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath + "/Bundle/", asset));
-        // if (myLoadedAssetBundle == null)
-        // {
-        //     Debug.Log("Failed to load AssetBundle!");
-        //     return;
-        // }
+    // IEnumerator GetAssets(string asset, bool last) {
+    //     // Debug.Log(Path.Combine(Application.streamingAssetsPath + "/Bundle/", asset));
+    //     // var myLoadedAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath + "/Bundle/", asset));
+    //     // if (myLoadedAssetBundle == null)
+    //     // {
+    //     //     Debug.Log("Failed to load AssetBundle!");
+    //     //     return;
+    //     // }
 
-        // AnimationClip[] animationsArray = myLoadedAssetBundle.LoadAllAssets<AnimationClip>();
-        // foreach (var clip in animationsArray) {
-        //     string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
-        //     animations.Add(name.ToLower(), clip as AnimationClip);
-        // }
-        // TextAsset[] jsonArray = myLoadedAssetBundle.LoadAllAssets<TextAsset>();
-        // foreach (var clip in jsonArray) {
-        //     string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
-        //     jsonFiles.Add(name.ToLower(), clip as TextAsset);
-        // }
-        // foreach(var anim in animations) Debug.Log(anim);
-        // if(last) InitializeButtons();
+    //     // AnimationClip[] animationsArray = myLoadedAssetBundle.LoadAllAssets<AnimationClip>();
+    //     // foreach (var clip in animationsArray) {
+    //     //     string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
+    //     //     animations.Add(name.ToLower(), clip as AnimationClip);
+    //     // }
+    //     // TextAsset[] jsonArray = myLoadedAssetBundle.LoadAllAssets<TextAsset>();
+    //     // foreach (var clip in jsonArray) {
+    //     //     string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
+    //     //     jsonFiles.Add(name.ToLower(), clip as TextAsset);
+    //     // }
+    //     // foreach(var anim in animations) Debug.Log(anim);
+    //     // if(last) InitializeButtons();
 
-        // myLoadedAssetBundle.Unload(false);
+    //     // myLoadedAssetBundle.Unload(false);
 
 
-        // Debug.Log(last);
-        UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle("https://web.tecnico.ulisboa.pt/ist186436/tese/gestuario/StreamingAssets/Bundle/" + asset);
-        yield return www.SendWebRequest();
+    //     // Debug.Log(last);
+    //     UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle("https://web.tecnico.ulisboa.pt/ist186436/tese/gestuario/StreamingAssets/Bundle/" + asset);
+    //     yield return www.SendWebRequest();
  
-        if (www.result != UnityWebRequest.Result.Success) {
-            Debug.Log(www.error);
-        }
-        else {
-            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
+    //     if (www.result != UnityWebRequest.Result.Success) {
+    //         Debug.Log(www.error);
+    //     }
+    //     else {
+    //         AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
 
-            AnimationClip[] animationsArray = bundle.LoadAllAssets<AnimationClip>();
-            foreach (var clip in animationsArray) {
-                string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
-                name = name.Normalize(NLP.NORMALIZATION);
-                animations.Add(name.ToLower(), clip as AnimationClip);
-            }
-            TextAsset[] jsonArray = bundle.LoadAllAssets<TextAsset>();
-            foreach (var clip in jsonArray) {
-                string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
-                name = name.Normalize(NLP.NORMALIZATION);
-                jsonFiles.Add(name.ToLower(), clip as TextAsset);
-            }
-            foreach(var anim in animations) Debug.Log(anim);
-            // if(last) InitializeButtons();
-        }
-    }
+    //         AnimationClip[] animationsArray = bundle.LoadAllAssets<AnimationClip>();
+    //         foreach (var clip in animationsArray) {
+    //             string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
+    //             name = name.Normalize(NLP.NORMALIZATION);
+    //             animations.Add(name.ToLower(), clip as AnimationClip);
+    //         }
+    //         TextAsset[] jsonArray = bundle.LoadAllAssets<TextAsset>();
+    //         foreach (var clip in jsonArray) {
+    //             string name = clip.name.ToLower().StartsWith("gesto_") ? clip.name.Substring("gesto_".Length) : clip.name;
+    //             name = name.Normalize(NLP.NORMALIZATION);
+    //             jsonFiles.Add(name.ToLower(), clip as TextAsset);
+    //         }
+    //         foreach(var anim in animations) Debug.Log(anim);
+    //         // if(last) InitializeButtons();
+    //     }
+    // }
 
     private void InitializeButtons(string path = null, bool pause=false)
     {
@@ -464,10 +552,9 @@ public class Manager : MonoBehaviour
     {
         // animator.SetFloat("speedParam", animData[sign].globalSpeed);
         // repeat = animData[sign].globalRepetitions;
-        AnimatorOverrideController animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animatorOverrideController["_signAnim0"] = animations[sign];
         animator.runtimeAnimatorController = animatorOverrideController;
-        animator.CrossFadeInFixedTime("Sign", 0.5f, 1, 0.5f);
+        animator.CrossFadeInFixedTime("State0", 0.5f, 1, 0.5f);
         animator.SetBool("Animating", true);
         currentSign = sign;
         // idle = false;
@@ -484,10 +571,32 @@ public class Manager : MonoBehaviour
 
     }
 
+    public IEnumerator PlayCompositeSign(string sign)
+    {
+        if (compostosList.ContainsKey(sign)) {
+            currentSign = sign;
+            animatorOverrideController["_signAnim" + signIndex%2] = compostosList[sign][signIndex];
+            animator.runtimeAnimatorController = animatorOverrideController;
 
-    public void Idle() {
+            animator.CrossFadeInFixedTime("State" + signIndex%2, signIndex != 0 ? 0.3f : 0.5f, 1, 0.7f);
+            
+            yield return new WaitForSeconds(compostosList[sign][signIndex].length-0.7f);
+
+            signIndex += 1;
+
+            if (signIndex == compostosList[sign].Count) StartCoroutine(Idle());
+            else StartCoroutine(PlayCompositeSign(sign));
+
+        }
+    }
+
+
+    public IEnumerator Idle() {
         animator.CrossFadeInFixedTime("Idle", 0.5f, 1, 0.5f);
-        canvas.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        currentSign = "idle";
+        animator.SetBool("Animating", false);
+        signIndex = 0;
     }
 
     public static Dictionary<string, AnimatedSignMini> GetAnimAllData()

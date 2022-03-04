@@ -103,11 +103,9 @@ public class AhoCorasick : MonoBehaviour
             while (queue.Count > 0)
             {
                 var node = queue.Dequeue();
-                Debug.Log("node " + node);
 
                 // visit children
                 foreach (var child in node){
-                    Debug.Log("child " + child);
                     queue.Enqueue(child);
                 }
                 // fail link of root is root
@@ -127,7 +125,6 @@ public class AhoCorasick : MonoBehaviour
                     node.Fail = root;
             }
 
-            Debug.Log("queue: " + queue);
         }
 
         /// <summary>
