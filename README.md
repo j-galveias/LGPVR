@@ -1,5 +1,5 @@
 # AppLGP
 
-Link to Translator: https://web.tecnico.ulisboa.pt/ist186436/tese/tradutor/
+Link to Translator: https://portallgp.ics.lisboa.ucp.pt/tradutor-para-lgp/
 
-Link to Gestuário: https://web.tecnico.ulisboa.pt/ist186436/tese/gestuario/
+Link to Gestuário: https://portallgp.ics.lisboa.ucp.pt/gestuario/
