@@ -44,29 +44,29 @@ public class CameraMotion : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
 
     void Update () {
-        if (hovering)
+        /*if (hovering)
         {
             if (canZoom)
-            {
+            {*/
                 /*float fov = mainCamera.fieldOfView;
                 fov -= Input.GetAxis("Mouse ScrollWheel") * Preferences.singleton.mouseSensitivity * 10;
                 fov = Mathf.Clamp(fov, minFov, maxFov);
                 
                 mainCamera.fieldOfView = fov;*/
 
-                float valueChange = mainCamera.fieldOfView;
+                /*float valueChange = mainCamera.fieldOfView;
 
                 valueChange -= Input.GetAxis("Mouse ScrollWheel") * 10f;
                 valueChange = Mathf.Clamp(valueChange, minFov, maxFov);
                 Camera.main.fieldOfView = valueChange;
-                
+                */
                 // Input.GetAxis("Mouse ScrollWheel") * 10 / (maxFov - minFov);
                 // Debug.Log(valueChange);
                 // ZoomSliderDrag(valueChange);
-            }
-        }
+            //}
+        //}
 
-        if (Input.GetMouseButton(0)) OnDrag();
+        //if (Input.GetMouseButton(0)) OnDrag();
     }
 
     public void ZoomSliderDrag(float sliderValue)
