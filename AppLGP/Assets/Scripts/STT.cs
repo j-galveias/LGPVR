@@ -106,14 +106,8 @@ public class STT : MonoBehaviour
             {
                 Permission.RequestUserPermission(Permission.Microphone);
             }
-#elif PLATFORM_IOS
-            if (!Application.HasUserAuthorization(UserAuthorization.Microphone))
-            {
-                Application.RequestUserAuthorization(UserAuthorization.Microphone);
-            }
 #else
             micPermissionGranted = true;
-            message = "Click button to recognize speech";
 #endif
             startRecoButton.onClick.AddListener(ButtonClick);
         }
