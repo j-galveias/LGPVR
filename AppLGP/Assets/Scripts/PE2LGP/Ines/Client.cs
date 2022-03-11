@@ -13,15 +13,17 @@ using System.Security.Cryptography.X509Certificates;
 using System.Net.Mail;
 
 public class Client : MonoBehaviour {
+	public GameObject leftCanvas;
+	public GameObject rightCanvas;
 	public string error = null;
 	Animator animator;
 	public Toggle toggle;
 	public Toggle mouthing_toggle;
 	public Toggle toggle_hand;
 	public GameObject replay_button;
-    public Text sentence;
-	public Text frase_pensar;
-    public Text text;
+    public TMP_Text sentence;
+	public TMP_Text frase_pensar;
+    public TMP_Text text;
     public Button button;
 	public GameObject character;
 	#region private members 	
@@ -54,8 +56,10 @@ public class Client : MonoBehaviour {
 			{
 				// Debug.Log("erroooooo");
 				text.text = "Erro a traduzir frase, tente outra.";
-				text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+				//text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 				frase_pensar.gameObject.SetActive(false);
+				leftCanvas.SetActive(true);
+				rightCanvas.SetActive(true);
 				sentence.gameObject.SetActive(true);
         		button.gameObject.SetActive(true);
 				// replay_button.gameObject.SetActive(true);
@@ -83,7 +87,7 @@ public class Client : MonoBehaviour {
 			animator.SetBool("Pensar", true);
 			frase_pensar.gameObject.SetActive(true);
 			frase_pensar.text = sentence.text;
-			frase_pensar.rectTransform.sizeDelta = new Vector2(frase_pensar.preferredWidth, frase_pensar.preferredHeight);
+			//frase_pensar.rectTransform.sizeDelta = new Vector2(frase_pensar.preferredWidth, frase_pensar.preferredHeight);
         }
 	} 
 
@@ -104,7 +108,9 @@ public class Client : MonoBehaviour {
 		catch{
 			// Debug.Log("ERRO");
 			text.text = "Erro a traduzir frase, tente outra.";
-			text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+			//text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+			leftCanvas.SetActive(true);
+			rightCanvas.SetActive(true);
 			frase_pensar.gameObject.SetActive(false);
 			sentence.gameObject.SetActive(true);
 			button.gameObject.SetActive(true);
@@ -129,7 +135,7 @@ public class Client : MonoBehaviour {
 			{
 				// Debug.Log(www.error);
 				text.text = "Servidor não está ligado";
-				text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+				//text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 			}
 			else
 			{
@@ -167,7 +173,7 @@ public class Client : MonoBehaviour {
 		if(www.result == UnityWebRequest.Result.ConnectionError) {
 			// Debug.Log(www.error);
 			text.text = "Servidor não conseguiu responder";
-			text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+			//text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 		}
 		else {
 			// Debug.Log("Client sent his message - should be received by server");

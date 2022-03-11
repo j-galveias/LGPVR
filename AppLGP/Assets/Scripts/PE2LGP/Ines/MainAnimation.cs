@@ -17,7 +17,10 @@ using Microsoft.VisualBasic;
 // public class AnimationEvent : UnityEvent<List<string>> { }
 
 public class MainAnimation : MonoBehaviour 
-{   
+{
+    public GameObject leftCanvas;
+    public GameObject rightCanvas;
+
     // Start is called before the first frame update
     float clipTime;
     Animation animation;
@@ -58,9 +61,9 @@ public class MainAnimation : MonoBehaviour
     TranslatorInfo json;
     AnimatedSignMini jsonInfo;
     public GameObject replay_button;
-    public Text sentence;
-    public Text frase_pensar;
-    public Text text;
+    public TMP_Text sentence;
+    public TMP_Text frase_pensar;
+    public TMP_Text text;
     public Button button;
 	public GameObject character;
     public GameObject head;
@@ -364,7 +367,10 @@ public class MainAnimation : MonoBehaviour
     }
 
     public void Animate(string serverMessage) {
-        try{
+        leftCanvas.SetActive(false);
+        rightCanvas.SetActive(false);
+        try
+        {
             // text.gameObject.SetActive(false);
             text.text = "";
             glosasIndex = 0;
@@ -494,7 +500,7 @@ public class MainAnimation : MonoBehaviour
             text.gameObject.SetActive(toggle.isOn);
             if (text.text == "") text.text += glosa.ToUpper();
             else text.text += " " + glosa.ToUpper();
-            text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+            //text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
             // Debug.Log("indiceeeeee");
             // Debug.Log(glosasIndex);
 
@@ -977,7 +983,8 @@ public class MainAnimation : MonoBehaviour
     }
 
     void Reset() {
-        sentence.gameObject.transform.parent.gameObject.SetActive(true);
+        leftCanvas.SetActive(true);
+        rightCanvas.SetActive(true);
         sentence.gameObject.SetActive(true);
         sentence.text = "";
         button.gameObject.SetActive(true);

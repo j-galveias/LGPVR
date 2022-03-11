@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Microsoft.CognitiveServices.Speech;
+using TMPro;
 #if PLATFORM_ANDROID
 using UnityEngine.Android;
 #endif
@@ -12,9 +13,13 @@ using System.Collections;
 public class STT : MonoBehaviour
 {
     // Hook up the two properties below with a Text and Button object in your UI.
-    public Text outputText;
-    public Text errorText;
+    public TMP_Text outputText;
+    public GameObject leftCanvas;
+    public GameObject rightCanvas;
+    //public TMP_Text errorText;
     public Button startRecoButton;
+    public Button deleteButton;
+    public Button sendButton;
     public Client client;
 
     private object threadLocker = new object();
@@ -29,13 +34,29 @@ public class STT : MonoBehaviour
     private Microphone mic;
 #endif
 
+    public void DeleteMessage()
+    {
+        if (!waitingForReco && !outputText.text.Equals(""))
+        {
+            message = "";
+            startRecoButton.gameObject.SetActive(true);
+            sendButton.gameObject.SetActive(false);
+            deleteButton.gameObject.SetActive(false);
+        }
+    }
+
     public async void ButtonClick()
     {
         if (!waitingForReco && !outputText.text.Equals(""))
         {
             client.SendMessage();
-            outputText.gameObject.transform.parent.gameObject.SetActive(false);
+            //outputText.gameObject.transform.parent.gameObject.SetActive(false);
             message = "";
+            startRecoButton.gameObject.SetActive(true);
+            sendButton.gameObject.SetActive(false);
+            deleteButton.gameObject.SetActive(false);
+            leftCanvas.SetActive(false);
+            rightCanvas.SetActive(false);
         }
         else
         {
@@ -67,12 +88,12 @@ public class STT : MonoBehaviour
                 }
                 else if (result.Reason == ResultReason.NoMatch)
                 {
-                    errorText.text = "NOMATCH: Speech could not be recognized.";
+                    //errorText.text = "NOMATCH: Speech could not be recognized.";
                 }
                 else if (result.Reason == ResultReason.Canceled)
                 {
                     var cancellation = CancellationDetails.FromResult(result);
-                    errorText.text = $"CANCELED: Reason={cancellation.Reason} ErrorDetails={cancellation.ErrorDetails}";
+                    //errorText.text = $"CANCELED: Reason={cancellation.Reason} ErrorDetails={cancellation.ErrorDetails}";
                 }
 
                 lock (threadLocker)
@@ -110,6 +131,8 @@ public class STT : MonoBehaviour
             micPermissionGranted = true;
 #endif
             startRecoButton.onClick.AddListener(ButtonClick);
+            sendButton.onClick.AddListener(ButtonClick);
+            deleteButton.onClick.AddListener(DeleteMessage);
         }
     }
 
@@ -135,9 +158,15 @@ public class STT : MonoBehaviour
                 else if (!waitingForReco && outputText.text.Equals(""))
                 {
                     startRecoButton.GetComponentInChildren<Text>().text = "Começar";
+                    startRecoButton.gameObject.SetActive(true);
+                    sendButton.gameObject.SetActive(false);
+                    deleteButton.gameObject.SetActive(false);
                 }
                 else {
-                    startRecoButton.GetComponentInChildren<Text>().text = "Enviar";
+                    //startRecoButton.GetComponentInChildren<Text>().text = "Enviar";
+                    startRecoButton.gameObject.SetActive(false);
+                    sendButton.gameObject.SetActive(true);
+                    deleteButton.gameObject.SetActive(true);
                 }
             }
             if (outputText != null)
