@@ -103,7 +103,8 @@ public class Client : MonoBehaviour {
 		mouthing_toggle.gameObject.SetActive(false);
 		toggle_hand.gameObject.SetActive(false);
 		try{
-			mainAnimation.Animate(serverMessage);
+			//mainAnimation.Animate(serverMessage);
+			mainAnimation.Animate(sentence.text);
 		}
 		catch{
 			// Debug.Log("ERRO");
@@ -131,7 +132,7 @@ public class Client : MonoBehaviour {
 
 			yield return www.SendWebRequest();
 
-			if (www.result == UnityWebRequest.Result.ConnectionError)
+			if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
 			{
 				// Debug.Log(www.error);
 				text.text = "Servidor não está ligado";
@@ -150,7 +151,7 @@ public class Client : MonoBehaviour {
 	public void SendMessage() { 
 		text.text = "";        
 
-		StartCoroutine(Upload());
+		//StartCoroutine(Upload());
 		sent = true;    
 	} 
 
@@ -170,7 +171,7 @@ public class Client : MonoBehaviour {
 		// www.SetRequestHeader("Content-Type", "application/json; charset=UTF-8");
 		yield return www.SendWebRequest();
 
-		if(www.result == UnityWebRequest.Result.ConnectionError) {
+		if(www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
 			// Debug.Log(www.error);
 			text.text = "Servidor não conseguiu responder";
 			//text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
