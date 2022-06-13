@@ -94,24 +94,7 @@ public class DynamicGestureContainer : MonoBehaviour
                 }
             }
 
-            float dist2 = Math.Abs(Vector3.Distance(this.transform.position, sphereList[dynamicGesture.currentPoint - 1]));
-            if (dist1 > dist2 * 5.0f)
-            {
-                //Destroy(initialPos);
-                
-                //DestroyImmediate(initialPos);
-                
-                /*foreach (GameObject g in dgr.possibleGestures.Keys)
-                {
-                    Destroy(g.GetComponent<DynamicGestureContainer>());
-                    Destroy(g);
-                }
-                dgr.possibleGestures.Clear();
-                Destroy(this.gameObject);*/
-                
-                //dgr.possibleGestures.Remove(this.gameObject);
-                //Destroy(this.gameObject);
-            }
+            
         }
     }
 

@@ -105,6 +105,12 @@ public class STT : MonoBehaviour
                 {
                     message = newMessage;
                     waitingForReco = false;
+
+                    // Teachers sugestion send message right after speech
+                    
+                    /*Debug.Log("Message Sent");
+                    photonView.RPC("ReceiveTextToLgp", RpcTarget.Others, outputText.text);
+                    message = "";*/
                 }
             }
         }

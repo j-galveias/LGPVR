@@ -96,7 +96,7 @@ public class GestureRecognizer : MonoBehaviour
     [SerializeField] public TMP_Text totalText;
     [SerializeField] public TMP_Text miniText;
     [SerializeField] public TMP_Text text;
-    [SerializeField] public Text gestureName;
+    [SerializeField] public TMP_Text gestureName;
     [SerializeField] public TMP_Text Thumbtext;
     [SerializeField] public Gesto[] gestos;
     private List<Gesture> gestures;
@@ -107,6 +107,8 @@ public class GestureRecognizer : MonoBehaviour
     public float timeForRec;
     public TMP_Text timer;
     public TMP_Text currentDetect;
+
+    public Animator anim;
 
     private Gesture _previousGestureDetected = null;
 
@@ -190,6 +192,7 @@ public class GestureRecognizer : MonoBehaviour
                         }
                         else
                         {
+                            anim.Play("Light");
                             message.text += letter[0];
                             timeRemaining = timeForRec;
                             timer.text = timeRemaining.ToString();
