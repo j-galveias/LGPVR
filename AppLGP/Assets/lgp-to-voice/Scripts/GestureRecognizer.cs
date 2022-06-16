@@ -192,8 +192,11 @@ public class GestureRecognizer : MonoBehaviour
                         }
                         else
                         {
-                            anim.Play("Light");
-                            message.text += letter[0];
+                            if(anim != null)
+                            {
+                                anim.Play("Light");
+                            }
+                            message.text += letter;
                             timeRemaining = timeForRec;
                             timer.text = timeRemaining.ToString();
                         }

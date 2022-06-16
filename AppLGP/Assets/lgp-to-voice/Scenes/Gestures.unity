@@ -8349,6 +8349,7 @@ MonoBehaviour:
   timeForRec: 0
   timer: {fileID: 0}
   currentDetect: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!4 &248012182
 Transform:
   m_ObjectHideFlags: 0
@@ -20883,7 +20884,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701598877}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
@@ -23127,8 +23128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactors:
-  - {fileID: 406480248}
   - {fileID: 2053270996}
+  - {fileID: 406480248}
   _interactorComparer: {fileID: 0}
   MaxIterationsPerFrame: 3
 --- !u!1 &805294821
@@ -33492,6 +33493,7 @@ MonoBehaviour:
   timeForRec: 0
   timer: {fileID: 0}
   currentDetect: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!4 &990475004
 Transform:
   m_ObjectHideFlags: 0
@@ -49886,6 +49888,7 @@ MonoBehaviour:
   timeForRec: 0
   timer: {fileID: 589941688}
   currentDetect: {fileID: 497446355}
+  anim: {fileID: 0}
 --- !u!4 &1044129619
 Transform:
   m_ObjectHideFlags: 0
@@ -72808,8 +72811,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactors:
-  - {fileID: 238085763}
   - {fileID: 61710725}
+  - {fileID: 238085763}
   _interactorComparer: {fileID: 0}
   MaxIterationsPerFrame: 3
 --- !u!1 &2103701549

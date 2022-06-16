@@ -57,8 +57,12 @@ public class DynamicGestureContainer : MonoBehaviour
 
             dynamicGesture.currentPoint++;
 
-            this.transform.position = sphereList[dynamicGesture.currentPoint];
-            timeLeft = timeToDie;
+            if(dynamicGesture.currentPoint < sphereList.Count)
+            {
+                this.transform.position = sphereList[dynamicGesture.currentPoint];
+                timeLeft = timeToDie;
+            }
+
         }
         if (dynamicGesture != null && dynamicGesture.currentPoint > 0)
         {
