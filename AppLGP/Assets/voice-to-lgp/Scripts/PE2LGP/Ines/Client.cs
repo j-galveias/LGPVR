@@ -170,7 +170,7 @@ public class Client : MonoBehaviour {
 	/// Send message to server using http put request.	
 	/// </summary> 	
 	public void SendMessage() { 
-		text.text = "";        
+		text.text = "";
 
 		StartCoroutine(Upload());
 		sent = true;    

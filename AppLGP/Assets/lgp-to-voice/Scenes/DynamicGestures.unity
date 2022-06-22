@@ -10914,6 +10914,7 @@ MonoBehaviour:
   timeForRec: 0
   timer: {fileID: 0}
   currentDetect: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!4 &248012182
 Transform:
   m_ObjectHideFlags: 0
@@ -39131,6 +39132,7 @@ MonoBehaviour:
   timeForRec: 0
   timer: {fileID: 0}
   currentDetect: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!4 &780519026
 Transform:
   m_ObjectHideFlags: 0
@@ -53687,6 +53689,7 @@ MonoBehaviour:
   timeForRec: 0
   timer: {fileID: 0}
   currentDetect: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!4 &1044129619
 Transform:
   m_ObjectHideFlags: 0
@@ -85636,6 +85639,7 @@ MonoBehaviour:
   firstPoint: {fileID: 0}
   ancora: {fileID: 1252767623}
   spaceCount: 0
+  sphereSpaceCount: 20
 --- !u!4 &1924722012
 Transform:
   m_ObjectHideFlags: 0

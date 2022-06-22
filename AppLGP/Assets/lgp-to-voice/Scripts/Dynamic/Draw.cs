@@ -67,6 +67,7 @@ public class Draw : MonoBehaviour
     public GameObject ancora;
 
     public int spaceCount = 0;
+    public int sphereSpaceCount;
 
     void Awake()
     {
@@ -205,7 +206,7 @@ public class Draw : MonoBehaviour
             //linePos.Add(ovrSkeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1].Transform.InverseTransformPoint(prevPointDistance));
             linePos.Add(ovrSkeleton.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip].Transform.InverseTransformPoint(prevPointDistance));
             //if (prevBallDistance != null && Mathf.Abs(Vector3.Distance(prevBallDistance, objectToTrackMovement.transform.position)) >= 0.5f)
-            if (spherePos.Count == 0 || (spaceCount >= 20))
+            if (spherePos.Count == 0 || (spaceCount >= sphereSpaceCount))
             {
                 spaceCount = 0;
                 Debug.Log(Vector3.Distance(prevBallDistance, objectToTrackMovement.transform.position));
