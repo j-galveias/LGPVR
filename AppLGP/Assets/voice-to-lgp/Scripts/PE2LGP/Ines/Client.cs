@@ -177,7 +177,7 @@ public class Client : MonoBehaviour {
 	} 
 
 	IEnumerator Upload() {
-		byte[] myData = Encoding.UTF8.GetBytes(sentence.text);
+		byte[] myData = Encoding.UTF8.GetBytes(sentence.text.Substring(0, 1) + sentence.text.Substring(1).ToLower());
 		UnityWebRequest www = UnityWebRequest.Put(URL, myData);
 		www.method = "POST";
 		// www.method = "POST"; //hack to send POST to server instead of PUT

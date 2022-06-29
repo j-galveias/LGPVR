@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 47ae2266aa719c2488b17b0b60794d07
+guid: 8f624b42c7c682a4ca79f689fd19d070
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -12,23 +12,31 @@ PluginImporter:
   validateReferences: 1
   platformData:
   - first:
+      : Editor
+    second:
+      enabled: 0
+      settings:
+        CPU: X86_64
+        OS: Windows
+  - first:
       Any: 
     second:
-      enabled: 1
+      enabled: 0
       settings: {}
   - first:
       Editor: Editor
     second:
-      enabled: 0
+      enabled: 1
       settings:
-        CPU: x86_64
+        CPU: X86_64
         DefaultValueInitialized: true
+        OS: Windows
   - first:
       Standalone: Linux64
     second:
       enabled: 1
       settings:
-        CPU: x86_64
+        CPU: AnyCPU
   - first:
       Standalone: OSXUniversal
     second:

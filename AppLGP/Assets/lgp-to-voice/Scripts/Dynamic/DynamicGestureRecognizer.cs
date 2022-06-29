@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
 using System.IO;
+using System.Collections;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -57,6 +58,9 @@ public class DynamicGestureRecognizer : MonoBehaviour
     public TMP_Text message;
     public string lastMessage;
     public TMP_Text lastReconGest;
+
+    public TMP_Text timerText;
+    public float timer;
 
     private DynamicGesture _previousGestureDetected = null;
 
@@ -287,14 +291,30 @@ public class DynamicGestureRecognizer : MonoBehaviour
 
     }
 
+    IEnumerator StartWarning()
+    {
+        var t = timer;
+        while(t > 0)
+        {
+            t -= Time.deltaTime;
+            timerText.text = ((int) t).ToString();
+
+            yield return null;
+        }
+        timerText.text = "Começar";
+        StartSaving();
+    }
+
     public void DynamicGestureClick() {
         if (!draw.recording)
         {
-            StartSaving();
+            StartCoroutine("StartWarning");
+            //StartSaving();
         }
         else
         {
             EndSaving();
+            timerText.text = "";
         }
     }
 

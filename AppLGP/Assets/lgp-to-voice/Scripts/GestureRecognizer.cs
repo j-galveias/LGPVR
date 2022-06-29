@@ -69,6 +69,10 @@ public class Gesture
 [DisallowMultipleComponent]
 public class GestureRecognizer : MonoBehaviour
 {
+    public bool testMode;
+    [Header("Recognition Timer Settings")]
+    public float timeForRec;
+
     [Header("Behaviour")]
     [SerializeField] public float smallTreshold;
     [SerializeField] public float bigTreshold;
@@ -104,7 +108,7 @@ public class GestureRecognizer : MonoBehaviour
     public TMP_Text message;
     public string lastLetter = "";
     public float timeRemaining;
-    public float timeForRec;
+    
     public TMP_Text timer;
     public TMP_Text currentDetect;
 
@@ -196,7 +200,14 @@ public class GestureRecognizer : MonoBehaviour
                             {
                                 anim.Play("Light");
                             }
-                            message.text += letter;
+                            if (testMode)
+                            {
+                                message.text += letter;
+                            }
+                            else
+                            {
+                                message.text += letter[0];
+                            }
                             timeRemaining = timeForRec;
                             timer.text = timeRemaining.ToString();
                         }

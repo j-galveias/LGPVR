@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public enum HandToTrack
 {
@@ -16,7 +17,7 @@ public class Draw : MonoBehaviour
     [SerializeField, Range(0, 1.0f)]
     private float minDistanceBeforeNewPoint = 0.2f;
 
-    public Vector3 prevPointDistance = Vector3.zero;
+    public Vector3 prevPointPosition = Vector3.zero;
 
     [SerializeField]
     private float minFingerPinchDownStrength = 0.5f;
@@ -55,7 +56,7 @@ public class Draw : MonoBehaviour
 
     public GameObject ball;
 
-    public Vector3 prevBallDistance = Vector3.zero;
+    public Vector3 prevBallPosition = Vector3.zero;
 
     public bool recording = false;
 
@@ -68,6 +69,7 @@ public class Draw : MonoBehaviour
 
     public int spaceCount = 0;
     public int sphereSpaceCount;
+    public List<GameObject> spheresList = new List<GameObject>();
 
     void Awake()
     {
@@ -97,6 +99,8 @@ public class Draw : MonoBehaviour
     public void AddNewLineRenderer()
     {
         positionCount = 0;
+        //Destroy(currentLineRender.gameObject);
+        
 
         GameObject go = new GameObject($"LineRenderer_{lines.Count}");
         go.transform.parent = objectToTrackMovement.transform.parent;
@@ -140,12 +144,21 @@ public class Draw : MonoBehaviour
 
     public void ResetDraw()
     {
+        if (lines.Count > 1)
+        {
+            Destroy(lines[lines.Count - 1].gameObject);
+        }
+        foreach(var s in spheresList)
+        {
+            Destroy(s);
+        }
+        spheresList.Clear();
         positionCount = 0;
         spherePos.Clear();
         fur.Clear();
         linePos.Clear();
-        prevPointDistance = Vector3.zero;
-        prevBallDistance = Vector3.zero;
+        prevPointPosition = Vector3.zero;
+        prevBallPosition = Vector3.zero;
     }
 
     private void CheckPinchState()
@@ -175,14 +188,14 @@ public class Draw : MonoBehaviour
 
     void UpdateLine()
     {
-        if (prevPointDistance == null)
+        if (prevPointPosition == null)
         {
-            prevPointDistance = objectToTrackMovement.transform.position;
+            prevPointPosition = objectToTrackMovement.transform.position;
         }
 
-        if (prevPointDistance != null && Mathf.Abs(Vector3.Distance(prevPointDistance, objectToTrackMovement.transform.position)) >= minDistanceBeforeNewPoint)
+        if (prevPointPosition != null && Mathf.Abs(Vector3.Distance(prevPointPosition, objectToTrackMovement.transform.position)) >= minDistanceBeforeNewPoint)
         {
-            prevPointDistance = objectToTrackMovement.transform.position;
+            prevPointPosition = objectToTrackMovement.transform.position;
             if (positionCount == 0)
             {
                 firstPoint.name = "drawfirstPoint";
@@ -200,19 +213,20 @@ public class Draw : MonoBehaviour
                 //fur.Add(objectToTrackMovement.transform.right);
 
             }
-            AddPoint(prevPointDistance);
+            AddPoint(prevPointPosition);
             spaceCount++;
             //transform.
             //linePos.Add(ovrSkeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1].Transform.InverseTransformPoint(prevPointDistance));
-            linePos.Add(ovrSkeleton.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip].Transform.InverseTransformPoint(prevPointDistance));
+            linePos.Add(ovrSkeleton.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip].Transform.InverseTransformPoint(prevPointPosition));
             //if (prevBallDistance != null && Mathf.Abs(Vector3.Distance(prevBallDistance, objectToTrackMovement.transform.position)) >= 0.5f)
             if (spherePos.Count == 0 || (spaceCount >= sphereSpaceCount))
             {
                 spaceCount = 0;
-                Debug.Log(Vector3.Distance(prevBallDistance, objectToTrackMovement.transform.position));
-                prevBallDistance = objectToTrackMovement.transform.position;
-                Instantiate(ball, firstPoint.transform.TransformPoint(firstPoint.transform.InverseTransformPoint(prevPointDistance)), new Quaternion(0, 0, 0, 1));
-                spherePos.Add(firstPoint.transform.InverseTransformPoint(prevPointDistance));
+                Debug.Log(Vector3.Distance(prevBallPosition, objectToTrackMovement.transform.position));
+                prevBallPosition = objectToTrackMovement.transform.position;
+                GameObject obj = Instantiate(ball, firstPoint.transform.TransformPoint(firstPoint.transform.InverseTransformPoint(prevPointPosition)), new Quaternion(0, 0, 0, 1));
+                spheresList.Add(obj);
+                spherePos.Add(firstPoint.transform.InverseTransformPoint(prevPointPosition));
             }
         }
     }
