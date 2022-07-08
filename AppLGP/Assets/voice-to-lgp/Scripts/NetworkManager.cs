@@ -76,19 +76,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	{
 		
 		Debug.LogError("PUN Basics Tutorial/Launcher:Disconnected");
-		ColorState c = new ColorState();
-		c.Color = Color.red;
-		c.ColorTime = 0.1f;
-		colorButton.InjectOptionalNormalColorState(c);
-		c = new ColorState();
-		c.Color = new Color(1, 0, 0, 115f / 255f);
-		c.ColorTime = 0.1f;
-		colorButton.InjectOptionalHoverColorState(c);
-		c = new ColorState();
-		c.Color = new Color(1, 0, 0, 36f / 255f);
-		c.ColorTime = 0.05f;
-		colorButton.InjectOptionalSelectColorState(c);
-		colorButton.UpdateVisual();
+		if(colorButton != null)
+        {
+			ColorState c = new ColorState();
+			c.Color = Color.red;
+			c.ColorTime = 0.1f;
+			colorButton.InjectOptionalNormalColorState(c);
+			c = new ColorState();
+			c.Color = new Color(1, 0, 0, 115f / 255f);
+			c.ColorTime = 0.1f;
+			colorButton.InjectOptionalHoverColorState(c);
+			c = new ColorState();
+			c.Color = new Color(1, 0, 0, 36f / 255f);
+			c.ColorTime = 0.05f;
+			colorButton.InjectOptionalSelectColorState(c);
+			colorButton.UpdateVisual();
+        }
 	}
 
 	/// <summary>
@@ -106,19 +109,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	{
 		Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running.");
 		//img.color = Color.green;
-		ColorState c = new ColorState();
-		c.Color = Color.green;
-		c.ColorTime = 0.1f;
-		colorButton.InjectOptionalNormalColorState(c);
-		c = new ColorState();
-		c.Color = new Color(0, 1, 0, 115f / 255f);
-		c.ColorTime = 0.1f;
-		colorButton.InjectOptionalHoverColorState(c);
-		c = new ColorState();
-		c.Color = new Color(0, 1, 0, 36f / 255f);
-		c.ColorTime = 0.05f;
-		colorButton.InjectOptionalSelectColorState(c);
-		colorButton.UpdateVisual();
+		if (colorButton != null)
+		{
+			ColorState c = new ColorState();
+			c.Color = Color.green;
+			c.ColorTime = 0.1f;
+			colorButton.InjectOptionalNormalColorState(c);
+			c = new ColorState();
+			c.Color = new Color(0, 1, 0, 115f / 255f);
+			c.ColorTime = 0.1f;
+			colorButton.InjectOptionalHoverColorState(c);
+			c = new ColorState();
+			c.Color = new Color(0, 1, 0, 36f / 255f);
+			c.ColorTime = 0.05f;
+			colorButton.InjectOptionalSelectColorState(c);
+			colorButton.UpdateVisual();
+		}
 	}
 
 	#endregion

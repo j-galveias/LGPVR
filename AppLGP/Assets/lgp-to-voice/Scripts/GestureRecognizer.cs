@@ -72,6 +72,7 @@ public class GestureRecognizer : MonoBehaviour
     public bool testMode;
     [Header("Recognition Timer Settings")]
     public float timeForRec;
+    public float recCooldown;
 
     [Header("Behaviour")]
     [SerializeField] public float smallTreshold;
@@ -108,9 +109,12 @@ public class GestureRecognizer : MonoBehaviour
     public TMP_Text message;
     public string lastLetter = "";
     public float timeRemaining;
-    
+    public float cooldownRemaining;
+
     public TMP_Text timer;
     public TMP_Text currentDetect;
+    public Slider slider;
+    public Image fill;  
 
     public Animator anim;
 
@@ -122,11 +126,12 @@ public class GestureRecognizer : MonoBehaviour
         LoadGestures();
         gestures = new List<Gesture>();
         counts = new Dictionary<string, int>();
+        timeRemaining = timeForRec;
     }
 
     private void Update()
     {
-        if(!skel.IsDataHighConfidence){
+        if(!skel.IsDataHighConfidence && testMode){
             return;
         }
         if (Input.GetKeyDown("space"))
@@ -135,7 +140,8 @@ public class GestureRecognizer : MonoBehaviour
         }
         gestureDetected = Recognize();
 
-        if(gestures.Count < 5)
+        #region
+        /*if(gestures.Count < 5)
         {
             //if (gestureDetected != _previousGestureDetected)
             //{
@@ -155,6 +161,8 @@ public class GestureRecognizer : MonoBehaviour
             else
             {
                 onNothingDetected.Invoke();
+                slider.value = 0;
+                fill.fillAmount = 0;
                 //text.text = "";
             }
                 
@@ -186,12 +194,16 @@ public class GestureRecognizer : MonoBehaviour
                         currentDetect.text = lastLetter;
                         timeRemaining = timeForRec;
                         timer.text = timeRemaining.ToString();
+                        slider.value = 0;
+                        fill.fillAmount = 0;
                     }
                     else
                     {
                         if(timeRemaining > 0)
                         {
                             timeRemaining -= Time.deltaTime;
+                            slider.value = (timeForRec - timeRemaining) / timeForRec;
+                            fill.fillAmount = slider.value;
                             timer.text = timeRemaining.ToString();
                         }
                         else
@@ -210,16 +222,107 @@ public class GestureRecognizer : MonoBehaviour
                             }
                             timeRemaining = timeForRec;
                             timer.text = timeRemaining.ToString();
+                            slider.value = 0;
+                            fill.fillAmount = 0;
                         }
                     }
                 }
             }
             gestures.Clear();
             counts.Clear();
+        }*/
+        #endregion
+        if (timeRemaining > 0 && cooldownRemaining <= 0)
+        {
+            //if (gestureDetected != _previousGestureDetected)
+            //{
+            if (gestureDetected != null)
+            {
+                //gestureDetected.onRecognized.Invoke();
+                gestures.Add(gestureDetected);
+                if (counts.ContainsKey(gestureDetected.gestureName))
+                {
+                    counts[gestureDetected.gestureName] += 1;
+                }
+                else
+                {
+                    counts.Add(gestureDetected.gestureName, 1);
+                }
+                
+                timeRemaining -= Time.deltaTime;
+                slider.value = (timeForRec - timeRemaining) / timeForRec;
+                fill.fillAmount = slider.value;
+                timer.text = timeRemaining.ToString();
+            }
+            else if(gestureDetected == null && counts.Count > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+                slider.value = (timeForRec - timeRemaining) / timeForRec;
+                fill.fillAmount = slider.value;
+                timer.text = timeRemaining.ToString();
+            }
+            else
+            {
+                onNothingDetected.Invoke();
+                slider.value = 0;
+                fill.fillAmount = 0;
+                timeRemaining = timeForRec;
+                timer.text = timeRemaining.ToString();
+                //text.text = "";
+            }
+            
+            
+            //}
+        }
+        else if (cooldownRemaining > 0) 
+        {
+            cooldownRemaining -= Time.deltaTime;
+        }
+        else
+        {
+            var highest = 0;
+            var letter = "";
+
+            // get most recognized letter
+            foreach (var item in counts)
+            {
+                if (highest < item.Value)
+                {
+                    letter = item.Key;
+                    highest = item.Value;
+                }
+            }
+
+            foreach (var item in gestures)
+            {
+                if (item.gestureName == letter)
+                {
+                    text.text = letter;
+                    
+                    if (anim != null)
+                    {
+                        anim.Play("Light");
+                    }
+                    if (testMode)
+                    {
+                        message.text += letter;
+                    }
+                    else
+                    {
+                        message.text += letter[0];
+                    }
+                    timeRemaining = timeForRec;
+                    timer.text = timeRemaining.ToString();
+                    slider.value = 0;
+                    fill.fillAmount = 0;
+                    gestures.Clear();
+                    counts.Clear();
+                    cooldownRemaining = recCooldown;
+                    return;
+                }
+            }
         }
 
-
-        
     }
 
     public void SaveAsGesture()
@@ -386,49 +489,50 @@ public class GestureRecognizer : MonoBehaviour
         float minSumDistances = Mathf.Infinity;
         Gesture bestCandidate = null;
 
+        List<Vector3> positionsTips = new List<Vector3>();
+
+        // List with only the fingertips
+        for (int i = (int)OVRPlugin.BoneId.Hand_ThumbTip; i < (int)OVRPlugin.BoneId.Hand_End; i++)
+        {
+            positionsTips.Add(skel.Bones[0].Transform.InverseTransformPoint(skel.Bones[i].Transform.position));
+        }
+        List<Vector3> positions = new List<Vector3>();
+
+        // List with all the hand bones and joints
+        for (int i = (int)OVRPlugin.BoneId.Hand_Thumb0; i < (int)OVRPlugin.BoneId.Hand_End; i++)
+        {
+            positions.Add(skel.Bones[0].Transform.InverseTransformPoint(skel.Bones[i].Transform.position));
+        }
+
+        /*for (int i = 0; i < positions.Count; i++)
+        {
+            Debug.Log(i + " : " + positions[i]);
+        }*/
+
+        List<float> dbfaw = getWristDistances(positions);
+        //List<float> abaf = getAngle(positions);
+        List<float> dbaf = getAdjacentDistances(positionsTips);
+        List<float> tb = getThumbDistances(positionsTips);
+
+        List<Vector3> distalAngles = new List<Vector3>();
+        List<Vector3> interAngles = new List<Vector3>();
+
+        distalAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Thumb3].Transform.localEulerAngles);
+        distalAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Index3].Transform.localEulerAngles);
+        distalAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Middle3].Transform.localEulerAngles);
+        distalAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Ring3].Transform.localEulerAngles);
+        distalAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Pinky3].Transform.localEulerAngles);
+
+        interAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Index2].Transform.localEulerAngles);
+        interAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Middle2].Transform.localEulerAngles);
+        interAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Ring2].Transform.localEulerAngles);
+        interAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Pinky2].Transform.localEulerAngles);
         // For each gesture
         for (int g = 0; g < savedGestures.Count; g++)
         {
-            // If the number of fingers does not match, it returns an error
-            /*if (fingers.Length != savedGestures[g].positionsPerFinger.Count)
-                throw new Exception("Different number of tracked fingers");*/
 
             float sumDistances = 0f;
 
-            List<Vector3> positionsTips = new List<Vector3>();
-
-            for (int i = (int)OVRPlugin.BoneId.Hand_ThumbTip; i < (int)OVRPlugin.BoneId.Hand_End; i++)
-            {
-                positionsTips.Add(skel.Bones[0].Transform.InverseTransformPoint(skel.Bones[i].Transform.position));
-            }
-            List<Vector3> positions = new List<Vector3>();
-
-            for (int i = (int)OVRPlugin.BoneId.Hand_Thumb0; i < (int)OVRPlugin.BoneId.Hand_End; i++)
-            {
-                positions.Add(skel.Bones[0].Transform.InverseTransformPoint(skel.Bones[i].Transform.position));
-            }
-            for (int i = 0; i < positions.Count; i++)
-            {
-                //Debug.Log(i + " : " + positions[i]);
-            }
-            List<float> dbfaw = getWristDistances(positions);
-            //List<float> abaf = getAngle(positions);
-            List<float> dbaf = getAdjacentDistances(positionsTips);
-            List<float> tb = getThumbDistances(positionsTips);
-
-            List<Vector3> distalAngles = new List<Vector3>();
-            List<Vector3> interAngles = new List<Vector3>();
-
-            distalAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Thumb3].Transform.localEulerAngles);
-            distalAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Index3].Transform.localEulerAngles);
-            distalAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Middle3].Transform.localEulerAngles);
-            distalAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Ring3].Transform.localEulerAngles);
-            distalAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Pinky3].Transform.localEulerAngles);
-
-            interAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Index2].Transform.localEulerAngles);
-            interAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Middle2].Transform.localEulerAngles);
-            interAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Ring2].Transform.localEulerAngles);
-            interAngles.Add(skel.Bones[(int)OVRPlugin.BoneId.Hand_Pinky2].Transform.localEulerAngles);
 
             float total = 0;
 
@@ -627,23 +731,6 @@ public class GestureRecognizer : MonoBehaviour
             }
             else if(!discardGesture) {
                 sumDistances = total;
-            }
-
-            // For each finger
-            for (int f = 0; f < fingers.Length; f++)
-            {
-                Vector3 fingerRelativePos = hand.transform.InverseTransformPoint(fingers[f].transform.position);
-
-                // If at least one finger does not enter the threshold we discard the gesture
-                /*if (Vector3.Distance(fingerRelativePos, savedGestures[g].positionsPerFinger[f]) > threshold)
-                {
-                    discardGesture = true;
-                    savedGestures[g].time = 0.0f;
-                    break;
-                }*/
-
-                // If all the fingers entered, then we calculate the total of their distances
-                //sumDistances += Vector3.Distance(fingerRelativePos, savedGestures[g].positionsPerFinger[f]);
             }
 
             // If we have to discard the gesture, we skip it

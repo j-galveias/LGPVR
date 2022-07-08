@@ -24,6 +24,7 @@ public class STT : MonoBehaviour
     public Button sendButton;
     public Client client;
     public PhotonView photonView;
+    public GameObject stopwatch;
 
     private object threadLocker = new object();
     private bool waitingForReco;
@@ -42,7 +43,7 @@ public class STT : MonoBehaviour
         if (!waitingForReco && !outputText.text.Equals(""))
         {
             message = "";
-            startRecoButton.gameObject.SetActive(true);
+            //startRecoButton.gameObject.SetActive(true);
             sendButton.gameObject.SetActive(false);
             deleteButton.gameObject.SetActive(false);
         }
@@ -50,11 +51,15 @@ public class STT : MonoBehaviour
 
     public async void ButtonClick()
     {
-        if (!waitingForReco && !outputText.text.Equals(""))
+        if (!waitingForReco && !message.Equals(""))
         {
             //client.SendMessage();
             Debug.Log("Message Sent");
-            photonView.RPC("ReceiveTextToLgp", RpcTarget.Others, outputText.text);
+            if (message.Contains("Quer"))
+            {
+                message = message.Replace("Quer", "Querer");
+            }
+            photonView.RPC("ReceiveTextToLgp", RpcTarget.Others, message);
             //outputText.gameObject.transform.parent.gameObject.SetActive(false);
             message = "";
             //startRecoButton.gameObject.SetActive(true);
@@ -68,7 +73,7 @@ public class STT : MonoBehaviour
             // Creates an instance of a speech config with specified subscription key and service region.
             // Replace with your own subscription key and service region (e.g., "westus").
             var config = SpeechConfig.FromSubscription("e267115fea8343c6ae89aef556663aa3", "westeurope");
-
+            stopwatch.SetActive(!stopwatch.activeSelf);
             // Make sure to dispose the recognizer after use!
             using (var recognizer = new SpeechRecognizer(config, "pt-PT"))
             {
@@ -141,7 +146,7 @@ public class STT : MonoBehaviour
 #else
             micPermissionGranted = true;
 #endif
-            startRecoButton.onClick.AddListener(ButtonClick);
+           // startRecoButton.onClick.AddListener(ButtonClick);
             sendButton.onClick.AddListener(ButtonClick);
             deleteButton.onClick.AddListener(DeleteMessage);
         }
@@ -162,28 +167,33 @@ public class STT : MonoBehaviour
         {
             if (startRecoButton != null)
             {
-                startRecoButton.interactable = !waitingForReco && micPermissionGranted;
+                //startRecoButton.interactable = !waitingForReco && micPermissionGranted;
                 if (waitingForReco)
                 {
-                    startRecoButton.GetComponentInChildren<Text>().text = "A reconhecer ...";
+                    //startRecoButton.GetComponentInChildren<Text>().text = "A reconhecer ...";
                 }
-                else if (!waitingForReco && outputText.text.Equals(""))
+                else if (!waitingForReco && message.Equals(""))
                 {
-                    startRecoButton.GetComponentInChildren<Text>().text = "Começar";
-                    startRecoButton.gameObject.SetActive(true);
+                    if (stopwatch.activeSelf)
+                    {
+                        stopwatch.SetActive(!stopwatch.activeSelf);
+                    }
+                   // startRecoButton.GetComponentInChildren<Text>().text = "Começar";
+                    //startRecoButton.gameObject.SetActive(true);
                     sendButton.gameObject.SetActive(false);
                     deleteButton.gameObject.SetActive(false);
                 }
                 else {
-                    startRecoButton.GetComponentInChildren<Text>().text = "Enviar";
+                    if (outputText != null)
+                    {
+                        outputText.text += message + "\n";
+                    }
+                    /*startRecoButton.GetComponentInChildren<Text>().text = "Enviar";
                     startRecoButton.gameObject.SetActive(false);
                     sendButton.gameObject.SetActive(true);
-                    deleteButton.gameObject.SetActive(true);
+                    deleteButton.gameObject.SetActive(true);*/
+                    ButtonClick();
                 }
-            }
-            if (outputText != null)
-            {
-                outputText.text = message;
             }
         }
     }

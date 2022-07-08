@@ -75,10 +75,14 @@ public class VerifyHandTracking : MonoBehaviour
     void Update()
     {
         //Limage.color = Lhand.IsTracked ? Color.green : Color.red;
-        Rimage.color = Rhand.IsTracked ? Color.green : Color.red;
 
-        RotPoint.position = CenterEye.position;
-        RotPoint.eulerAngles = new Vector3(0, CenterEye.eulerAngles.y, 0);
+        if(Rimage != null) { Rimage.color = Rhand.IsTracked ? Color.green : Color.red; }
+
+        if(RotPoint != null)
+        {
+            RotPoint.position = CenterEye.position;
+            RotPoint.eulerAngles = new Vector3(0, CenterEye.eulerAngles.y, 0);
+        }
             
         //Ltext.text = Lhand.HandConfidence.ToString();
         //Rtext.text = Rhand.HandConfidence.ToString();
@@ -110,75 +114,93 @@ public class VerifyHandTracking : MonoBehaviour
              *      Fingertips
              */
             #region
-            LThumb_tip.transform.position = Lskeleton.Bones[(int) OVRPlugin.BoneId.Hand_ThumbTip].Transform.position;
-            Lindex_tip.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_IndexTip].Transform.position;
-            Lmiddl_tip.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_MiddleTip].Transform.position;
-            Lringf_tip.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_RingTip].Transform.position;
-            Lpinky_tip.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_PinkyTip].Transform.position;
-            RThumb_tip.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_ThumbTip].Transform.position;
-            Rindex_tip.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_IndexTip].Transform.position;
-            Rmiddl_tip.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_MiddleTip].Transform.position;
-            Rringf_tip.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_RingTip].Transform.position;
-            Rpinky_tip.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_PinkyTip].Transform.position;
+            if(LThumb_tip != null)
+            {
+                LThumb_tip.transform.position = Lskeleton.Bones[(int) OVRPlugin.BoneId.Hand_ThumbTip].Transform.position;
+                Lindex_tip.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_IndexTip].Transform.position;
+                Lmiddl_tip.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_MiddleTip].Transform.position;
+                Lringf_tip.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_RingTip].Transform.position;
+                Lpinky_tip.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_PinkyTip].Transform.position;
+                RThumb_tip.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_ThumbTip].Transform.position;
+                Rindex_tip.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_IndexTip].Transform.position;
+                Rmiddl_tip.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_MiddleTip].Transform.position;
+                Rringf_tip.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_RingTip].Transform.position;
+                Rpinky_tip.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_PinkyTip].Transform.position;
+            }
             #endregion
             /***
              *      Distal
              */
             #region
-            LThumb_distal.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb3].Transform.position;
-            Lindex_distal.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index3].Transform.position;
-            Lmiddl_distal.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle3].Transform.position;
-            Lringf_distal.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring3].Transform.position;
-            Lpinky_distal.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky3].Transform.position;
-            RThumb_distal.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb3].Transform.position;
-            Rindex_distal.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index3].Transform.position;
-            Rmiddl_distal.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle3].Transform.position;
-            Rringf_distal.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring3].Transform.position;
-            Rpinky_distal.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky3].Transform.position;
+            if (LThumb_tip != null)
+            {
+                LThumb_distal.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb3].Transform.position;
+                Lindex_distal.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index3].Transform.position;
+                Lmiddl_distal.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle3].Transform.position;
+                Lringf_distal.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring3].Transform.position;
+                Lpinky_distal.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky3].Transform.position;
+                RThumb_distal.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb3].Transform.position;
+                Rindex_distal.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index3].Transform.position;
+                Rmiddl_distal.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle3].Transform.position;
+                Rringf_distal.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring3].Transform.position;
+                Rpinky_distal.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky3].Transform.position;
+            }
             #endregion
             /***
              *      Intermediate
              */
             #region
-            Lindex_inter.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index2].Transform.position;
-            Lmiddl_inter.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle2].Transform.position;
-            Lringf_inter.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring2].Transform.position;
-            Lpinky_inter.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky2].Transform.position;
-            Rindex_inter.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index2].Transform.position;
-            Rmiddl_inter.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle2].Transform.position;
-            Rringf_inter.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring2].Transform.position;
-            Rpinky_inter.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky2].Transform.position;
+            if (LThumb_tip != null)
+            {
+                Lindex_inter.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index2].Transform.position;
+                Lmiddl_inter.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle2].Transform.position;
+                Lringf_inter.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring2].Transform.position;
+                Lpinky_inter.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky2].Transform.position;
+                Rindex_inter.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index2].Transform.position;
+                Rmiddl_inter.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle2].Transform.position;
+                Rringf_inter.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring2].Transform.position;
+                Rpinky_inter.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky2].Transform.position;
+            }
             #endregion
             /***
              *      Proximal
              */
             #region
-            LThumb_prox.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb2].Transform.position;
-            Lindex_prox.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index1].Transform.position;
-            Lmiddl_prox.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle1].Transform.position;
-            Lringf_prox.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring1].Transform.position;
-            Lpinky_prox.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky1].Transform.position;
-            RThumb_prox.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb2].Transform.position;
-            Rindex_prox.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index1].Transform.position;
-            Rmiddl_prox.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle1].Transform.position;
-            Rringf_prox.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring1].Transform.position;
-            Rpinky_prox.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky1].Transform.position;
+            if (LThumb_tip != null)
+            {
+                LThumb_prox.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb2].Transform.position;
+                Lindex_prox.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index1].Transform.position;
+                Lmiddl_prox.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle1].Transform.position;
+                Lringf_prox.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring1].Transform.position;
+                Lpinky_prox.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky1].Transform.position;
+                RThumb_prox.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb2].Transform.position;
+                Rindex_prox.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Index1].Transform.position;
+                Rmiddl_prox.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Middle1].Transform.position;
+                Rringf_prox.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Ring1].Transform.position;
+                Rpinky_prox.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky1].Transform.position;
+            }
             #endregion
             /***
              *      Metacarpal
              */
             #region
-            LThumb_meta.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb1].Transform.position;
-            Lpinky_meta.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky0].Transform.position;
-            RThumb_meta.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb1].Transform.position;
-            Rpinky_meta.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky0].Transform.position;
+            if (LThumb_tip != null)
+            {
+                LThumb_meta.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb1].Transform.position;
+                Lpinky_meta.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky0].Transform.position;
+                RThumb_meta.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb1].Transform.position;
+                Rpinky_meta.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Pinky0].Transform.position;
+            }
             #endregion
             /***
              *      Trapezium
              */
             #region
-            LThumb_trap.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb0].Transform.position;
-            RThumb_trap.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb0].Transform.position;
+            if (LThumb_tip != null)
+            {
+                LThumb_trap.transform.position = Lskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb0].Transform.position;
+                RThumb_trap.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Thumb0].Transform.position;
+            }
             #endregion
         }
     }
