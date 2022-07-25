@@ -67,7 +67,7 @@ public class DynamicGestureContainer : MonoBehaviour
         if (dynamicGesture != null && dynamicGesture.currentPoint > 0)
         {
             //float dist1 = Math.Abs(Vector3.Distance(this.transform.position, dynamicGesture.skel.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1].Transform.position));
-            float dist1 = Math.Abs(Vector3.Distance(this.transform.position, dynamicGesture.skel.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip].Transform.position));
+            float dist1 = Math.Abs(Vector3.Distance(this.transform.position.normalized, dynamicGesture.skel.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip].Transform.position.normalized));
             Debug.Log(dist1);
 
             if(dist1 < 0.06f)

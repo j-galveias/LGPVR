@@ -11262,6 +11262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testMode: 0
   timeForRec: 0
+  recCooldown: 0
   smallTreshold: 0.1
   bigTreshold: 60
   savedGestures:
@@ -13414,8 +13415,11 @@ MonoBehaviour:
   message: {fileID: 0}
   lastLetter: 
   timeRemaining: 0
+  cooldownRemaining: 0
   timer: {fileID: 0}
   currentDetect: {fileID: 0}
+  slider: {fileID: 0}
+  fill: {fileID: 0}
   anim: {fileID: 0}
 --- !u!4 &248012182
 Transform:
@@ -41635,6 +41639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testMode: 0
   timeForRec: 0
+  recCooldown: 0
   smallTreshold: 60
   bigTreshold: 120
   savedGestures:
@@ -48220,8 +48225,11 @@ MonoBehaviour:
   message: {fileID: 0}
   lastLetter: 
   timeRemaining: 0
+  cooldownRemaining: 0
   timer: {fileID: 0}
   currentDetect: {fileID: 0}
+  slider: {fileID: 0}
+  fill: {fileID: 0}
   anim: {fileID: 0}
 --- !u!4 &780519026
 Transform:
@@ -58577,8 +58585,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05206ab0874a40840af542134456968d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smallTreshold: 30
-  bigTreshold: 60
+  smallTreshold: 200
+  bigTreshold: 400
   savedGestures:
   - gestureName: BOM DIA 2
     gesture:
@@ -99573,7 +99581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToTrackMovement: {fileID: 1680070879}
   minDistanceBeforeNewPoint: 0.009
-  prevPointDistance: {x: 0, y: 0, z: 0}
+  prevPointPosition: {x: 0, y: 0, z: 0}
   minFingerPinchDownStrength: 0.5
   lineDefaultWidth: 0.01
   positionCount: 0
@@ -99585,7 +99593,7 @@ MonoBehaviour:
   ovrHand: {fileID: 239551975}
   ovrSkeleton: {fileID: 438706359}
   ball: {fileID: 6436545052357741729, guid: e9d42207af9e0194187e52640ef71eaf, type: 3}
-  prevBallDistance: {x: 0, y: 0, z: 0}
+  prevBallPosition: {x: 0, y: 0, z: 0}
   recording: 0
   spherePos: []
   fur: []

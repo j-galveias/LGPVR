@@ -124,6 +124,19 @@ public class DynamicGestureRecognizer : MonoBehaviour
         {
             DynamicGestureClick();
         }
+        if (Input.GetKeyDown("d"))
+        {
+            foreach(var gest in savedGestures)
+            {
+                if (gest.gestureName.Equals("cv1-Preciso"))
+                {
+                    foreach(var s in gest.spherePoints)
+                    {
+                        Instantiate(gesturePrefab, s, new Quaternion(0, 0, 0, 1));
+                    }
+                }
+            }
+        }
         /*if(!recDynamic)
         {*/
         gesturesDetected = Recognize();
@@ -568,7 +581,7 @@ public class DynamicGestureRecognizer : MonoBehaviour
                 }*/
             }
 
-            total += thumbRes * 0.7f + fingerRes * 0.3f;
+            total += thumbRes /** 0.7f*/ + fingerRes /** 0.3f*/;
 
             if (g == savedGestures.Count - 1)
             {
@@ -607,6 +620,10 @@ public class DynamicGestureRecognizer : MonoBehaviour
                 }*/
             }
             //miniText.text = total.ToString();
+            if (savedGestures[g].gestureName.Equals("NG-Bom dia"))
+            {
+                Debug.Log("Toall = " + total);
+            }
             if (total < smallTreshold)
             {
                 var dif = Mathf.Abs(Vector3.Angle(savedGestures[g].gesture.wristRot[0], head.transform.InverseTransformDirection(hand.transform.up)));

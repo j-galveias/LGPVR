@@ -239,6 +239,7 @@ public class GestureRecognizer : MonoBehaviour
             if (gestureDetected != null)
             {
                 //gestureDetected.onRecognized.Invoke();
+                text.text = gestureDetected.gestureName;
                 gestures.Add(gestureDetected);
                 if (counts.ContainsKey(gestureDetected.gestureName))
                 {
@@ -535,6 +536,8 @@ public class GestureRecognizer : MonoBehaviour
 
 
             float total = 0;
+            float fingerTotal = 0;
+            float rotsTotal = 0;
 
             /*for (int i = 2; i < (int)OVRPlugin.BoneId.Hand_PinkyTip; i++)
             {
@@ -587,6 +590,7 @@ public class GestureRecognizer : MonoBehaviour
             }
 
             total += thumbRes * 0.7f + fingerRes * 0.3f;
+            //fingerTotal = thumbRes * 0.7f + fingerRes * 0.3f;
 
             if (g == savedGestures.Count - 1)
             {
@@ -652,8 +656,10 @@ public class GestureRecognizer : MonoBehaviour
                 //Debug.Log("totals = " + total.ToString());
                 Thumbtext.text = thumbRes.ToString();
             }
+            fingerTotal = total;
             miniText.text = total.ToString();
-            if (total < smallTreshold)
+            total = 0;
+            if (/*total*/ fingerTotal < smallTreshold)
             {
                 var dif = Mathf.Abs(Vector3.Angle(savedGestures[g].wristRot[0], head.transform.InverseTransformDirection(hand.transform.up)));
                 if (dif > 20)
@@ -682,6 +688,7 @@ public class GestureRecognizer : MonoBehaviour
                     savedGestures[g].time = 0.0f;
                 }
                 total += dif;
+                rotsTotal = total;
                 //rotRes[2].text = dif.ToString();
                 //rots[2].text = "F: " + savedGestures[g].wristRot[2].ToString() + "   <-->   " + head.transform.InverseTransformDirection(hand.transform.forward).ToString();
             }
@@ -690,7 +697,7 @@ public class GestureRecognizer : MonoBehaviour
                 discardGesture = true;
                 savedGestures[g].time = 0.0f;
             }
-            totalText.text = total.ToString();
+            /*totalText.text =*/ /*total.ToString();*//* rotsTotal.ToString();*/
             //var dif = Mathf.Abs(savedGestures[g].wristRot[0] - Vector3.Angle(Vector3.up, hand.transform.up));
             /*var dif = Mathf.Abs(Vector3.Angle(savedGestures[g].wristRot[0], head.transform.InverseTransformDirection(hand.transform.up)));
             if (dif > 20)
@@ -723,8 +730,10 @@ public class GestureRecognizer : MonoBehaviour
             rots[2].text = "F: " + savedGestures[g].wristRot[2].ToString() + "   <-->   " + head.transform.InverseTransformDirection(hand.transform.forward).ToString();
             //hand.transform.in
             */
-            
-            if (total > bigTreshold )
+
+            total = fingerTotal * 1.0f + rotsTotal * 1.0f;
+            totalText.text = total.ToString();
+            if (/*total*/ rotsTotal > bigTreshold )
             {
                 discardGesture = true;
                 savedGestures[g].time = 0.0f;
