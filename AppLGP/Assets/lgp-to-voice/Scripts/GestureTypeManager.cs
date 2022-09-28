@@ -19,17 +19,6 @@ public class GestureTypeManager : MonoBehaviour
     public TMP_Text message;
     public TMP_Text buttonText;
     public InteractableColorVisual colorButton;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void SendLgpMessage()
     {

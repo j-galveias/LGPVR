@@ -44,7 +44,8 @@ public class DynamicGestureRecognizer : MonoBehaviour
     [SerializeField] public TMP_Text text;
     [SerializeField] public TMP_Text gestureName;
     [SerializeField] public TMP_Text Thumbtext;
-    
+    [SerializeField] public bool testMode;
+
     private List<DynamicGesture> gestures;
     private Dictionary<string, int> counts;
     private Gesture initGesture;

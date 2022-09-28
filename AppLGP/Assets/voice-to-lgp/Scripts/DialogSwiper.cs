@@ -15,8 +15,11 @@ public class DialogSwiper : MonoBehaviour
             "<COLOR=#3000ff>NL- Olá </color>\n" +
             "L- Olá\n" +
             "<COLOR=#3000ff>NL- Qual é o teu nome?</color>\n" +
-            "L- Gil\n" +
-            "<COLOR=#3000ff>NL- Eu sou a Maria</color>\n" +
+            "L- *NOME*\n" +
+            "<COLOR=#3000ff>NL-  Eu sou *NOME*</color>\n" +
+            "<COLOR=#3000ff>NL-  Qual é a tua idade?</color>\n" +
+            "L- *IDADE*\n" +
+            "<COLOR=#3000ff>NL-  Adeus</color>\n" +
             "L- Prazer em conhecê-lo/a",
         "2- Loja\n\n" +
             "L- Olá\n" +
@@ -26,7 +29,7 @@ public class DialogSwiper : MonoBehaviour
             "L- Quanto custa cadeira?\n" +
             "<COLOR=#3000ff>NL- 18 euros</COLOR>\n" +
             "L- Obrigado\n" +
-            "<COLOR=#3000ff>NL- Quer comprar?</COLOR>\n" +
+            "<COLOR=#3000ff>NL-Vai querer comprar?</COLOR>\n" +
             "L- Não",
         "3- Boleia\n\n" +
             "<COLOR=#3000ff>NL- Bom dia\n</color>" +
@@ -36,6 +39,11 @@ public class DialogSwiper : MonoBehaviour
             "<COLOR=#3000ff>NL- Posso te acompanhar?</color>\n" +
             "L- Sim"
     };
+
+    private void Start()
+    {
+        dialog.text = dialogs[0];
+    }
 
     public void nextDial()
     {

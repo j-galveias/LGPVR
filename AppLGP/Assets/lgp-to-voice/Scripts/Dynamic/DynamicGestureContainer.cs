@@ -70,7 +70,7 @@ public class DynamicGestureContainer : MonoBehaviour
             float dist1 = Math.Abs(Vector3.Distance(this.transform.position.normalized, dynamicGesture.skel.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip].Transform.position.normalized));
             Debug.Log(dist1);
 
-            if(dist1 < 0.06f)
+            if(dist1 < 0.05f)
             {
                 dynamicGesture.currentPoint++;
                 if (dynamicGesture.currentPoint >= dynamicGesture.spherePoints.Count)
@@ -79,8 +79,19 @@ public class DynamicGestureContainer : MonoBehaviour
                     {
                         dgr.lastMessage = "";
                     }
-                    dynamicGesture.text.text = dgr.lastMessage + dynamicGesture.gesture.gestureName;
-                    dgr.message.text = dgr.lastMessage + "<#ff4538>" + dynamicGesture.gesture.gestureName + "</color>";
+
+                    string gestName;
+                    if (dgr.testMode)
+                    {
+                        gestName = dynamicGesture.gesture.gestureName;
+                    }
+                    else
+                    {
+                        string[] split = dynamicGesture.gesture.gestureName.Split('-');
+                        gestName = split[1];
+                    }
+                    dynamicGesture.text.text = dgr.lastMessage + gestName;
+                    dgr.message.text = dgr.lastMessage + "<#ff4538>" + gestName + "</color>";
                     Destroy(initialPos);
                     dgr.possibleGestures.Remove(this.gameObject);
                     Destroy(this.gameObject);

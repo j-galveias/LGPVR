@@ -2430,11 +2430,12 @@ MonoBehaviour:
   currentDialog: 0
   dialogs:
   - "1- Introdu\xE7\xE3o B\xE1sica \n\n<COLOR=#3000ff>NL- Ol\xE1 </color>\nL- Ol\xE1\n<COLOR=#3000ff>NL-
-    Qual \xE9 o teu nome?</color>\nL- Gil\n<COLOR=#3000ff>NL- Eu sou a Maria</color>\nL-
+    Qual \xE9 o teu nome?</color>\nL- *NOME*\n<COLOR=#3000ff>NL-  Eu sou *NOME*</color>\n<COLOR=#3000ff>NL- 
+    Qual \xE9 a tua idade?</color>\nL- *IDADE*\n<COLOR=#3000ff>NL-  Adeus</color>\nL-
     Prazer em conhec\xEA-lo/a"
   - "2- Loja\n\nL- Ol\xE1\n<COLOR=#3000ff>NL- Ol\xE1</COLOR>\nL- Preciso de ajuda\n<COLOR=#3000ff>NL-
     Como posso ajudar?</COLOR>\nL- Quanto custa cadeira?\n<COLOR=#3000ff>NL- 18 euros</COLOR>\nL-
-    Obrigado\n<COLOR=#3000ff>NL- Quer comprar?</COLOR>\nL- N\xE3o"
+    Obrigado\n<COLOR=#3000ff>NL-Vai querer comprar?</COLOR>\nL- N\xE3o"
   - '3- Boleia
 
 
@@ -27022,7 +27023,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1477070530}
+      - m_Target: {fileID: 102839883}
         m_TargetAssemblyTypeName: DialogSwiper, Assembly-CSharp
         m_MethodName: lastDial
         m_Mode: 1
@@ -30732,6 +30733,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d952c175ec3c6554199fd744548ce50a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1289734105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1289734107}
+  - component: {fileID: 1289734106}
+  m_Layer: 0
+  m_Name: MessageController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1289734106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289734105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ff3b389836db54db2dd7eb12435bc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photonView: {fileID: 415796960}
+  message: {fileID: 0}
+--- !u!4 &1289734107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289734105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.011465205, y: 1.1949676, z: 0.28993702}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1295207695
 GameObject:
   m_ObjectHideFlags: 0
@@ -34014,7 +34060,6 @@ GameObject:
   - component: {fileID: 1477070533}
   - component: {fileID: 1477070532}
   - component: {fileID: 1477070531}
-  - component: {fileID: 1477070530}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -34022,30 +34067,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1477070530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1477070529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2162441d86525448eae1dfac6b7528, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialog: {fileID: 1492902000}
-  currentDialog: 0
-  dialogs:
-  - "1- Introdu\xE7\xE3o B\xE1sica \n\n<COLOR=#3000ff>NL- Ol\xE1 </color>\nL- Ol\xE1\n<COLOR=#3000ff>NL-
-    Como te chamas?</color>\nL- Gil\n<COLOR=#3000ff>NL- Eu sou a Maria</color>\nL-
-    Prazer em conhec\xEA-lo/a"
-  - "2- Loja\n\nL- Ol\xE1\n<COLOR=#3000ff>NL- Ol\xE1</COLOR>\nL- Quanto custa cadeira?\n<COLOR=#3000ff>NL-
-    Esta cadeira custa 50 euros</COLOR>\nL- Obrigado\n<COLOR=#3000ff>NL- Voc\xEA
-    precisa de mais alguma coisa?</COLOR>\nL- N\xE3o"
-  - "3- Boleia\n\nL- Bom dia\n<COLOR=#3000ff>NL- Bom dia</color>\nL- Como est\xE1s?\n<COLOR=#3000ff>NL-
-    Estou bem</color>\nL- Preciso de ir para Lisboa\n<COLOR=#3000ff>NL- Eu levo-te</color>\nL-
-    Obrigado"
 --- !u!114 &1477070531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34090,7 +34111,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1477070530}
+      - m_Target: {fileID: 102839883}
         m_TargetAssemblyTypeName: DialogSwiper, Assembly-CSharp
         m_MethodName: nextDial
         m_Mode: 1
@@ -34557,9 +34578,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1- Introdu\xE7\xE3o B\xE1sica\n\n<COLOR=#3000ff>NL- Ol\xE1\r</color>\nL-
-    Ol\xE1\r\n<COLOR=#3000ff>NL-  Qual \xE9 o teu nome?\r</color>\nL- Gil\r\n<COLOR=#3000ff>NL-
-    Eu sou a Maria\r</color>\nL- Prazer em conhec\xEA-lo/a"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -34586,7 +34605,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.15
+  m_fontSize: 36.3
   m_fontSizeBase: 36.3
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -43958,6 +43977,7 @@ MonoBehaviour:
   client: {fileID: 415796958}
   photonView: {fileID: 415796960}
   stopwatch: {fileID: 1023624824}
+  messageController: {fileID: 1289734106}
 --- !u!4 &1950930881
 Transform:
   m_ObjectHideFlags: 0

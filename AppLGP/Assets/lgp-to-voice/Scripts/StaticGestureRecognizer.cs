@@ -67,7 +67,7 @@ public class Gesture
 }
 
 [DisallowMultipleComponent]
-public class GestureRecognizer : MonoBehaviour
+public class StaticGestureRecognizer : MonoBehaviour
 {
     public bool testMode;
     [Header("Recognition Timer Settings")]
@@ -589,7 +589,7 @@ public class GestureRecognizer : MonoBehaviour
                 }*/
             }
 
-            total += thumbRes * 0.7f + fingerRes * 0.3f;
+            total += thumbRes * 0.5f + fingerRes * 0.5f;
             //fingerTotal = thumbRes * 0.7f + fingerRes * 0.3f;
 
             if (g == savedGestures.Count - 1)
@@ -648,8 +648,8 @@ public class GestureRecognizer : MonoBehaviour
 
             if (savedGestures[g].distalAng == null || savedGestures[g].distalAng.Count == 0) continue;
             //thumbRes = 0;
-            thumbRes = FingerAngleDiff(savedGestures[g].distalAng, savedGestures[g].interAng, distalAngles, interAngles);
-            total += thumbRes;
+            var fingerAngleDifs = FingerAngleDiff(savedGestures[g].distalAng, savedGestures[g].interAng, distalAngles, interAngles);
+            total += fingerAngleDifs;
 
             if (g == savedGestures.Count - 1)
             {
@@ -795,13 +795,13 @@ public class GestureRecognizer : MonoBehaviour
 }
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(GestureRecognizer))]
+[CustomEditor(typeof(StaticGestureRecognizer))]
 public class CustomInspectorGestureRecognizer : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        GestureRecognizer gestureRecognizer = (GestureRecognizer)target;
+        StaticGestureRecognizer gestureRecognizer = (StaticGestureRecognizer)target;
         if (!GUILayout.Button("Save current gesture")) return;
         gestureRecognizer.SaveAsGesture();
     }

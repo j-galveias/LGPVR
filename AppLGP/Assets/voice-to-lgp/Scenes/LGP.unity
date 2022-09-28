@@ -17860,6 +17860,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114252240061623322, guid: 835e735ca71bf78459fb2cababd74112,
+        type: 3}
+      propertyPath: _confidenceBehavior
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114392993255165844, guid: 835e735ca71bf78459fb2cababd74112,
         type: 3}
       propertyPath: m_Enabled
@@ -25945,6 +25950,7 @@ MonoBehaviour:
   text: {fileID: 0}
   gestureName: {fileID: 0}
   Thumbtext: {fileID: 0}
+  testMode: 0
   gesturePrefab: {fileID: 6436545052357741729, guid: e9d42207af9e0194187e52640ef71eaf,
     type: 3}
   debugGesturePrefab: {fileID: 6436545052357741729, guid: 8e26ddbf4e3457a4ca473c7d4d93498f,
@@ -26180,6 +26186,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654762295}
   m_CullTransparentMesh: 1
+--- !u!1 &661008334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 661008336}
+  - component: {fileID: 661008335}
+  m_Layer: 0
+  m_Name: MessageController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &661008335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661008334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ff3b389836db54db2dd7eb12435bc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photonView: {fileID: 415796960}
+  message: {fileID: 1684269593}
+--- !u!4 &661008336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661008334}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.011465205, y: 1.1949676, z: 0.28993702}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 38
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &663926470
 GameObject:
   m_ObjectHideFlags: 0
@@ -39139,132 +39190,6 @@ MonoBehaviour:
     currentPoint: 0
     skel: {fileID: 0}
     time: 0
-  - gestureName: NG-Estou bem
-    gesture:
-      gestureName: NG-Estou bem
-      wristRot:
-      - {x: -0.108729616, y: 0.45258203, z: 0.8850692}
-      - {x: -0.8334583, y: 0.44374496, z: -0.32929927}
-      - {x: 0.5417799, y: 0.7734727, z: -0.32896015}
-      positionsPerFinger:
-      - {x: 0.020069323, y: -0.011554085, z: 0.010496548}
-      - {x: 0.03393295, y: -0.014934868, z: 0.030843955}
-      - {x: 0.060428012, y: -0.01105354, z: 0.04928407}
-      - {x: 0.09227793, y: -0.007795438, z: 0.060097963}
-      - {x: 0.09599625, y: -0.007316448, z: 0.02355071}
-      - {x: 0.12699884, y: -0.0288402, z: 0.019802544}
-      - {x: 0.1467439, y: -0.042741947, z: 0.017056454}
-      - {x: 0.0956466, y: -0.0025431737, z: 0.001725886}
-      - {x: 0.1286611, y: -0.029937305, z: 0.00019830093}
-      - {x: 0.14990216, y: -0.047438458, z: -0.0010288395}
-      - {x: 0.088693775, y: -0.0065293424, z: -0.017465288}
-      - {x: 0.12372527, y: -0.023654137, z: -0.01698404}
-      - {x: 0.14497018, y: -0.039581776, z: -0.015930343}
-      - {x: 0.034073565, y: -0.009419826, z: -0.02299855}
-      - {x: 0.077895835, y: -0.0136912055, z: -0.035054095}
-      - {x: 0.10692219, y: -0.019855037, z: -0.027102705}
-      - {x: 0.124840215, y: -0.028176092, z: -0.022385022}
-      - {x: 0.109843, y: -0.0031870827, z: 0.07672451}
-      - {x: 0.16680142, y: -0.05178128, z: 0.012903623}
-      - {x: 0.1722008, y: -0.058501996, z: -0.0032661408}
-      - {x: 0.1660126, y: -0.05178887, z: -0.014312785}
-      - {x: 0.14478035, y: -0.034401882, z: -0.015620414}
-      positionsPerBone:
-      - {x: 0.020069323, y: -0.011554085, z: 0.010496553}
-      - {x: 0.033932954, y: -0.014934868, z: 0.030843966}
-      - {x: 0.060428016, y: -0.01105354, z: 0.049284086}
-      - {x: 0.09227794, y: -0.007795438, z: 0.060097978}
-      - {x: 0.09599627, y: -0.007316448, z: 0.023550719}
-      - {x: 0.12699886, y: -0.0288402, z: 0.01980257}
-      - {x: 0.14674392, y: -0.042741947, z: 0.01705648}
-      - {x: 0.09564661, y: -0.0025431737, z: 0.0017258972}
-      - {x: 0.1286611, y: -0.029937305, z: 0.00019831955}
-      - {x: 0.14990218, y: -0.047438458, z: -0.0010288209}
-      - {x: 0.0886938, y: -0.0065293424, z: -0.017465286}
-      - {x: 0.1237253, y: -0.023654137, z: -0.01698403}
-      - {x: 0.1449702, y: -0.039581776, z: -0.015930325}
-      - {x: 0.034073573, y: -0.009419826, z: -0.022998549}
-      - {x: 0.07789584, y: -0.0136912055, z: -0.035054084}
-      - {x: 0.1069222, y: -0.019855037, z: -0.027102694}
-      - {x: 0.12484023, y: -0.028176092, z: -0.022385009}
-      - {x: 0.10984301, y: -0.0031870827, z: 0.076724514}
-      - {x: 0.16680145, y: -0.05178128, z: 0.012903646}
-      - {x: 0.17220081, y: -0.058501996, z: -0.003266096}
-      - {x: 0.16601263, y: -0.05178887, z: -0.014312759}
-      distanceBetweenFingertipsAndWrist:
-      - 25.425423
-      - 48.227016
-      - 78.756874
-      - 110.39814
-      - 99.113304
-      - 131.72928
-      - 153.79065
-      - 95.69597
-      - 132.09828
-      - 157.2327
-      - 90.63252
-      - 127.105934
-      - 151.11865
-      - 42.17433
-      - 86.51012
-      - 112.07646
-      - 129.92328
-      - 134.02347
-      - 175.13
-      - 181.89632
-      - 174.49104
-      - 149.629
-      angleBetweenAdjacentFingertips:
-      - 0.5920208
-      - 0.095449306
-      - 0.06888638
-      - 0.07237539
-      distanceBetweenAdjacentFingertips:
-      - 0.09838071
-      - 0.01832437
-      - 0.0143313715
-      - 0.027474089
-      distanceBetweenFingertipsAndThumbFingertip: []
-      distalAng: []
-      interAng: []
-      onRecognized:
-        m_PersistentCalls:
-          m_Calls: []
-      text: {fileID: 0}
-      time: 0
-    linePoints:
-    - {x: 0.000000029802322, y: 0.000000015133992, z: 0.000000036874553}
-    - {x: -0.000000011175871, y: -0.000000022933818, z: -0.000000039697625}
-    - {x: 0.000000011175871, y: -0.000000047730282, z: -0.000000031810487}
-    - {x: 0.000000027939677, y: 0.000000018859282, z: 0.00000004164758}
-    - {x: 0.0000000055879354, y: -0.000000020023435, z: -0.000000014348188}
-    - {x: 0.000000020489097, y: 0.00000002013985, z: 0.000000027765054}
-    - {x: -0.000000027939677, y: -0.00000003632158, z: -0.000000054918928}
-    - {x: 0.000000016763806, y: 0.000000018510036, z: 0.000000034691766}
-    - {x: 0.0000000055879354, y: 0.000000005820766, z: 0.000000015104888}
-    - {x: 0.0000000055879354, y: -0.000000015716068, z: -0.000000015890691}
-    - {x: -0.000000007450581, y: -0.0000000045401976, z: -0.000000012398232}
-    - {x: -0.000000007450581, y: 0.000000033760443, z: 0.00000003943569}
-    - {x: 0.000000040978193, y: 0.0000000011641532, z: 0.000000047351932}
-    - {x: 0.0000000055879354, y: 0.000000013504177, z: 0.000000035593985}
-    - {x: -0.000000013038516, y: 0.000000036437996, z: 0.000000021915184}
-    - {x: 0.000000013038516, y: -0.00000003131572, z: -0.000000041298335}
-    - {x: 0.000000013038516, y: -0.000000027706847, z: -0.000000016618287}
-    - {x: 0.00000005401671, y: 0.000000035506673, z: -0.0000000311411}
-    - {x: 0.000000011175871, y: 0.000000021536835, z: -0.000000007799827}
-    - {x: -0.0000000018626451, y: -0.0000000019790605, z: 0.000000009167707}
-    - {x: 0.000000018626451, y: 0.000000012456439, z: -0.00000004589674}
-    - {x: -0.000000014901161, y: 0.0000000059371814, z: 0.000000007887138}
-    - {x: -0.000000020489097, y: -3.4924597e-10, z: -0.0000000021245796}
-    fur:
-    - {x: 305.34778, y: 136.5341, z: 5.5358496}
-    spherePoints:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0.14460132, y: -0.0012298822, z: 0.19323759}
-    text: {fileID: 0}
-    currentPoint: 0
-    skel: {fileID: 0}
-    time: 0
   - gestureName: NG-ir
     gesture:
       gestureName: NG-ir
@@ -39616,6 +39541,7 @@ MonoBehaviour:
   text: {fileID: 0}
   gestureName: {fileID: 0}
   Thumbtext: {fileID: 0}
+  testMode: 1
   gesturePrefab: {fileID: 6436545052357741729, guid: e9d42207af9e0194187e52640ef71eaf,
     type: 3}
   debugGesturePrefab: {fileID: 6436545052357741729, guid: 8e26ddbf4e3457a4ca473c7d4d93498f,
@@ -41338,7 +41264,6 @@ GameObject:
   - component: {fileID: 1030965041}
   - component: {fileID: 1030965040}
   - component: {fileID: 1030965039}
-  - component: {fileID: 1030965038}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -41346,30 +41271,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1030965038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030965037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2162441d86525448eae1dfac6b7528, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialog: {fileID: 1885769596}
-  currentDialog: 0
-  dialogs:
-  - "1- Introdu\xE7\xE3o B\xE1sica \n\n<COLOR=#3000ff>NL- Ol\xE1 </color>\nL- Ol\xE1\n<COLOR=#3000ff>NL-
-    Como te chamas?</color>\nL- Gil\n<COLOR=#3000ff>NL- Eu sou a Maria</color>\nL-
-    Prazer em conhec\xEA-lo/a"
-  - "2- Loja\n\nL- Ol\xE1\n<COLOR=#3000ff>NL- Ol\xE1</COLOR>\nL- Quanto custa cadeira?\n<COLOR=#3000ff>NL-
-    Esta cadeira custa 50 euros</COLOR>\nL- Obrigado\n<COLOR=#3000ff>NL- Voc\xEA
-    precisa de mais alguma coisa?</COLOR>\nL- N\xE3o"
-  - "3- Boleia\n\nL- Bom dia\n<COLOR=#3000ff>NL- Bom dia</color>\nL- Como est\xE1s?\n<COLOR=#3000ff>NL-
-    Estou bem</color>\nL- Preciso de ir para Lisboa\n<COLOR=#3000ff>NL- Eu levo-te</color>\nL-
-    Obrigado"
 --- !u!114 &1030965039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41414,7 +41315,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1030965038}
+      - m_Target: {fileID: 1331659157}
         m_TargetAssemblyTypeName: DialogSwiper, Assembly-CSharp
         m_MethodName: nextDial
         m_Mode: 1
@@ -62529,8 +62430,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1063546779}
-        m_TargetAssemblyTypeName: GestureTypeManager, Assembly-CSharp
+      - m_Target: {fileID: 661008335}
+        m_TargetAssemblyTypeName: MessageController, Assembly-CSharp
         m_MethodName: SendLgpMessage
         m_Mode: 1
         m_Arguments:
@@ -65749,11 +65650,12 @@ MonoBehaviour:
   currentDialog: 0
   dialogs:
   - "1- Introdu\xE7\xE3o B\xE1sica \n\n<COLOR=#3000ff>NL- Ol\xE1 </color>\nL- Ol\xE1\n<COLOR=#3000ff>NL-
-    Qual \xE9 o teu nome?</color>\nL- Gil\n<COLOR=#3000ff>NL- Eu sou a Maria</color>\nL-
+    Qual \xE9 o teu nome?</color>\nL- *NOME*\n<COLOR=#3000ff>NL-  Eu sou *NOME*</color>\n<COLOR=#3000ff>NL- 
+    Qual \xE9 a tua idade?</color>\nL- *IDADE*\n<COLOR=#3000ff>NL-  Adeus</color>\nL-
     Prazer em conhec\xEA-lo/a"
   - "2- Loja\n\nL- Ol\xE1\n<COLOR=#3000ff>NL- Ol\xE1</COLOR>\nL- Preciso de ajuda\n<COLOR=#3000ff>NL-
     Como posso ajudar?</COLOR>\nL- Quanto custa cadeira?\n<COLOR=#3000ff>NL- 18 euros</COLOR>\nL-
-    Obrigado\n<COLOR=#3000ff>NL- Quer comprar?</COLOR>\nL- N\xE3o"
+    Obrigado\n<COLOR=#3000ff>NL-Vai querer comprar?</COLOR>\nL- N\xE3o"
   - '3- Boleia
 
 
@@ -77381,7 +77283,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1030965038}
+      - m_Target: {fileID: 1331659157}
         m_TargetAssemblyTypeName: DialogSwiper, Assembly-CSharp
         m_MethodName: lastDial
         m_Mode: 1
@@ -79370,9 +79272,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1- Introdu\xE7\xE3o B\xE1sica\n\n<COLOR=#3000ff>NL- Ol\xE1\r</color>\nL-
-    Ol\xE1\r\n<COLOR=#3000ff>NL-Qual \xE9 o teu nome?\r</color>\nL- Gil\r\n<COLOR=#3000ff>NL-
-    Eu sou a Maria\r</color>\nL- Prazer em conhec\xEA-lo/a"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -79399,7 +79299,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.05
+  m_fontSize: 36.3
   m_fontSizeBase: 36.3
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -81731,6 +81631,7 @@ MonoBehaviour:
   client: {fileID: 415796958}
   photonView: {fileID: 415796960}
   stopwatch: {fileID: 0}
+  messageController: {fileID: 0}
 --- !u!4 &1950930881
 Transform:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ public class STT : MonoBehaviour
     public Client client;
     public PhotonView photonView;
     public GameObject stopwatch;
+    public MessageController messageController;
 
     private object threadLocker = new object();
     private bool waitingForReco;
@@ -55,11 +56,13 @@ public class STT : MonoBehaviour
         {
             //client.SendMessage();
             Debug.Log("Message Sent");
-            if (message.Contains("Quer"))
+            /*if (message.Contains("Quer"))
             {
                 message = message.Replace("Quer", "Querer");
             }
-            photonView.RPC("ReceiveTextToLgp", RpcTarget.Others, message);
+            photonView.RPC("ReceiveTextToLgp", RpcTarget.Others, message);*/
+            messageController.SendTextMessage(message);
+
             //outputText.gameObject.transform.parent.gameObject.SetActive(false);
             message = "";
             //startRecoButton.gameObject.SetActive(true);
