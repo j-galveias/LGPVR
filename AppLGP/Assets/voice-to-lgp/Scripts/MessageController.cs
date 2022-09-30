@@ -11,12 +11,13 @@ public class MessageController : MonoBehaviour
 
     public void SendLgpMessage()
     {
-        string msg = message.text;
+        string[] split = message.text.Split('<');
+        string msg = split[0];
         if (msg.Contains("Ajuda Preciso"))
         {
             msg = "Preciso de ajuda";
         }
-        else if (msg.Contains("cadeira Quanto Custa"))
+        else if (msg.Contains("cadeira Quanto custa"))
         {
             msg = "Quanto custa esta cadeira?";
         }

@@ -62,6 +62,11 @@ public class DynamicGestureRecognizer : MonoBehaviour
 
     public TMP_Text timerText;
     public float timer;
+    public bool isGestureCD;
+    public Slider slider;
+    public Image fill;
+
+    public float timeRemain;
 
     private DynamicGesture _previousGestureDetected = null;
 
@@ -117,6 +122,18 @@ public class DynamicGestureRecognizer : MonoBehaviour
 
     private void Update()
     {
+        if (isGestureCD)
+        {
+            timeRemain -= Time.deltaTime;
+            slider.value = (timer - timeRemain) / timer;
+            fill.fillAmount = slider.value;
+            if(timeRemain <= 0)
+            {
+                isGestureCD = false;
+                slider.value = 0;
+                fill.fillAmount = 0;
+            }
+        }
         if (!skel.IsDataHighConfidence)
         {
             return;
@@ -141,7 +158,7 @@ public class DynamicGestureRecognizer : MonoBehaviour
         /*if(!recDynamic)
         {*/
         gesturesDetected = Recognize();
-        if (gesturesDetected != null)
+        if (gesturesDetected != null && !isGestureCD)
         {
             foreach (var gesture in gesturesDetected)
             {
@@ -317,6 +334,12 @@ public class DynamicGestureRecognizer : MonoBehaviour
         }
         timerText.text = "Começar";
         StartSaving();
+    }
+
+    public void GestureCD()
+    {
+        isGestureCD = true;
+        timeRemain = timer;
     }
 
     public void DynamicGestureClick() {

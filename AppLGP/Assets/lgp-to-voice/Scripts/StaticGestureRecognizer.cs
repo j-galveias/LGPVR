@@ -310,7 +310,8 @@ public class StaticGestureRecognizer : MonoBehaviour
                     }
                     else
                     {
-                        message.text += letter[0];
+                        string[] split = letter.Split('-');
+                        message.text += split[1];
                     }
                     timeRemaining = timeForRec;
                     timer.text = timeRemaining.ToString();
