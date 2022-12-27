@@ -60,8 +60,8 @@ In this project we used a portuguese text to portuguese sign language translator
 ### Built With
 
 * [![Unity][Unity.js]][Unity-url]
-* [![Meta][Meta.js]][Meta-url]
-* [![azure][azure.js]][azure-url]
+* [![Meta][Meta.js]][Meta-url] - Meta Quest 2 & Oculus Integration SDK
+* [![azure][azure.js]][azure-url] - Cognitive Services SDK
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
