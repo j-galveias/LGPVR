@@ -75,6 +75,11 @@ https://user-images.githubusercontent.com/32814782/209723936-055ef73e-53f7-4205-
 <!-- Docs -->
 ## Dissertation & Extended Abstract
 
+<ul>
+  <li>Dissertation - https://github.com/j-galveias/LGPVR/blob/main/docs/90737-Jo%C3%A3o-Galveias-dissertacao.pdf</li>
+  <li>Extended Abstract - https://github.com/j-galveias/LGPVR/blob/main/docs/90737-Jo%C3%A3o-Galveias-resumo.pdf</li>
+</ul>
+
 <!-- CONTACT -->
 ## Contact
 
