@@ -69,6 +69,8 @@ In this project we used a portuguese text to portuguese sign language translator
 <!-- USAGE EXAMPLES -->
 ## Usage Example
 
+https://user-images.githubusercontent.com/32814782/209723936-055ef73e-53f7-4205-a1bd-31a301795b87.mp4
+
 
 <!-- Docs -->
 ## Dissertation & Extended Abstract
