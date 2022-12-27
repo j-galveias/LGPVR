@@ -45,15 +45,6 @@ public class DynamicGestureContainer : MonoBehaviour
 
         if (dynamicGesture != null && dynamicGesture.currentPoint == 0)
         {
-            /*initialPos.transform.position = this.transform.position;
-            initialPos.transform.forward = dgr.ancora.transform.forward;
-            initialPos.transform.up = dgr.ancora.transform.up;
-            initialPos.transform.right = dgr.ancora.transform.right;*/
-            //initialPos.transform.rotation *= Quaternion.Euler(0, 180, 0);
-            //initialPos.transform.rotation = this.transform.rotation;
-            /*initialPos.transform.forward = this.transform.forward;
-            initialPos.transform.up = this.transform.up;
-            initialPos.transform.right = this.transform.right;*/
 
             dynamicGesture.currentPoint++;
 
@@ -66,7 +57,6 @@ public class DynamicGestureContainer : MonoBehaviour
         }
         if (dynamicGesture != null && dynamicGesture.currentPoint > 0)
         {
-            //float dist1 = Math.Abs(Vector3.Distance(this.transform.position, dynamicGesture.skel.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1].Transform.position));
             float dist1 = Math.Abs(Vector3.Distance(this.transform.position.normalized, dynamicGesture.skel.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip].Transform.position.normalized));
             Debug.Log(dist1);
 
@@ -96,12 +86,6 @@ public class DynamicGestureContainer : MonoBehaviour
                     Destroy(initialPos);
                     dgr.possibleGestures.Remove(this.gameObject);
                     Destroy(this.gameObject);
-                    /*foreach (GameObject g in dgr.possibleGestures.Keys)
-                    {
-                        Destroy(g);
-                    }
-                    dgr.possibleGestures.Clear();
-                    Destroy(this.gameObject);*/
                 }
                 else
                 {
@@ -116,7 +100,6 @@ public class DynamicGestureContainer : MonoBehaviour
 
     private void OnDestroy()
     {
-        //Destroy(initialPos);
         DestroyImmediate(initialPos);
     }
 

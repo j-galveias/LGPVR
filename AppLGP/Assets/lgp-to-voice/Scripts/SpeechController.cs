@@ -16,7 +16,6 @@ public class SpeechController : MonoBehaviour
     public TMP_Text outputText;
     public GameObject leftCanvas;
     public GameObject rightCanvas;
-    //public TMP_Text errorText;
     public Button startRecoButton;
     public Button deleteButton;
     public Button sendButton;
@@ -48,8 +47,7 @@ public class SpeechController : MonoBehaviour
     {
         if (!waitingForReco && !outputText.text.Equals(""))
         {
-            //client.SendMessage();
-            //outputText.gameObject.transform.parent.gameObject.SetActive(false);
+            
             message = "";
             startRecoButton.gameObject.SetActive(true);
             sendButton.gameObject.SetActive(false);
@@ -85,14 +83,9 @@ public class SpeechController : MonoBehaviour
                 {
                     newMessage = result.Text;
                 }
-                else if (result.Reason == ResultReason.NoMatch)
-                {
-                    //errorText.text = "NOMATCH: Speech could not be recognized.";
-                }
                 else if (result.Reason == ResultReason.Canceled)
                 {
                     var cancellation = CancellationDetails.FromResult(result);
-                    //errorText.text = $"CANCELED: Reason={cancellation.Reason} ErrorDetails={cancellation.ErrorDetails}";
                 }
 
                 lock (threadLocker)
@@ -163,7 +156,6 @@ public class SpeechController : MonoBehaviour
                 }
                 else
                 {
-                    //startRecoButton.GetComponentInChildren<Text>().text = "Enviar";
                     startRecoButton.gameObject.SetActive(false);
                     sendButton.gameObject.SetActive(true);
                     deleteButton.gameObject.SetActive(true);

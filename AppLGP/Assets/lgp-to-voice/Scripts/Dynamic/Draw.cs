@@ -84,10 +84,7 @@ public class Draw : MonoBehaviour
         }
 
 #endif
-        // get initial bone to track
-        /*boneToTrack = ovrSkeleton.Bones
-                .Where(b => b.Id == OVRSkeleton.BoneId.Hand_Middle1)
-                .SingleOrDefault();*/
+
         boneToTrack = ovrSkeleton.Bones
                 .Where(b => b.Id == OVRSkeleton.BoneId.Hand_IndexTip)
                 .SingleOrDefault();
@@ -99,7 +96,6 @@ public class Draw : MonoBehaviour
     public void AddNewLineRenderer()
     {
         positionCount = 0;
-        //Destroy(currentLineRender.gameObject);
         
 
         GameObject go = new GameObject($"LineRenderer_{lines.Count}");
@@ -127,9 +123,7 @@ public class Draw : MonoBehaviour
         }
         if (boneToTrack == null)
         {
-            /*boneToTrack = ovrSkeleton.Bones
-                .Where(b => b.Id == OVRSkeleton.BoneId.Hand_Middle1)
-                .SingleOrDefault();*/
+
             boneToTrack = ovrSkeleton.Bones
                 .Where(b => b.Id == OVRSkeleton.BoneId.Hand_IndexTip)
                 .SingleOrDefault();
@@ -170,20 +164,11 @@ public class Draw : MonoBehaviour
         if (ovrHand.GetFingerConfidence(OVRHand.HandFinger.Index) != OVRHand.TrackingConfidence.High)
             return;
 
-        // finger pinch down
-        //if (isIndexFingerPinching && indexFingerPinchStrength >= minFingerPinchDownStrength)
-        //{
-            UpdateLine();
-        //    IsPinchingReleased = true;
-            return;
-        //}
-
-        // finger pinch up
-       /* if (IsPinchingReleased)
-        {
-            AddNewLineRenderer();
-            IsPinchingReleased = false;
-        }*/
+        
+        UpdateLine();
+        
+        return;
+        
     }
 
     void UpdateLine()
@@ -203,22 +188,16 @@ public class Draw : MonoBehaviour
                 firstPoint.transform.forward = ancora.transform.forward;
                 firstPoint.transform.up = ancora.transform.up;
                 firstPoint.transform.right = ancora.transform.right;
-                 /*firstPoint.transform.rotation = objectToTrackMovement.transform.rotation;
-                 firstPoint.transform.forward = objectToTrackMovement.transform.forward;
-                 firstPoint.transform.up = objectToTrackMovement.transform.up;
-                 firstPoint.transform.right = objectToTrackMovement.transform.right;*/
-                 //firstPoint.transform.eulerAngles = objectToTrackMovement.transform.eulerAngles;
-                 fur.Add(objectToTrackMovement.transform.eulerAngles);
-                //fur.Add(objectToTrackMovement.transform.up);
-                //fur.Add(objectToTrackMovement.transform.right);
+                 
+                fur.Add(objectToTrackMovement.transform.eulerAngles);
+                
 
             }
             AddPoint(prevPointPosition);
             spaceCount++;
-            //transform.
-            //linePos.Add(ovrSkeleton.Bones[(int)OVRSkeleton.BoneId.Hand_Middle1].Transform.InverseTransformPoint(prevPointDistance));
+            
             linePos.Add(ovrSkeleton.Bones[(int)OVRSkeleton.BoneId.Hand_IndexTip].Transform.InverseTransformPoint(prevPointPosition));
-            //if (prevBallDistance != null && Mathf.Abs(Vector3.Distance(prevBallDistance, objectToTrackMovement.transform.position)) >= 0.5f)
+
             if (spherePos.Count == 0 || (spaceCount >= sphereSpaceCount))
             {
                 spaceCount = 0;

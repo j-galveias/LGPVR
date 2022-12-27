@@ -27,11 +27,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
 			Debug.Log(a.ActorNumber);
         }
-        /*if (PhotonNetwork.IsConnected && !alreadyConnected)
-        {
-            img.color = Color.green;
-            alreadyConnected = true;
-        }*/
+        
     }
 
 	#region MonoBehaviourPunCallbacks CallBacks
@@ -48,7 +44,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 		// this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
 		// we don't want to do anything.
 		
-		//PhotonNetwork.AutomaticallySyncScene = true;
 		RoomOptions options = new RoomOptions()
 		{
 			IsVisible = true,
@@ -114,7 +109,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	public override void OnJoinedRoom()
 	{
 		Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running.");
-		//img.color = Color.green;
 		if (colorButton != null)
 		{
 			ColorState c = new ColorState();

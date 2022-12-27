@@ -141,105 +141,12 @@ public class StaticGestureRecognizer : MonoBehaviour
         }
         gestureDetected = Recognize();
 
-        #region
-        /*if(gestures.Count < 5)
-        {
-            //if (gestureDetected != _previousGestureDetected)
-            //{
-            if (gestureDetected != null)
-            {
-                //gestureDetected.onRecognized.Invoke();
-                gestures.Add(gestureDetected);
-                if (counts.ContainsKey(gestureDetected.gestureName))
-                {
-                    counts[gestureDetected.gestureName] = counts[gestureDetected.gestureName]++;
-                }
-                else
-                {
-                    counts.Add(gestureDetected.gestureName, 1);
-                }
-            }
-            else
-            {
-                onNothingDetected.Invoke();
-                slider.value = 0;
-                fill.fillAmount = 0;
-                //text.text = "";
-            }
-                
 
-                _previousGestureDetected = gestureDetected;
-            //}
-        }
-        else
-        {
-            var highest = 0;
-            var letter = "";
-            foreach (var item in counts)
-            {
-                if(highest < item.Value)
-                {
-                    letter = item.Key;
-                    highest = item.Value;
-                }
-            }
-
-            foreach(var item in gestures)
-            {
-                if(item.gestureName == letter)
-                {
-                    text.text = letter;
-                    if(lastLetter != letter)
-                    {
-                        lastLetter = letter;
-                        currentDetect.text = lastLetter;
-                        timeRemaining = timeForRec;
-                        timer.text = timeRemaining.ToString();
-                        slider.value = 0;
-                        fill.fillAmount = 0;
-                    }
-                    else
-                    {
-                        if(timeRemaining > 0)
-                        {
-                            timeRemaining -= Time.deltaTime;
-                            slider.value = (timeForRec - timeRemaining) / timeForRec;
-                            fill.fillAmount = slider.value;
-                            timer.text = timeRemaining.ToString();
-                        }
-                        else
-                        {
-                            if(anim != null)
-                            {
-                                anim.Play("Light");
-                            }
-                            if (testMode)
-                            {
-                                message.text += letter;
-                            }
-                            else
-                            {
-                                message.text += letter[0];
-                            }
-                            timeRemaining = timeForRec;
-                            timer.text = timeRemaining.ToString();
-                            slider.value = 0;
-                            fill.fillAmount = 0;
-                        }
-                    }
-                }
-            }
-            gestures.Clear();
-            counts.Clear();
-        }*/
-        #endregion
         if (timeRemaining > 0 && cooldownRemaining <= 0)
         {
-            //if (gestureDetected != _previousGestureDetected)
-            //{
+
             if (gestureDetected != null)
             {
-                //gestureDetected.onRecognized.Invoke();
                 text.text = gestureDetected.gestureName;
                 gestures.Add(gestureDetected);
                 if (counts.ContainsKey(gestureDetected.gestureName))
@@ -270,11 +177,7 @@ public class StaticGestureRecognizer : MonoBehaviour
                 fill.fillAmount = 0;
                 timeRemaining = timeForRec;
                 timer.text = timeRemaining.ToString();
-                //text.text = "";
             }
-            
-            
-            //}
         }
         else if (cooldownRemaining > 0) 
         {
@@ -337,7 +240,6 @@ public class StaticGestureRecognizer : MonoBehaviour
             Directory.CreateDirectory(dir);
         }
 
-        //List<Vector3> positions = fingers.Select(t => hand.transform.InverseTransformPoint(t.transform.position)).ToList();
         List<Vector3> positionsTips = new List<Vector3>();
 
         for (int i = (int)OVRPlugin.BoneId.Hand_ThumbTip; i < (int)OVRPlugin.BoneId.Hand_End; i++)
@@ -386,21 +288,7 @@ public class StaticGestureRecognizer : MonoBehaviour
 
         File.WriteAllText(dir + novoGesto.gestureName, json);
 
-        /*Gesto gesto = ScriptableObject.CreateInstance<Gesto>();
-
-        gesto.gestureName = name;
-        gesto.wristRot = rots;
-        gesto.positionsPerFinger = positions;
-        gesto.positionsPerBone = pob;
-        gesto.distanceBetweenFingertipsAndWrist = dbfaw;
-        gesto.angleBetweenAdjacentFingertips = abaf;
-        gesto.distanceBetweenAdjacentFingertips = dbaf;
-        gesto.text = text;
-        gesto.onRecognized = new UnityEvent();
-        gesto.onRecognized.AddListener(gesto.onRec);*/
-
-       //string path = "Assets/Resources/" + System.Guid.NewGuid().ToString() + ".asset";
-       //AssetDatabase.CreateAsset(gesto, path);
+        
     }
 
     private List<float> getAngle(List<Vector3> positions)
@@ -408,12 +296,7 @@ public class StaticGestureRecognizer : MonoBehaviour
         List<float> angles = new List<float>();
         for (int i = 0; i < positions.Count - 1; i++)
         {
-            /*Vector3 dir = positions[i] - positions[i + 1];
-
-            int sign = (dir.y >= 0) ? 1 : -1;
-
-            float angle = Vector3.Angle(Vector3.right, dir) * sign;*/
-            //float angle = Vector3.Angle(positions[i], positions[i + 1]);
+            
             float angle = Mathf.Acos((positions[i].x * positions[i + 1].x + positions[i].y * positions[i + 1].y + positions[i].z * positions[i + 1].z) / 
                 (Mathf.Sqrt(Mathf.Pow(positions[i].x, 2) + Mathf.Pow(positions[i].y, 2) + Mathf.Pow(positions[i].z, 2)) * 
                 Mathf.Sqrt(Mathf.Pow(positions[i + 1].x, 2) + Mathf.Pow(positions[i + 1].y, 2) + Mathf.Pow(positions[i + 1].z, 2))));
@@ -507,13 +390,9 @@ public class StaticGestureRecognizer : MonoBehaviour
             positions.Add(skel.Bones[0].Transform.InverseTransformPoint(skel.Bones[i].Transform.position));
         }
 
-        /*for (int i = 0; i < positions.Count; i++)
-        {
-            Debug.Log(i + " : " + positions[i]);
-        }*/
+        
 
         List<float> dbfaw = getWristDistances(positions);
-        //List<float> abaf = getAngle(positions);
         List<float> dbaf = getAdjacentDistances(positionsTips);
         List<float> tb = getThumbDistances(positionsTips);
 
@@ -541,22 +420,7 @@ public class StaticGestureRecognizer : MonoBehaviour
             float fingerTotal = 0;
             float rotsTotal = 0;
 
-            /*for (int i = 2; i < (int)OVRPlugin.BoneId.Hand_PinkyTip; i++)
-            {
-                var diffx = Math.Abs(savedGestures[g].positionsPerBone[i-2].x - hand.transform.InverseTransformPoint(skel.Bones[i].Transform.position).x);
-                var res = diffx;
-                Debug.Log("'diff " + i + " x" + " : " + diffx);
-                var diffy = Math.Abs(savedGestures[g].positionsPerBone[i-2].y - hand.transform.InverseTransformPoint(skel.Bones[i].Transform.position).y);
-                res += diffy;
-                Debug.Log("'diff " + i + " y" + " : " + diffy);
-                var diffz = Math.Abs(savedGestures[g].positionsPerBone[i-2].z - hand.transform.InverseTransformPoint(skel.Bones[i].Transform.position).z);
-                Debug.Log("'diff " + i + " z" + " : " + diffz);
-                res += diffz;
-                total += res;
-            }*/
-
-            //Debug.Log("'diff" + " : " + total);
-            //distWristRes[0].text = "";
+            
             var textCount = 0;
             float thumbRes = 0;
             float fingerRes = 0;
@@ -592,54 +456,21 @@ public class StaticGestureRecognizer : MonoBehaviour
             }
 
             total += thumbRes * 0.5f + fingerRes * 0.5f;
-            //fingerTotal = thumbRes * 0.7f + fingerRes * 0.3f;
 
-            if (g == savedGestures.Count - 1)
-            {
-                //Debug.Log("totals = " + total.ToString());
-                //Thumbtext.text = thumbRes.ToString();
-            }
-
-            /*for (int i = 0; i < abaf.Count; i++)
-            {
-                //if (discardGesture) break;
-
-                var res = Math.Abs(savedGestures[g].angleBetweenAdjacentFingertips[i] - abaf[i]);
-                total += res;
-                fingerAnglesRes[i].text = res.ToString();
-                fingerAngles[i].text = savedGestures[g].angleBetweenAdjacentFingertips[i].ToString() + "   <-->   " + abaf[i].ToString();
-                if (res > 0.2)
-                {
-                    discardGesture = true;
-                    savedGestures[g].time = 0.0f;
-                    break;
-                }
-            }*/
 
             for (int i = 0; i < dbaf.Count; i++)
             {
-                //if (discardGesture) break;
                 var res = Math.Abs(savedGestures[g].distanceBetweenAdjacentFingertips[i] - dbaf[i]);
                 total += res;
-                //distFingersRes[i].text = res.ToString();
-                //distFingers[i].text = savedGestures[g].distanceBetweenAdjacentFingertips[i].ToString() + "   <-->   " + dbaf[i].ToString();
-                /*if (res > 0.2)
-                {
-                    discardGesture = true;
-                    savedGestures[g].time = 0.0f;
-                    break;
-                }*/
             }
             if (savedGestures[g].distanceBetweenFingertipsAndThumbFingertip == null || savedGestures[g].distanceBetweenFingertipsAndThumbFingertip.Count == 0) continue;
-            //thumbRes = 0;
+
             for (int i = 0; i < tb.Count; i++)
             {
-                //if (discardGesture) break;
+                
                 var res = Math.Abs(savedGestures[g].distanceBetweenFingertipsAndThumbFingertip[i] - tb[i]);
-                //thumbRes = Math.Abs(savedGestures[g].distanceBetweenFingertipsAndThumbFingertip[i] * 1000 - tb[i] * 1000);
                 total += res;
-                //distFingersRes[i].text = res.ToString();
-                //distFingers[i].text = savedGestures[g].distanceBetweenAdjacentFingertips[i].ToString() + "   <-->   " + dbaf[i].ToString();
+                
                 if (res > 15)
                 {
                     discardGesture = true;
@@ -649,19 +480,18 @@ public class StaticGestureRecognizer : MonoBehaviour
             }
 
             if (savedGestures[g].distalAng == null || savedGestures[g].distalAng.Count == 0) continue;
-            //thumbRes = 0;
+
             var fingerAngleDifs = FingerAngleDiff(savedGestures[g].distalAng, savedGestures[g].interAng, distalAngles, interAngles);
             total += fingerAngleDifs;
 
             if (g == savedGestures.Count - 1)
             {
-                //Debug.Log("totals = " + total.ToString());
                 Thumbtext.text = thumbRes.ToString();
             }
             fingerTotal = total;
             miniText.text = total.ToString();
             total = 0;
-            if (/*total*/ fingerTotal < smallTreshold)
+            if ( fingerTotal < smallTreshold)
             {
                 var dif = Mathf.Abs(Vector3.Angle(savedGestures[g].wristRot[0], head.transform.InverseTransformDirection(hand.transform.up)));
                 if (dif > 20)
@@ -670,8 +500,7 @@ public class StaticGestureRecognizer : MonoBehaviour
                     savedGestures[g].time = 0.0f;
                 }
                 total += dif;
-                //rotRes[0].text = dif.ToString();
-                //rots[0].text = "U: " + savedGestures[g].wristRot[0].ToString() + "   <-->   " + head.transform.InverseTransformDirection(hand.transform.up).ToString();
+                
 
                 dif = Mathf.Abs(Vector3.Angle(savedGestures[g].wristRot[1], head.transform.InverseTransformDirection(hand.transform.right)));
                 if (dif > 20)
@@ -680,8 +509,7 @@ public class StaticGestureRecognizer : MonoBehaviour
                     savedGestures[g].time = 0.0f;
                 }
                 total += dif;
-                //rotRes[1].text = dif.ToString();
-                //rots[1].text = "R: " + savedGestures[g].wristRot[1].ToString() + "   <-->   " + head.transform.InverseTransformDirection(hand.transform.right).ToString();
+                
 
                 dif = Mathf.Abs(Vector3.Angle(savedGestures[g].wristRot[2], head.transform.InverseTransformDirection(hand.transform.forward)));
                 if (dif > 20)
@@ -691,51 +519,17 @@ public class StaticGestureRecognizer : MonoBehaviour
                 }
                 total += dif;
                 rotsTotal = total;
-                //rotRes[2].text = dif.ToString();
-                //rots[2].text = "F: " + savedGestures[g].wristRot[2].ToString() + "   <-->   " + head.transform.InverseTransformDirection(hand.transform.forward).ToString();
+                
             }
             else
             {
                 discardGesture = true;
                 savedGestures[g].time = 0.0f;
             }
-            /*totalText.text =*/ /*total.ToString();*//* rotsTotal.ToString();*/
-            //var dif = Mathf.Abs(savedGestures[g].wristRot[0] - Vector3.Angle(Vector3.up, hand.transform.up));
-            /*var dif = Mathf.Abs(Vector3.Angle(savedGestures[g].wristRot[0], head.transform.InverseTransformDirection(hand.transform.up)));
-            if (dif > 20)
-            {
-                discardGesture = true;
-                savedGestures[g].time = 0.0f;
-            }
-            total += dif;
-            rotRes[0].text = dif.ToString();
-            rots[0].text ="U: " + savedGestures[g].wristRot[0].ToString() + "   <-->   " + head.transform.InverseTransformDirection(hand.transform.up).ToString();
-            
-            dif = Mathf.Abs(Vector3.Angle(savedGestures[g].wristRot[1], head.transform.InverseTransformDirection(hand.transform.right)));
-            if (dif > 20)
-            {
-                discardGesture = true;
-                savedGestures[g].time = 0.0f;
-            }
-            total += dif;
-            rotRes[1].text = dif.ToString();
-            rots[1].text = "R: " + savedGestures[g].wristRot[1].ToString() + "   <-->   " + head.transform.InverseTransformDirection(hand.transform.right).ToString();
-
-            dif = Mathf.Abs(Vector3.Angle(savedGestures[g].wristRot[2], head.transform.InverseTransformDirection(hand.transform.forward)));
-            if (dif > 20)
-            {
-                discardGesture = true;
-                savedGestures[g].time = 0.0f;
-            }
-            total += dif;
-            rotRes[2].text = dif.ToString();
-            rots[2].text = "F: " + savedGestures[g].wristRot[2].ToString() + "   <-->   " + head.transform.InverseTransformDirection(hand.transform.forward).ToString();
-            //hand.transform.in
-            */
 
             total = fingerTotal * 1.0f + rotsTotal * 1.0f;
             totalText.text = total.ToString();
-            if (/*total*/ rotsTotal > bigTreshold )
+            if (rotsTotal > bigTreshold )
             {
                 discardGesture = true;
                 savedGestures[g].time = 0.0f;

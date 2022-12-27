@@ -55,21 +55,11 @@ public class Client : MonoBehaviour {
             button.interactable = false; 
 
         if (received){
-			// Debug.Log("receivedddd");
 			if (serverMessage == "Erro")
 			{
-				// Debug.Log("erroooooo");
 				text.text = "Erro a traduzir frase, tente outra.";
-				//text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 				frase_pensar.gameObject.SetActive(false);
-				/*leftCanvas.SetActive(true);
-				rightCanvas.SetActive(true);
-				sentence.gameObject.SetActive(true);
-        		button.gameObject.SetActive(true);*/
-				// replay_button.gameObject.SetActive(true);
-				/*toggle.gameObject.SetActive(true);
-				mouthing_toggle.gameObject.SetActive(true);
-				toggle_hand.gameObject.SetActive(true);*/
+				
 				cylinder.SetActive(true);
 				mirror.SetActive(true);
 				animator.SetBool("Pensar", false);
@@ -83,19 +73,12 @@ public class Client : MonoBehaviour {
         if (sent){
 			cylinder.SetActive(false);
 			mirror.SetActive(false);
-			/*sentence.gameObject.SetActive(false);
-            button.gameObject.SetActive(false);
-			replay_button.gameObject.SetActive(false);
-			toggle.gameObject.SetActive(false);
-			mouthing_toggle.gameObject.SetActive(false);
-			toggle_hand.gameObject.SetActive(false);*/
+			
             sent = false; 
-			// animator.SetLayerWeight(animator.GetLayerIndex ("idle_animate"), 1);
-			// animator.SetLayerWeight(animator.GetLayerIndex ("idle"), 0);
+			
 			animator.SetBool("Pensar", true);
 			frase_pensar.gameObject.SetActive(true);
 			frase_pensar.text = sentence.text;
-			//frase_pensar.rectTransform.sizeDelta = new Vector2(frase_pensar.preferredWidth, frase_pensar.preferredHeight);
         }
 	}
 
@@ -108,36 +91,21 @@ public class Client : MonoBehaviour {
     }
 
 	public void Animate() {
-		// animator.SetLayerWeight(animator.GetLayerIndex ("idle_animate"), 1);
-		// animator.SetLayerWeight(animator.GetLayerIndex ("idle"), 0);
+		
 		frase_pensar.text = "";
 		sentence.text = "";
-		//sentence.gameObject.SetActive(false);
-		/*button.gameObject.SetActive(false);
-		replay_button.gameObject.SetActive(false);
-		toggle.gameObject.SetActive(false);
-		mouthing_toggle.gameObject.SetActive(false);
-		toggle_hand.gameObject.SetActive(false);*/
+		
 		cylinder.SetActive(false);
 		mirror.SetActive(false);
 		try
 		{
 			mainAnimation.Animate(serverMessage);
-			//mainAnimation.Animate(sentence.text);
 		}
 		catch{
-			// Debug.Log("ERRO");
 			text.text = "Erro a traduzir frase, tente outra.";
-			//text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
-			/*leftCanvas.SetActive(true);
-			rightCanvas.SetActive(true);*/
+			
 			frase_pensar.gameObject.SetActive(false);
-			/*sentence.gameObject.SetActive(true);
-			button.gameObject.SetActive(true);*/
-			// replay_button.gameObject.SetActive(true);
-			/*toggle.gameObject.SetActive(true);
-			mouthing_toggle.gameObject.SetActive(true);
-			toggle_hand.gameObject.SetActive(true);*/
+			
 			cylinder.SetActive(true);
 			mirror.SetActive(true);
 			animator.SetBool("Pensar", false);
@@ -155,9 +123,7 @@ public class Client : MonoBehaviour {
 
 			if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
 			{
-				// Debug.Log(www.error);
 				text.text = "Servidor não está ligado";
-				//text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 			}
 			else
 			{
@@ -180,27 +146,14 @@ public class Client : MonoBehaviour {
 		byte[] myData = Encoding.UTF8.GetBytes(sentence.text.Substring(0, 1) + sentence.text.Substring(1).ToLower());
 		UnityWebRequest www = UnityWebRequest.Put(URL, myData);
 		www.method = "POST";
-		// www.method = "POST"; //hack to send POST to server instead of PUT
-		// www.SetRequestHeader("Content-Type", "application/json");
-		// www.SetRequestHeader("Access-Control-Expose-Headers", "Authorization, ETag");
-		// www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
-		// www.SetRequestHeader("Access-Control-Allow-Origin", "*");
-		// www.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-		// www.SetRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-
 		
-		// www.SetRequestHeader("Content-Type", "application/json; charset=UTF-8");
 		yield return www.SendWebRequest();
 
 		if(www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
-			// Debug.Log(www.error);
 			text.text = "Servidor não conseguiu responder";
-			//text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
 		}
 		else {
-			// Debug.Log("Client sent his message - should be received by server");
-			// Debug.Log("POST successful!");
-			// Debug.Log("Received: " + www.downloadHandler.text);
+			
 			serverMessage = www.downloadHandler.text;
 			received = true;
 		}

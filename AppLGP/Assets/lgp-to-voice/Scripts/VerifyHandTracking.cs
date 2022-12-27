@@ -74,7 +74,6 @@ public class VerifyHandTracking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Limage.color = Lhand.IsTracked ? Color.green : Color.red;
 
         if(Rimage != null) { Rimage.color = Rhand.IsTracked ? Color.green : Color.red; }
 
@@ -84,18 +83,7 @@ public class VerifyHandTracking : MonoBehaviour
             RotPoint.eulerAngles = new Vector3(0, CenterEye.eulerAngles.y, 0);
         }
             
-        //Ltext.text = Lhand.HandConfidence.ToString();
-        //Rtext.text = Rhand.HandConfidence.ToString();
-
-        /*var inicio = Rskeleton.GetCurrentStartBoneId() + 2;
-        for (int i = inicio; i < 19; i++)
-        {
-            if(2<=i<=5)
-            {
-                LThumb.transform.GetChild(i).GetComponent<TMP_Text>().text = Lskeleton.Bones.ge;
-            }
-        }*/
-        //Debug.Log(Lskeleton.Bones[5].Transform.localPosition);
+        
 
         if(Lskeleton.Bones.Count > 0 && Rskeleton.Bones.Count > 0)
         {
@@ -108,7 +96,7 @@ public class VerifyHandTracking : MonoBehaviour
             Rwrist.transform.position = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Start].Transform.position;
             Rwrist.transform.rotation = Rskeleton.Bones[(int)OVRPlugin.BoneId.Hand_Start].Transform.rotation;
 
-            //Debug.Log(Vector3.SignedAngle(Vector3.up, Rwrist.transform.up, Vector3.forward));
+            
             #endregion
             /***
              *      Fingertips

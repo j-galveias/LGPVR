@@ -20,7 +20,6 @@ public class STT : MonoBehaviour
     public TMP_Text outputText;
     public GameObject leftCanvas;
     public GameObject rightCanvas;
-    //public TMP_Text errorText;
     public Button startRecoButton;
     public Button deleteButton;
     public Button sendButton;
@@ -50,7 +49,6 @@ public class STT : MonoBehaviour
         if (!waitingForReco && !outputText.text.Equals(""))
         {
             message = "";
-            //startRecoButton.gameObject.SetActive(true);
             sendButton.gameObject.SetActive(false);
             deleteButton.gameObject.SetActive(false);
         }
@@ -60,22 +58,12 @@ public class STT : MonoBehaviour
     {
         if (!waitingForReco && !message.Equals(""))
         {
-            //client.SendMessage();
             Debug.Log("Message Sent");
-            /*if (message.Contains("Quer"))
-            {
-                message = message.Replace("Quer", "Querer");
-            }
-            photonView.RPC("ReceiveTextToLgp", RpcTarget.Others, message);*/
+         
             messageController.SendTextMessage(message);
 
-            //outputText.gameObject.transform.parent.gameObject.SetActive(false);
             message = "";
-            //startRecoButton.gameObject.SetActive(true);
-            //sendButton.gameObject.SetActive(false);
-            //deleteButton.gameObject.SetActive(false);
-            //leftCanvas.SetActive(false);
-            //rightCanvas.SetActive(false);
+            
         }
         else
         {
@@ -107,14 +95,9 @@ public class STT : MonoBehaviour
                 {
                     newMessage = result.Text;
                 }
-                else if (result.Reason == ResultReason.NoMatch)
-                {
-                    //errorText.text = "NOMATCH: Speech could not be recognized.";
-                }
                 else if (result.Reason == ResultReason.Canceled)
                 {
                     var cancellation = CancellationDetails.FromResult(result);
-                    //errorText.text = $"CANCELED: Reason={cancellation.Reason} ErrorDetails={cancellation.ErrorDetails}";
                 }
 
                 lock (threadLocker)
@@ -122,9 +105,7 @@ public class STT : MonoBehaviour
                     message = newMessage;
                     waitingForReco = false;
                     
-                    /*Debug.Log("Message Sent");
-                    photonView.RPC("ReceiveTextToLgp", RpcTarget.Others, outputText.text);
-                    message = "";*/
+                    
                 }
             }
         }
@@ -196,7 +177,6 @@ public class STT : MonoBehaviour
 #else
             micPermissionGranted = true;
 #endif
-           // startRecoButton.onClick.AddListener(ButtonClick);
             sendButton.onClick.AddListener(ButtonClick);
             deleteButton.onClick.AddListener(DeleteMessage);
         }
@@ -217,12 +197,7 @@ public class STT : MonoBehaviour
         {
             if (startRecoButton != null)
             {
-                //startRecoButton.interactable = !waitingForReco && micPermissionGranted;
-                if (waitingForReco)
-                {
-                    //startRecoButton.GetComponentInChildren<Text>().text = "A reconhecer ...";
-                }
-                else if (!waitingForReco && message.Equals(""))
+                if (!waitingForReco && message.Equals(""))
                 {
                     if (stopwatch.activeSelf)
                     {
@@ -230,8 +205,7 @@ public class STT : MonoBehaviour
                     }
                     isActive = false;
                     updateColor();
-                   // startRecoButton.GetComponentInChildren<Text>().text = "Começar";
-                    //startRecoButton.gameObject.SetActive(true);
+                   
                     sendButton.gameObject.SetActive(false);
                     deleteButton.gameObject.SetActive(false);
                 }
@@ -240,10 +214,7 @@ public class STT : MonoBehaviour
                     {
                         outputText.text += message + "\n";
                     }
-                    /*startRecoButton.GetComponentInChildren<Text>().text = "Enviar";
-                    startRecoButton.gameObject.SetActive(false);
-                    sendButton.gameObject.SetActive(true);
-                    deleteButton.gameObject.SetActive(true);*/
+                    
                     ButtonClick();
                 }
             }

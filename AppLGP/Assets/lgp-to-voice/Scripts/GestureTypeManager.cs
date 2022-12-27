@@ -85,7 +85,6 @@ public class GestureTypeManager : MonoBehaviour
         estaticos.SetActive(!estaticos.activeSelf);
         dinamicos.SetActive(!dinamicos.activeSelf);
         confirmarDinamicos.SetActive(!confirmarDinamicos.activeSelf);
-        //ultimoDinamico.SetActive(!ultimoDinamico.activeSelf);
-        //ultimoEstatico.SetActive(!ultimoEstatico.activeSelf);
+
     }
 }
