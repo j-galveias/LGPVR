@@ -12,6 +12,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public RawImage img;
     bool alreadyConnected = false;
 	public InteractableColorVisual colorButton;
+	public STT sTT;
 	// Start is called before the first frame update
 	void Start()
     {
@@ -91,7 +92,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 			c.ColorTime = 0.05f;
 			colorButton.InjectOptionalSelectColorState(c);
 			colorButton.UpdateVisual();
-        }
+			if (sTT != null)
+			{
+				sTT.currentColor = "red";
+			}
+
+		}
 	}
 
 	/// <summary>
@@ -124,6 +130,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 			c.ColorTime = 0.05f;
 			colorButton.InjectOptionalSelectColorState(c);
 			colorButton.UpdateVisual();
+			if (sTT != null)
+            {
+				sTT.currentColor = "green";
+            }
 		}
 	}
 

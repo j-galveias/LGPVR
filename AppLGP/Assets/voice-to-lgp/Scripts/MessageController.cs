@@ -39,6 +39,11 @@ public class MessageController : MonoBehaviour
         {
                 msg= msg.Replace("Quer", "Querer");
         }
+        if (msg.Contains("qual"))
+        {
+            var split = msg.Replace("qual", ". Qual");
+            msg = split;
+        }
         photonView.RPC("ReceiveTextToLgp", RpcTarget.Others, msg);
     }
 }

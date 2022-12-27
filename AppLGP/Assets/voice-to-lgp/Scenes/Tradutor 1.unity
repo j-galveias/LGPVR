@@ -2364,6 +2364,9 @@ MonoBehaviour:
   client: {fileID: 415796958}
   photonView: {fileID: 0}
   stopwatch: {fileID: 0}
+  messageController: {fileID: 0}
+  colorButton: {fileID: 0}
+  currentColor: red
 --- !u!114 &234955598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6550,6 +6553,51 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 765856102}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &823627956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 823627958}
+  - component: {fileID: 823627957}
+  m_Layer: 0
+  m_Name: MessageController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &823627957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823627956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ff3b389836db54db2dd7eb12435bc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photonView: {fileID: 415796960}
+  message: {fileID: 1835042319}
+--- !u!4 &823627958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823627956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1773404, y: 1.6172035, z: 1.5859208}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &829592213
 GameObject:
   m_ObjectHideFlags: 0
@@ -7318,6 +7366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   img: {fileID: 662131231}
   colorButton: {fileID: 0}
+  sTT: {fileID: 0}
 --- !u!4 &996336301
 Transform:
   m_ObjectHideFlags: 0
@@ -10346,6 +10395,9 @@ MonoBehaviour:
   client: {fileID: 415796958}
   photonView: {fileID: 415796960}
   stopwatch: {fileID: 2096361906}
+  messageController: {fileID: 823627957}
+  colorButton: {fileID: 0}
+  currentColor: red
 --- !u!1 &1571507707
 GameObject:
   m_ObjectHideFlags: 0

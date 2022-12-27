@@ -122,16 +122,16 @@ public class DynamicGestureRecognizer : MonoBehaviour
 
     private void Update()
     {
-        if (isGestureCD)
+        if (isGestureCD && slider != null)
         {
             timeRemain -= Time.deltaTime;
-            slider.value = (timer - timeRemain) / timer;
-            fill.fillAmount = slider.value;
+            /*slider.value = (timer - timeRemain) / timer;
+            fill.fillAmount = slider.value;*/
             if(timeRemain <= 0)
             {
                 isGestureCD = false;
-                slider.value = 0;
-                fill.fillAmount = 0;
+               /* slider.value = 0;
+                fill.fillAmount = 0;*/
             }
         }
         if (!skel.IsDataHighConfidence)
@@ -338,8 +338,11 @@ public class DynamicGestureRecognizer : MonoBehaviour
 
     public void GestureCD()
     {
-        isGestureCD = true;
-        timeRemain = timer;
+        if(slider != null)
+        {
+            isGestureCD = true;
+            timeRemain = timer;
+        }
     }
 
     public void DynamicGestureClick() {

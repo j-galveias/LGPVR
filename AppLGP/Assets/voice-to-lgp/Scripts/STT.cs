@@ -4,6 +4,8 @@ using Microsoft.CognitiveServices.Speech;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using Oculus.Interaction;
+using static Oculus.Interaction.InteractableColorVisual;
 #if PLATFORM_ANDROID
 using UnityEngine.Android;
 #endif
@@ -26,12 +28,16 @@ public class STT : MonoBehaviour
     public PhotonView photonView;
     public GameObject stopwatch;
     public MessageController messageController;
+    public InteractableColorVisual colorButton;
+    public string currentColor = "red";
 
     private object threadLocker = new object();
     private bool waitingForReco;
     private string message = string.Empty;
 
     private bool micPermissionGranted = false;
+
+    bool isActive = false;
 
 #if PLATFORM_ANDROID || PLATFORM_IOS
     // Required to manifest microphone permission, cf.
@@ -77,6 +83,8 @@ public class STT : MonoBehaviour
             // Replace with your own subscription key and service region (e.g., "westus").
             var config = SpeechConfig.FromSubscription("e267115fea8343c6ae89aef556663aa3", "westeurope");
             stopwatch.SetActive(!stopwatch.activeSelf);
+            isActive = true;
+            updateColor();
             // Make sure to dispose the recognizer after use!
             using (var recognizer = new SpeechRecognizer(config, "pt-PT"))
             {
@@ -113,13 +121,52 @@ public class STT : MonoBehaviour
                 {
                     message = newMessage;
                     waitingForReco = false;
-
-                    // Teachers sugestion send message right after speech
                     
                     /*Debug.Log("Message Sent");
                     photonView.RPC("ReceiveTextToLgp", RpcTarget.Others, outputText.text);
                     message = "";*/
                 }
+            }
+        }
+    }
+
+    private void updateColor()
+    {
+        if(isActive){
+            if (colorButton != null)
+            {
+                ColorState c = new ColorState();
+                c.Color = Color.yellow;
+                c.ColorTime = 0.1f;
+                colorButton.InjectOptionalNormalColorState(c);
+                c = new ColorState();
+                c.Color = new Color(1, 0.92f, 0.016f, 115f / 255f);
+                c.ColorTime = 0.1f;
+                colorButton.InjectOptionalHoverColorState(c);
+                c = new ColorState();
+                c.Color = new Color(1, 0.92f, 0.016f, 36f / 255f);
+                c.ColorTime = 0.05f;
+                colorButton.InjectOptionalSelectColorState(c);
+                colorButton.UpdateVisual();
+            }
+        }
+        else
+        {
+            if (colorButton != null)
+            {
+                ColorState c = new ColorState();
+                c.Color = currentColor.Equals("green") ? Color.green : Color.red;
+                c.ColorTime = 0.1f;
+                colorButton.InjectOptionalNormalColorState(c);
+                c = new ColorState();
+                c.Color = currentColor.Equals("green") ? new Color(0, 1, 0, 115f / 255f) : new Color(1, 0, 0, 115f / 255f);
+                c.ColorTime = 0.1f;
+                colorButton.InjectOptionalHoverColorState(c);
+                c = new ColorState();
+                c.Color = currentColor.Equals("green") ? new Color(0, 1, 0, 36f / 255f) : new Color(1, 0, 0, 36f / 255f);
+                c.ColorTime = 0.05f;
+                colorButton.InjectOptionalSelectColorState(c);
+                colorButton.UpdateVisual();
             }
         }
     }
@@ -181,6 +228,8 @@ public class STT : MonoBehaviour
                     {
                         stopwatch.SetActive(!stopwatch.activeSelf);
                     }
+                    isActive = false;
+                    updateColor();
                    // startRecoButton.GetComponentInChildren<Text>().text = "Começar";
                     //startRecoButton.gameObject.SetActive(true);
                     sendButton.gameObject.SetActive(false);

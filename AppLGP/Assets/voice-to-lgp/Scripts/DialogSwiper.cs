@@ -14,9 +14,8 @@ public class DialogSwiper : MonoBehaviour
         "1- Introdução Básica \n\n" +
             "<COLOR=#3000ff>NL- Olá </color>\n" +
             "L- Olá\n" +
-            "<COLOR=#3000ff>NL- Qual é o teu nome?</color>\n" +
+            "<COLOR=#3000ff>NL- Eu sou *NOME*. Qual é o teu nome?</color>\n" +
             "L- *NOME*\n" +
-            "<COLOR=#3000ff>NL-  Eu sou *NOME*</color>\n" +
             "<COLOR=#3000ff>NL-  Qual é a tua idade?</color>\n" +
             "L- *IDADE*\n" +
             "<COLOR=#3000ff>NL-  Adeus</color>\n" +

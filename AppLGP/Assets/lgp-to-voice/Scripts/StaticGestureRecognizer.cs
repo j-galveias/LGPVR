@@ -131,6 +131,7 @@ public class StaticGestureRecognizer : MonoBehaviour
 
     private void Update()
     {
+
         if(!skel.IsDataHighConfidence && testMode){
             return;
         }
