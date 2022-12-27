@@ -29,7 +29,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/j-galveias/LGPVR/tree/main/images">
     <img src="images/capa.png" alt="Logo" width="80%">
   </a>
 <br />
@@ -45,8 +45,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<a href="https://github.com/github_username/repo_name">
-    <img src="images/augmentativeScheme.png" alt="scheme" width="80%" align="center">
+<a href="https://github.com/j-galveias/LGPVR/tree/main/images">
+    <img src="images/augmentativeScheme.PNG" alt="scheme" width="80%" align="center">
 </a>
 <br/>
 <br/>
